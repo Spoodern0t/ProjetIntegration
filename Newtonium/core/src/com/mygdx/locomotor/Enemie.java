@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class Enemie extends Entity {
     
-    public double levelScalling;
+    public double levelScaling;
     public float vitesse = 50;
 
     public Enemie(Texture img, Color color) {
