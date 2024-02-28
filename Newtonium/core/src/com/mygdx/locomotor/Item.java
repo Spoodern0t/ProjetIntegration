@@ -11,13 +11,32 @@ package com.mygdx.locomotor;
 public class Item { //pourrait être superclasse abstraite pour armes spécifiques. ~AF
 
 //attributs 
-    int level;
-    double cooldown;
+    int level = 1;
+    double cooldown; //en secondes
+    //Projectile projectile;
+    
+//constructeurs
+    public Item(){
+        this.level = 1;
+        this.cooldown = 1;
+        //this.projectile = some default projectile
+    }
     
 //methodes
     
-    //action de l'effet de l'item
+    //activation de l'item
     public void trigger(){
+        /*
+        this.projectile.spawn()
+        
+        l'idee c'est de spawner le projectile avec des coordonnees et
+        possiblement des variables comme angle ou vitesse.
+        
+        cela depend du fait que Projectile herite de Entity. il faudra reparer
+        la superclasse Entity.
+        
+        ~AF
+        */
         
     }
     
