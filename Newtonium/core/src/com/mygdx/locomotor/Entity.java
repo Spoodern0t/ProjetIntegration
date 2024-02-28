@@ -16,6 +16,8 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Yoruk Ekrem
  */
+
+//IMPORTANT!! La classe Entity est censée être abstraite! ~AF
 public class Entity {
     public int maxHP, currentHP, hitBoxRadius, knockBack;
     double damageMod;
@@ -46,10 +48,9 @@ public class Entity {
          if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
          if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
-         
-         
-         
+              
     }
+    
     public void draw(SpriteBatch batch)
     {
 
@@ -58,10 +59,9 @@ public class Entity {
         sprite.draw(batch);
         
         
-        
     }
     
-    public boolean die(){
+    public boolean die(){ //Pourquoi boolean? le diagramme dit classe void... ~AF
         return false;
         
     }

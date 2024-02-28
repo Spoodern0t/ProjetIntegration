@@ -6,12 +6,17 @@ package com.mygdx.locomotor;
 
 /**
  *
- * @author 2249229
+ * @author Alexis Fecteau (2060238)
  */
-public class Item {
+public class Item { //pourrait être superclasse abstraite pour armes spécifiques. ~AF
+
+//attributs 
+    int level;
+    double cooldown;
     
-    int level, cooldown;
+//methodes
     
+    //action de l'effet de l'item
     public void trigger(){
         
     }
