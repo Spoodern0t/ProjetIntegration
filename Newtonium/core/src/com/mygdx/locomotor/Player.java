@@ -16,8 +16,8 @@ public class Player extends Entity {
     int level, exp, levelTreshold;
     
     
-    public Player(Texture img, Color color) {
-        super(img, color);
+    public Player(Texture img, Color color,int maxHP) {
+        super(img, color,maxHP);
     }
     
     public void levelUP(){
@@ -25,8 +25,9 @@ public class Player extends Entity {
     }
     
     
-    public void die(){
-        
+    @Override
+    public boolean die(){
+        return false;
     }
     
     

@@ -18,15 +18,21 @@ public class main extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("LilBoy.png");
-                player = new Player(img,Color.GREEN);
-                mal = new Enemie(img, Color.BLUE);
+                player = new Player(img,Color.GREEN,10);
+                mal = new Enemie(img, Color.BLUE,1);
         }
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
+                if (player.sprite.getBoundingRectangle().overlaps(mal.sprite.getBoundingRectangle())){
+                    player.alive = false;
+                }
+                
+                if (player.alive){
 		player.Draw(batch);
+                }
                 Waves(1);
                 batch.end();
                 

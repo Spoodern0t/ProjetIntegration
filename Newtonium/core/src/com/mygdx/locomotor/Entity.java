@@ -22,14 +22,19 @@ public class Entity {
     public Vector2 position;
     public Sprite sprite;
     public float speed = 300;
+    public boolean alive =true;
     
-    public Entity(Texture img,Color color)
+    
+    public Entity(Texture img,Color color, int maxHP)
     {
+        this.maxHP=maxHP;
+        this.currentHP = this.maxHP;
         sprite = new Sprite(img);
         sprite.setScale(4);
         sprite.setColor(color);
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);    
     }
+    
     public void Update(float deltaTime)
     {
         if(Gdx.input.isKeyPressed(Keys.A)) position.x -= deltaTime*speed;
@@ -42,16 +47,22 @@ public class Entity {
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
          if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
          
+         
+         
     }
     public void Draw(SpriteBatch batch)
     {
+
         Update(Gdx.graphics.getDeltaTime());
         sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
         
+        
+        
     }
     
-    public void die(){
+    public boolean die(){
+        return false;
         
     }
     

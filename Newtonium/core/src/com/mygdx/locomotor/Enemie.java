@@ -19,9 +19,12 @@ public class Enemie extends Entity {
     
     public double levelScaling;
     public float vitesse = 50;
+   
 
-    public Enemie(Texture img, Color color) {
-        super(img, color);
+    public Enemie(Texture img, Color color,int maxHP) {
+        super(img, color,maxHP);
+        this.position.x=0;
+        this.position.y=0;
     }
     
     
@@ -40,18 +43,24 @@ public class Enemie extends Entity {
         if(p.position.y >= this.position.y){
               position.y += vitesse*deltaTime;
         } 
+        
+        
+        
     }
         
         
         public void Draw(SpriteBatch batch, Player p ){
+            
+            
         Update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
     }
         
+        @Override
         public void Spawn(SpriteBatch batch, Player p){
-                int randx = (int) Math.random();
-                int randy = (int) Math.random();
+            int randx = (int) Math.random();
+            int randy = (int) Math.random();
             this.Draw(batch, p);
             
         }
