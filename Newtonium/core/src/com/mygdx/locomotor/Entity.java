@@ -35,7 +35,7 @@ public class Entity {
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);    
     }
     
-    public void Update(float deltaTime)
+    public void update(float deltaTime)
     {
         if(Gdx.input.isKeyPressed(Keys.A)) position.x -= deltaTime*speed;
         if(Gdx.input.isKeyPressed(Keys.D)) position.x += deltaTime*speed;
@@ -50,10 +50,10 @@ public class Entity {
          
          
     }
-    public void Draw(SpriteBatch batch)
+    public void draw(SpriteBatch batch)
     {
 
-        Update(Gdx.graphics.getDeltaTime());
+        update(Gdx.graphics.getDeltaTime());
         sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
         

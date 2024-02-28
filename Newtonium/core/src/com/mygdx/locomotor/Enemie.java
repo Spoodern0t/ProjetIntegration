@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
-/**Testing Testing Gitbuh Testing/
 /**
  *
  * @author 2249229
@@ -29,7 +28,7 @@ public class Enemie extends Entity {
     
     
    
-    public void Update (float deltaTime, Player p){
+    public void update (float deltaTime, Player p){
         
         if(p.position.x <= this.position.x){
               position.x -= vitesse*deltaTime;
@@ -49,19 +48,18 @@ public class Enemie extends Entity {
     }
         
         
-        public void Draw(SpriteBatch batch, Player p ){
+        public void draw(SpriteBatch batch, Player p ){
             
             
-        Update(Gdx.graphics.getDeltaTime(), p);
+        update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
     }
         
-        @Override
-        public void Spawn(SpriteBatch batch, Player p){
+        public void spawn(SpriteBatch batch, Player p){
             int randx = (int) Math.random();
             int randy = (int) Math.random();
-            this.Draw(batch, p);
+            this.draw(batch, p);
             
         }
         

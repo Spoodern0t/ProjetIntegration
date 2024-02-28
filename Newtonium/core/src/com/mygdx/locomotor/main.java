@@ -31,19 +31,19 @@ public class main extends ApplicationAdapter {
                 }
                 
                 if (player.alive){
-		player.Draw(batch);
+		player.draw(batch);
                 }
-                Waves(1);
+                waves(1);
                 batch.end();
                 
                 
                
 	}
         
-        public void Waves(int vague){
+        public void waves(int vague){
             
             for (int i =0; i < vague; i++)
-               mal.Spawn(batch, player); 
+               mal.spawn(batch, player); 
         }
 	
 	@Override
