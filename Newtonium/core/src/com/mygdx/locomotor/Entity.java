@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 //IMPORTANT!! La classe Entity est censée être abstraite! ~AF
-public class Entity {
+abstract class Entity {
     public int maxHP, currentHP, hitBoxRadius, knockBack;
     double damageMod;
     public Vector2 position;

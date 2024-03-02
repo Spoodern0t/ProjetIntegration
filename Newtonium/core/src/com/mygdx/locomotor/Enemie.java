@@ -48,27 +48,22 @@ public class Enemie extends Entity {
         } 
         if(p.position.y >= this.position.y){
               position.y += vitesse*deltaTime;
-        } 
-        
-        
-        
+        }    
     }
         
-        
-        public void draw(SpriteBatch batch, Player p ){
-            
-            
+    public void draw(SpriteBatch batch, Player p ){
+       
         update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
     }
-        
-        public void spawn(SpriteBatch batch, Player p){
-            int randx = (int) Math.random();
-            int randy = (int) Math.random();
-            this.draw(batch, p);
+    
+    public void spawn(SpriteBatch batch, Player p){
             
-        }
+        int randx = (int) Math.random();
+        int randy = (int) Math.random();
+        this.draw(batch, p);
+    }
         
         
         
