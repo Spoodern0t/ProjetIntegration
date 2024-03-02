@@ -7,7 +7,9 @@ package com.mygdx.locomotor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 /**
@@ -22,6 +24,11 @@ public class Enemie extends Entity {
 
     public Enemie(Texture img, Color color,int maxHP) {
         super(img, color,maxHP);
+        this.maxHP=maxHP;
+        this.currentHP = this.maxHP;
+        sprite = new Sprite(img);
+        sprite.setScale(4);
+        sprite.setColor(color);
         this.position.x=0;
         this.position.y=0;
     }

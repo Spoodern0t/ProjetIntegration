@@ -1,7 +1,9 @@
 package com.mygdx.locomotor;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -14,22 +16,26 @@ public class main extends ApplicationAdapter {
         Player player;
         Enemie mal;
         int vague;
+        OrthographicCamera Camera;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("LilBoy.png");
                 player = new Player(img,Color.GREEN,10);
                 mal = new Enemie(img, Color.BLUE,1);
+                Camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+                
+                
         }
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
-                if (player.sprite.getBoundingRectangle().overlaps(mal.sprite.getBoundingRectangle())){
+                /*if (player.sprite.getBoundingRectangle().overlaps(mal.sprite.getBoundingRectangle())){
                     player.alive = false;
                 }
-                
+                */
                 if (player.alive){
 		player.draw(batch);
                 }
