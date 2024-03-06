@@ -3,17 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mygdx.locomotor;
-
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 /**
  *
- * @author 2249229
+ * @author Alexis Fecteau (2060238)
  */
-public class Projectile {
+public class Projectile extends Entity{
     
     double flatDamage, decayTime;
+    
+    public Projectile(){
+        this.maxHP = maxHP;
+        
+    }
     
     public void update(){
         
     }
     
+    /*
+    
+    */
 }

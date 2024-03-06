@@ -15,24 +15,48 @@ import com.badlogic.gdx.math.Vector2;
 /**
  *
  * @author Yoruk Ekrem
+ * @author Alexis Fecteau (2060238)
  */
 
-//IMPORTANT!! La classe Entity est censée être abstraite! ~AF
 abstract class Entity {
-    public int maxHP, currentHP, hitBoxRadius, knockBack;
-    double damageMod;
+    
+//Attributes
+    
+    public int maxHP, currentHP, hitBoxRadius, knockBack=0;
+    double damageMod = 1;
     public Vector2 position;
     public Sprite sprite;
-    public float speed = 300;
-    public boolean alive =true;
+    public float speed;
+    public boolean alive =true; //is this necessary? ~AF
     
-    
-    public Entity(Texture img,Color color, int maxHP)
-    {
-
-    position = new Vector2();    
+//Constructors
+    //TODO: add hitboxradius in these
+    public Entity(int maxHP, float speed, Vector2 position, Texture img){
+        this.sprite = new Sprite(img);
+        sprite.setScale(4); //can be set later
+        this.position = position;
+        //this.hitBoxRadius = hitboxradius;
+        this.maxHP = maxHP;
+        this.currentHP = maxHP;
+        this.speed = Math.max(speed, 0); //so speed can't be negative
     }
     
+    public Entity(int maxHP, float speed, Vector2 position){
+        this(maxHP, speed, position, new Texture("LilBoy.png"));
+    }
+    
+    public Entity(int maxHP, float speed){
+        this(maxHP, speed, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2));
+    }
+    
+    public Entity(){
+        this(100, 300);
+    }
+    
+    
+
+
+//methods
     public void update(float deltaTime)
     {
 
@@ -52,6 +76,6 @@ abstract class Entity {
         
     }
     
-    
+//getters/setters
     
 }

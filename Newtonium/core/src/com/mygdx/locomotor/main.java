@@ -21,8 +21,8 @@ public class main extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("LilBoy.png");
-                player = new Player(img,Color.GREEN,10);
-                mal = new Enemie(img, Color.BLUE,1);
+                player = new Player();
+                mal = new Enemie();
                 Camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
                 
                 

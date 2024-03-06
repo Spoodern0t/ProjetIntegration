@@ -18,19 +18,25 @@ import java.util.Random;
  */
 public class Enemie extends Entity {
     
-    public double levelScaling;
+    public double levelScaling; //boost enemy stats depending on player level
     public float vitesse = 50;
    
 
-    public Enemie(Texture img, Color color,int maxHP) {
-        super(img, color,maxHP);
-        this.maxHP=maxHP;
-        this.currentHP = this.maxHP;
-        sprite = new Sprite(img);
-        sprite.setScale(4);
-        sprite.setColor(color);
-        this.position.x=0;
-        this.position.y=0;
+    public Enemie(int maxHP, float speed, Vector2 position, Texture img) {
+        super(maxHP, speed, position, img);
+        //sprite.setColor(color);
+
+    }
+    
+    public Enemie(int maxHP, float speed) {
+        this(maxHP, speed, new Vector2(0, 0), new Texture("LilBoy.png"));
+        this.sprite.setColor(Color.BLUE); //for testing purposes
+
+    }
+    
+    public Enemie() {
+        this(100, 300);
+
     }
     
     

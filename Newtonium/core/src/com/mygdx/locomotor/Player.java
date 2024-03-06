@@ -15,31 +15,41 @@ import com.badlogic.gdx.math.Vector2;
 /**
  *
  * @author 2249229
+ *
  */
 public class Player extends Entity {
     
-    int level, exp, levelTreshold;
+//Attributes
+    static int DEFAULT_MAX_HP = 100;
+    static float DEFAULT_SPEED = 300;
+    int level, exp, levelTreshold = 100;
     
-
+    /* these can be declared in Entity.java and inherited
     public float getSpeed() {
         return speed;
     }
     public void setSpeed(float speed) {
         this.speed = speed;
-    }
-           
-    public Player(Texture img, Color color,int maxHP) {
-        super(img, color,maxHP);
-        this.maxHP=maxHP;
-        this.currentHP = this.maxHP;
+    }*/
+    
+//Constructors     
+    public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
+        super(maxHP, speed, position, img);
+        this.level = Math.max(level, 1); //so level never goes under 0
+        //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
-        sprite = new Sprite(img);
-        sprite.setScale(4);
-        sprite.setColor(color);
-        position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);   
     }
     
-    public void levelUP(){
+    public Player(int level) {
+        this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
+        this.sprite.setColor(Color.GREEN);
+    }
+    
+    public Player() {
+        this(1);
+    }
+//Methods
+    public void levelUp(){
         
     }
     
