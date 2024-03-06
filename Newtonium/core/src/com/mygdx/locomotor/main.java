@@ -33,19 +33,38 @@ public class main extends ApplicationAdapter {
                 
                
 	}
+
+        @Override
+        public void resume() {
+            super.resume(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+
+        @Override
+        public void pause() {
+            super.pause(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+
+        @Override
+        public void resize(int width, int height) {
+            super.resize(width, height); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+
         
+<<<<<<< Updated upstream
         public void Waves(int vague){
+=======
+        //Methodes propres au jeux
+        public void waves(int vague){
+>>>>>>> Stashed changes
             
             for (int i =0; i < vague; i++)
                mal.Spawn(batch, player); 
         }
-	
-	@Override
+    	
+        @Override
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
 	}
-
-    
 }
 

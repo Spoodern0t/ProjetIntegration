@@ -23,7 +23,15 @@ public class Entity {
     public Sprite sprite;
     public float speed = 300;
     
+<<<<<<< Updated upstream
     public Entity(Texture img,Color color)
+=======
+    public Entity(Texture img, int maxHP){
+      
+    position = new Vector2();      
+    }
+    public Entity(Texture img,Color color, int maxHP)
+>>>>>>> Stashed changes
     {
         sprite = new Sprite(img);
         sprite.setScale(4);

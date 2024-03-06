@@ -20,8 +20,20 @@ public class Enemie extends Entity {
     public double levelScaling;
     public float vitesse = 50;
 
+<<<<<<< Updated upstream
     public Enemie(Texture img, Color color) {
         super(img, color);
+=======
+    public Enemie(Texture img, Color color,int maxHP) {
+        super(img, color,maxHP);
+        this.maxHP=maxHP;
+        this.currentHP = this.maxHP;
+        sprite = new Sprite(img);
+        sprite.setScale(4); // 
+        sprite.setColor(color);
+        this.position.x=0;
+        this.position.y=0;
+>>>>>>> Stashed changes
     }
     
     
@@ -41,10 +53,17 @@ public class Enemie extends Entity {
               position.y += vitesse*deltaTime;
         } 
     }
+<<<<<<< Updated upstream
         
         
         public void Draw(SpriteBatch batch, Player p ){
         Update(Gdx.graphics.getDeltaTime(), p);
+=======
+        public void draw(SpriteBatch batch, Player p ){
+            
+            
+        update(Gdx.graphics.getDeltaTime(), p);
+>>>>>>> Stashed changes
         sprite.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
     }
