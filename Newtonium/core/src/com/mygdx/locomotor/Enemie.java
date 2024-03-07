@@ -19,17 +19,20 @@ import java.util.Random;
 public class Enemie extends Entity {
     
     public double levelScaling; //boost enemy stats depending on player level
-    public float vitesse = 50;
+    public float vitesse = 50,EnemyhitboxRadius = 24;
+    
    
 
-    public Enemie(int maxHP, float speed, Vector2 position, Texture img) {
-        super(maxHP, speed, position, img);
+    public Enemie(int maxHP, float speed, Vector2 position, Texture img,float hitBoxRadius) {
+        super(maxHP, speed, position, img,hitBoxRadius);
+        this.EnemyhitboxRadius = hitBoxRadius;
+        
         //sprite.setColor(color);
 
     }
     
     public Enemie(int maxHP, float speed) {
-        this(maxHP, speed, new Vector2(0, 0), new Texture("LilBoy.png"));
+        this(maxHP, speed, new Vector2(0, 0), new Texture("Evil.png"),24);
         this.sprite.setColor(Color.BLUE); //for testing purposes
 
     }
@@ -61,6 +64,7 @@ public class Enemie extends Entity {
        
         update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
+        Enemie.super.HitBox.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
     }
     

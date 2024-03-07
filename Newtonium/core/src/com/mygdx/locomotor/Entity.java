@@ -10,11 +10,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
  *
- * @author Yoruk Ekrem
+ * @author Yoruk Ekrem (1676683)
  * @author Alexis Fecteau (2060238)
  */
 
@@ -22,27 +23,30 @@ abstract class Entity {
     
 //Attributes
     
-    public int maxHP, currentHP, hitBoxRadius, knockBack=0;
+    public int maxHP, currentHP, knockBack=0;
     double damageMod = 1;
     public Vector2 position;
     public Sprite sprite;
-    public float speed;
+    public float speed, hitboxRadius = 24;
     public boolean alive =true; //is this necessary? ~AF
-    
+    public Circle HitBox;
+    public Texture ooftexture =new Texture("sadge.png");
+    public Texture img = new Texture("LilBoy.png");
 //Constructors
     //TODO: add hitboxradius in these
-    public Entity(int maxHP, float speed, Vector2 position, Texture img){
+    public Entity(int maxHP, float speed, Vector2 position, Texture img, float hitBoxRadius){
         this.sprite = new Sprite(img);
         sprite.setScale(4); //can be set later
         this.position = position;
-        //this.hitBoxRadius = hitboxradius;
+        this.hitboxRadius = hitBoxRadius;
+        HitBox = new Circle(position,hitBoxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative
     }
     
     public Entity(int maxHP, float speed, Vector2 position){
-        this(maxHP, speed, position, new Texture("LilBoy.png"));
+        this(maxHP, speed, position, new Texture("LilBoy.png"),24);
     }
     
     public Entity(int maxHP, float speed){
@@ -75,6 +79,13 @@ abstract class Entity {
     public void spawn(){
         
     }
+    
+    public void collide(boolean collided){
+        
+        if (collided == true){sprite.setTexture(ooftexture);}
+        else sprite.setTexture(img);
+    }
+    
     
 //getters/setters
     

@@ -23,7 +23,7 @@ public class Player extends Entity {
     static int DEFAULT_MAX_HP = 100;
     static float DEFAULT_SPEED = 300;
     int level, exp, levelTreshold = 100;
-    
+    static float Default_PlayerHitBox = 24;
     /* these can be declared in Entity.java and inherited
     public float getSpeed() {
         return speed;
@@ -34,7 +34,7 @@ public class Player extends Entity {
     
 //Constructors     
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
-        super(maxHP, speed, position, img);
+        super(maxHP, speed, position, img,24);
         this.level = Math.max(level, 1); //so level never goes under 0
         //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
@@ -43,6 +43,7 @@ public class Player extends Entity {
     public Player(int level) {
         this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
         this.sprite.setColor(Color.GREEN);
+        this.hitboxRadius = this.Default_PlayerHitBox;
     }
     
     public Player() {
@@ -62,10 +63,11 @@ public class Player extends Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
         
         if(position.x-(sprite.getWidth()*sprite.getScaleX()/2)<=0) position.x=(sprite.getWidth()*sprite.getScaleX()/2);
-         if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
+        if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
-         if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+        if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
               
+        
     }
       @Override
         public void draw(SpriteBatch batch)
@@ -73,6 +75,7 @@ public class Player extends Entity {
 
         update(Gdx.graphics.getDeltaTime());
         sprite.setPosition(position.x,position.y);
+        Player.super.HitBox.setPosition(position.x,position.y);
         sprite.draw(batch);
         
         

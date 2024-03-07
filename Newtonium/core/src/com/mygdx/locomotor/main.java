@@ -13,17 +13,26 @@ import java.util.logging.Logger;
 public class main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+        Texture ooftexture;
+        Texture BassTerd;
         Player player;
         Enemie mal;
         int vague;
         OrthographicCamera Camera;
-	@Override
+	
+        
+        @Override
 	public void create () {
-		batch = new SpriteBatch();
+		
+                batch = new SpriteBatch();
 		img = new Texture("LilBoy.png");
-                player = new Player();
+                ooftexture = new Texture("sadge.png");
+                BassTerd = new Texture("Evil.png");
                 mal = new Enemie();
-                Camera = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+                player = new Player();
+                
+                
+                Camera = new OrthographicCamera(800,400);
                 
                 
         }
@@ -36,6 +45,15 @@ public class main extends ApplicationAdapter {
                     player.alive = false;
                 }
                 */
+                
+                if (player.HitBox.overlaps(mal.HitBox)){
+                    player.collide(true);
+                }
+                else player.collide(false);
+                
+                
+            
+                
                 if (player.alive){
 		player.draw(batch);
                 }
