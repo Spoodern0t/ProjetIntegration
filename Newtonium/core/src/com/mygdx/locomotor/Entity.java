@@ -5,8 +5,6 @@
 package com.mygdx.locomotor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,6 +37,7 @@ abstract class Entity {
         sprite.setScale(4); //can be set later
         this.position = position;
         this.hitboxRadius = hitBoxRadius;
+        hitBoxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
         HitBox = new Circle(position,hitBoxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;

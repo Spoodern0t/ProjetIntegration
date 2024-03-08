@@ -43,7 +43,7 @@ public class Player extends Entity {
     public Player(int level) {
         this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
         this.sprite.setColor(Color.GREEN);
-        this.hitboxRadius = this.Default_PlayerHitBox;
+        this.hitboxRadius = Player.Default_PlayerHitBox;
     }
     
     public Player() {
@@ -66,7 +66,8 @@ public class Player extends Entity {
         if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
         if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
-              
+        
+        
         
     }
       @Override
