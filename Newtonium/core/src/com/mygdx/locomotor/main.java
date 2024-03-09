@@ -60,7 +60,7 @@ public class main extends ApplicationAdapter {
                 spawnEnemy();
                 
         }
-             private void spawnEnemy() {
+             public void spawnEnemy() {
              Enemie mal = new Enemie();
              mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
              mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
