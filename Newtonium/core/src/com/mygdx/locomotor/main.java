@@ -22,7 +22,7 @@ public class main extends ApplicationAdapter {
         Texture ooftexture;
         Texture BassTerd;
         Player player;
-        public Array<Enemie> mals;
+        public Array<Enemie> listmals;
         int vague;
         OrthographicCamera Camera;
         Texture Map;
@@ -56,17 +56,11 @@ public class main extends ApplicationAdapter {
                 Camera.update();
                 batch = new SpriteBatch();
                 //*Attempt at making Enemy spawner*//
-                mals = new Array<Enemie>();
+                listmals = new Array<Enemie>();
                 spawnEnemy();
                 
         }
-             public void spawnEnemy() {
-             Enemie mal = new Enemie();
-             mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
-             mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
-             mals.add(mal);
-             this.lastspawnTime = TimeUtils.nanoTime();
-            }
+             
 	@Override
 	public void render () {
 		
@@ -82,10 +76,11 @@ public class main extends ApplicationAdapter {
                 Mapsprite.draw(batch);
 		player.draw(batch);
                 
-                
-                for(Iterator<Enemie> iter = mals.iterator(); iter.hasNext();){
+                Iterator<Enemie> iter = listmals.iterator();
+                while(iter.hasNext()) {
                 Enemie mal = iter.next();
-                mal.draw(batch,player);
+                mal.moveEnemy(batch,player);
+                
                 if (player.HitBox.overlaps(mal.HitBox)){
                     player.collide(true);
                 }
@@ -103,7 +98,15 @@ public class main extends ApplicationAdapter {
                 
                
 	}
-      
+            private void spawnEnemy() {
+                Enemie mal = new Enemie();
+                mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
+                mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
+                mal.hitboxRadius = (mal.sprite.getHeight()*mal.sprite.getScaleY()/2);
+                mal.HitBox.x = mal.position.x;mal.HitBox.y = mal.position.y;
+                listmals.add(mal);
+                this.lastspawnTime = TimeUtils.nanoTime();
+            }
         
 	
 	@Override

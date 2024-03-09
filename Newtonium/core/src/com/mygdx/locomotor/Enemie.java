@@ -60,11 +60,11 @@ public class Enemie extends Entity {
         }    
     }
         
-    public void draw(SpriteBatch batch, Player p ){
+    public void moveEnemy(SpriteBatch batch, Player p ){
        
         update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
-        Enemie.super.HitBox.setPosition(this.position.x,this.position.y);
+        Enemie.super.HitBox.setPosition(this.sprite.getX(),this.sprite.getY());
         sprite.draw(batch);
     }   
       

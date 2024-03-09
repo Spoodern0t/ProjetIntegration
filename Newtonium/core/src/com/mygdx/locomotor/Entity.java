@@ -26,7 +26,7 @@ abstract class Entity {
     public Vector2 position;
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
-    public boolean alive =true; //is this necessary? ~AF
+    public boolean alive =true; 
     public Circle HitBox;
     public Texture ooftexture =new Texture("sadge.png");
     public Texture img = new Texture("LilBoy.png");
