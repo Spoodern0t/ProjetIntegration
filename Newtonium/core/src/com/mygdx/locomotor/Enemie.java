@@ -66,18 +66,8 @@ public class Enemie extends Entity {
         sprite.setPosition(this.position.x,this.position.y);
         Enemie.super.HitBox.setPosition(this.position.x,this.position.y);
         sprite.draw(batch);
-    }
-    
-    public void spawn(SpriteBatch batch, Player p){
-            
-        int randx = (int) Math.random();
-        int randy = (int) Math.random();
-        this.draw(batch, p);
-    }
-        
-        
-        
-        
+    }   
+      
     }
     
 

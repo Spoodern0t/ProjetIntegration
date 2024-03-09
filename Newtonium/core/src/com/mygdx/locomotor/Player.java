@@ -83,8 +83,15 @@ public class Player extends Entity {
     }
     
     @Override
-    public boolean die(){
-        return false;
+    public void die(){
+        if(this.currentHP<=0){
+           this.alive = false; 
+        }else{
+           this.alive = true;
+        }if(this.alive == false){
+            /*endgamemenuopeninator(); to, you know open the darn game over screen.*/
+            System.out.println("Playur is ded! Not big souprice.");  /*endgamemenuopen();*/
+        }
     }
     
     

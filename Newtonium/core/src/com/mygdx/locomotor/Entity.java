@@ -70,9 +70,9 @@ abstract class Entity {
         
     }
     
-    public boolean die(){ //Pourquoi boolean? le diagramme dit classe void... ~AF
-        return false;
-        
+    public void die(){
+        if(this.currentHP <= 0)
+           this.alive = false;
     }
     
     public void spawn(){
