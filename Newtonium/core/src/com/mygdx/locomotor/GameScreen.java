@@ -4,6 +4,8 @@
  */
 package com.mygdx.locomotor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -52,7 +54,7 @@ public class GameScreen implements Screen {
     
     //game objects
     Player player;
-    
+    Projectile projectile;
     public LinkedList<Enemie> listmals;
     
     //equivalent to the create() method for this class.
@@ -76,6 +78,7 @@ public class GameScreen implements Screen {
 
         //gameobject setup and playercamera.
         player = new Player(); 
+        projectile = new Projectile(player.position.x,player.position.y,10,10,img);
         Camera.position.set(player.HitBox.x,player.HitBox.y,20);
         Camera.update();  
         
@@ -100,13 +103,16 @@ public class GameScreen implements Screen {
         //map and background
         ScreenUtils.clear(0,0,0,1);
         Mapsprite.draw(batch);
-
+        
+        
+        projectile.update(deltaTime);
         //player
         player.draw(batch);
         // enemylist stuff(including collision methods.)
                 ListIterator<Enemie> iter = listmals.listIterator();
                 while(iter.hasNext()) {
                     Enemie mal = iter.next();
+                    projectile.update(deltaTime);
                     mal.moveEnemy(batch,player);
                     
                     if (player.collide(mal)== true){
@@ -120,6 +126,13 @@ public class GameScreen implements Screen {
                 if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) spawnEnemy();
                 batch.end();
     }
+    private void fireboolet(Projectile projectile){
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))projectile.draw(batch);
+        projectile.position = player.position;//initial position
+        
+
+    }
+    
     private void spawnEnemy() {
             Enemie mal = new Enemie();
             mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
@@ -128,6 +141,20 @@ public class GameScreen implements Screen {
             mal.HitBox.x = mal.position.x;mal.HitBox.y = mal.position.y;
             listmals.add(mal);
             this.lastspawnTime = TimeUtils.nanoTime();
+    }
+    
+    public void EnemyAttack() {
+                        ListIterator<Enemie> iter = listmals.listIterator();
+                while(iter.hasNext()) {
+                    Enemie mal = iter.next();
+                    if (player.collide(mal)== true){
+                        player.sprite.setTexture(ooftexture);    
+                    }else player.sprite.setTexture(img);
+                    if(mal.alive == false){
+                        iter.remove();
+                        /*Ededsound.play();*/
+                    }
+                }   
     }
     
     @Override

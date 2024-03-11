@@ -18,13 +18,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Enemie extends Entity {
     
     public double levelScaling; //boosts enemy stats depending on player level
-    public float vitesse = 50,EnemyhitboxRadius = 24; //what does enemyhitboxradius do?
+    public float vitesse = 50; //what does enemyhitboxradius do?
     
    
 
     public Enemie(int maxHP, float speed, Vector2 position, Texture img,float hitBoxRadius) {
         super(maxHP, speed, position, img,hitBoxRadius);
-        this.EnemyhitboxRadius = hitBoxRadius; //isn't this redundant? enemy already has a hitboxradius attribute. ~AF
+        this.hitboxRadius = hitBoxRadius; //isn't this redundant? enemy already has a hitboxradius attribute. ~AF
         
         //sprite.setColor(color);
 

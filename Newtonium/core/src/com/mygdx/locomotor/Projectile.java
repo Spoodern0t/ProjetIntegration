@@ -22,12 +22,12 @@ public class Projectile extends Entity{
         this.maxHP = maxHP;
         position= new Vector2(0,1000);
         this.position = new Vector2(x, y);
-       this.position = new Vector2(x, y);
+        this.position = new Vector2(x, y);
         this.speed = speed;
         this.position = new Vector2(speed * (float)Math.cos(angle), speed * (float)Math.sin(angle));
         this.sprite = new Sprite(texture); 
         this.sprite.setPosition(x, y);
-    
+        this.sprite.scale(20);
         
     }
     
