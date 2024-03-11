@@ -31,7 +31,6 @@ abstract class Entity {
     public Texture ooftexture =new Texture("sadge.png");
     public Texture img = new Texture("LilBoy.png");
 //Constructors
-    //TODO: add hitboxradius in these
     public Entity(int maxHP, float speed, Vector2 position, Texture img, float hitBoxRadius){
         this.sprite = new Sprite(img);
         sprite.setScale(4); //can be set later
@@ -79,10 +78,8 @@ abstract class Entity {
         
     }
     
-    public void collide(boolean collided){
-        
-        if (collided == true){sprite.setTexture(ooftexture);}
-        else sprite.setTexture(img);
+    public boolean collide(Entity target){
+        return(this.HitBox.overlaps(target.HitBox));
     }
     
     

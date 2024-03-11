@@ -1,6 +1,7 @@
 package com.mygdx.locomotor;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -16,106 +17,33 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class main extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-        Texture ooftexture;
-        Texture BassTerd;
-        Player player;
-        public Array<Enemie> listmals;
-        int vague;
-        OrthographicCamera Camera;
-        Texture Map;
-        public Sprite Mapsprite;
-	public long lastspawnTime;
-        
+public class main extends Game {
+        //this class will likely be reserved for main menu.
+        //this version has not much in ways of change but the change will be arriving strongly VERY SOON.
+        //TODO: Simple Main menu with only button start, ideally here.
+        GameScreen gameScreen;
         @Override
 	public void create () {
-		
-                
-		img = new Texture("LilBoy.png");
-                ooftexture = new Texture("sadge.png");
-                BassTerd = new Texture("Evil.png");
-                
-                
-                
-                player = new Player();
-                
-                
-                Map = new Texture("MapImg.jpg");
-                Mapsprite = new Sprite(Map);
-                Mapsprite.setPosition(0,0);
-                Mapsprite.setSize(1000,1000);
-                
-                
-                
-                
-                
-                Camera = new OrthographicCamera(800,400);
-                Camera.position.set(player.HitBox.x,player.HitBox.y,20);
-                Camera.update();
-                batch = new SpriteBatch();
-                //*Attempt at making Enemy spawner*//
-                listmals = new Array<Enemie>();
-                spawnEnemy();
-                
+		gameScreen = new GameScreen();
+                setScreen(gameScreen);
+
         }
              
 	@Override
 	public void render () {
-		
-                //camera stuff
-                ScreenUtils.clear(0, 0, 0, 1);
-		Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
-                Camera.update();
-                batch.setProjectionMatrix((Camera.combined));
-                
-                batch.begin();
-      
-                //drawing the stuff(map,player and enemy
-                Mapsprite.draw(batch);
-		player.draw(batch);
-                
-                Iterator<Enemie> iter = listmals.iterator();
-                while(iter.hasNext()) {
-                Enemie mal = iter.next();
-                mal.moveEnemy(batch,player);
-                
-                if (player.HitBox.overlaps(mal.HitBox)){
-                    player.collide(true);
-                }
-                else player.collide(false);
-                if(mal.alive == false){
-                        iter.remove();
-                        /*Ededsound.play();*/
-                }
-                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) spawnEnemy();
-                }
-                batch.end();
-                
-                
-                
-                
-               
+		super.render();
 	}
-            private void spawnEnemy() {
-                Enemie mal = new Enemie();
-                mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
-                mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
-                mal.hitboxRadius = (mal.sprite.getHeight()*mal.sprite.getScaleY()/2);
-                mal.HitBox.x = mal.position.x;mal.HitBox.y = mal.position.y;
-                listmals.add(mal);
-                this.lastspawnTime = TimeUtils.nanoTime();
+
+            @Override
+            public void resize(int width, int height) {
+                gameScreen.resize(width, height);
             }
         
 	
-	@Override
-	public void dispose () {
-		img.dispose();
-                ooftexture.dispose();
-                Mapsprite.getTexture().dispose();
-                BassTerd.dispose();
-                batch.dispose();
+            @Override
+            public void dispose () {
+
+                gameScreen.dispose();
 	}
 
     

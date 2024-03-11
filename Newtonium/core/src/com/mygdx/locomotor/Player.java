@@ -24,13 +24,6 @@ public class Player extends Entity {
     static float DEFAULT_SPEED = 300;
     int level, exp, levelTreshold = 100;
     static float Default_PlayerHitBox = 24;
-    /* these can be declared in Entity.java and inherited
-    public float getSpeed() {
-        return speed;
-    }
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }*/
     
 //Constructors     
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
