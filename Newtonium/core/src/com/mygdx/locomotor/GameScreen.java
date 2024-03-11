@@ -122,8 +122,8 @@ public class GameScreen implements Screen {
     }
     private void spawnEnemy() {
             Enemie mal = new Enemie();
-            mal.position.x = MathUtils.random(0,100 - mal.sprite.getTexture().getWidth());
-            mal.position.y = MathUtils.random(0,100 - mal.sprite.getTexture().getHeight());
+            mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
+            mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
             mal.hitboxRadius = (mal.sprite.getHeight()*mal.sprite.getScaleY()/2);
             mal.HitBox.x = mal.position.x;mal.HitBox.y = mal.position.y;
             listmals.add(mal);

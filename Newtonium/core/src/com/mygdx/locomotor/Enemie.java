@@ -63,7 +63,7 @@ public class Enemie extends Entity {
        
         update(Gdx.graphics.getDeltaTime(), p);
         sprite.setPosition(this.position.x,this.position.y);
-        Enemie.super.HitBox.setPosition(this.sprite.getX(),this.sprite.getY());
+        this.HitBox.setPosition(this.sprite.getX(),this.sprite.getY());
         sprite.draw(batch);
     }   
       
