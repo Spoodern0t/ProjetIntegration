@@ -106,16 +106,16 @@ public class GameScreen implements Screen {
         // enemylist stuff(including collision methods.)
                 ListIterator<Enemie> iter = listmals.listIterator();
                 while(iter.hasNext()) {
-                Enemie mal = iter.next();
-                mal.moveEnemy(batch,player);
-                
-                if (player.collide(mal)== true){
-                player.sprite.setTexture(ooftexture);    
-                }else player.sprite.setTexture(img);
-                if(mal.alive == false){
+                    Enemie mal = iter.next();
+                    mal.moveEnemy(batch,player);
+                    
+                    if (player.collide(mal)== true){
+                        player.sprite.setTexture(ooftexture);    
+                    }else player.sprite.setTexture(img);
+                    if(mal.alive == false){
                         iter.remove();
                         /*Ededsound.play();*/
-                }
+                    }
                 }
                 if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) spawnEnemy();
                 batch.end();
