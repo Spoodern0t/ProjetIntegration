@@ -18,36 +18,35 @@ import com.badlogic.gdx.math.Vector2;
  * @author Alexis Fecteau (2060238)
  */
 
-abstract class Entity {
+public abstract class Entity {
     
 //Attributes
     
     public int maxHP, currentHP, knockBack=0;
-    double damageMod = 1;
+    double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
-    public boolean alive =true; 
-    public Circle HitBox;
+    public boolean isDead = false; 
+    public Circle hitBox;
     public Texture ooftexture =new Texture("sadge.png");
     public Texture img = new Texture("LilBoy.png");
-    public Rectangle BoundingBox;
+    
+    
 //Constructors
-    public Entity(int maxHP, float speed, Vector2 position, Texture img, float hitBoxRadius){
+    public Entity(int maxHP, float speed, Vector2 position, Texture img){
         this.sprite = new Sprite(img);
         sprite.setScale(4); //can be set later
         this.position = position;
-        this.hitboxRadius = hitBoxRadius;
-        this.BoundingBox = new Rectangle(position.x,position.y,this.hitboxRadius*2*this.sprite.getScaleX(),this.hitboxRadius*2*this.sprite.getScaleY());
-        hitBoxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
-        this.HitBox = new Circle(position,hitBoxRadius);
+        this.hitboxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
+        hitBox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative
     }
     
     public Entity(int maxHP, float speed, Vector2 position){
-        this(maxHP, speed, position, new Texture("LilBoy.png"),24);
+        this(maxHP, speed, position, new Texture("LilBoy.png"));
     }
     
     public Entity(int maxHP, float speed){
@@ -59,32 +58,72 @@ abstract class Entity {
     }
 
 //methods
-    public void update(float deltaTime)//anything that involves timing but isn't movement
-    {
-
-    }
-    
-    public void draw(SpriteBatch batch)//to put the textures here if they come in multiple components.
-    {
+    /**
+     * Handles the object's logic, updates its state and attributes for the 
+     * current time/conditions.
+     * @param deltaTime Time since last call to render(). Usually gotten from 
+     * Gdx.graphics.getDeltaTime()
+     * @author Alexis Fecteau
+     * @since 15/03/2024
+     */
+    public void update(float deltaTime){
+        if (this.currentHP <= 0){
+            this.die();
+        }
+        if (this.isDead){ //skips update early if object is dead
+            return;
+        }
         
     }
     
-    public void die(){//disappearance trigger
-        if(this.currentHP <= 0)
-           this.alive = false;
+    /**
+     * Updates the object's position and moves its graphics and hit-box there.
+     * @param batch This object's associated sprites
+     * @author Nathan Latendresse, Ekrem Yoruk
+     * @since 15/03/2024
+     */
+    public void draw(SpriteBatch batch){
+        this.update(Gdx.graphics.getDeltaTime());
+        this.sprite.setPosition(position.x,position.y);
+        this.hitBox.setPosition(position.x,position.y);
+        this.sprite.draw(batch);
     }
     
-    public void spawn(){//Likely to be placed in GameScreen, Extended thought will be put on it at iteration 2
-        
+    /**
+     * Marks object as dead. Used to prevent updates and remove it from lists.
+     * @author Alexis Fecteau
+     * @since 15/03/2024
+     */
+    public void die(){
+        this.isDead = true;
+        //may be overridden to add on-death interactions.
     }
     
-    public boolean collide(Entity target){//hitboxCollide
-        return(this.HitBox.overlaps(target.HitBox));//attempted both. Didn't work.
+    /**
+     * Creates a copy of a final, hard-coded reference entity that shares only 
+     * its fundamental attributes. This allows distinct entity types to have
+     * varied starting conditions (e.g. coordinates, angle, stat multipliers)
+     * without defining them individually.
+     * @author Alexis Fecteau
+     * @since 15/03/2024
+     */
+    public abstract Entity spawn();
+    
+    /**
+     * Checks for collision between this object and another Entity.
+     * @param target Entity to check for collision with. 
+     * @return true if there's a collision, false otherwise.
+     * @author Alexis Fecteau
+     * @since 15/03/2024
+     */
+    public boolean collide(Entity target){
+        if (this != target){
+            return(this.hitBox.overlaps(target.hitBox));
+        } else return false;
     }
     public boolean Scollide(Entity target){//SpriteCollide
         return(this.sprite.getBoundingRectangle().overlaps(target.sprite.getBoundingRectangle()));
     }
-    
     
     
 //getters/setters

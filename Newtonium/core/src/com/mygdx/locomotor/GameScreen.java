@@ -53,12 +53,12 @@ public class GameScreen implements Screen {
     int vague;
     
     //game objects
-    Player player;
+    public static Player player;
     Projectile projectile;
-    public LinkedList<Enemie> listmals;
+    public LinkedList<Enemy> enemieList;
     
     //equivalent to the create() method for this class.
-    GameScreen(){
+    public GameScreen(final GameController game){
         Camera = new OrthographicCamera(800,400);
                 
         
@@ -79,10 +79,10 @@ public class GameScreen implements Screen {
         //gameobject setup and playercamera.
         player = new Player(); 
         projectile = new Projectile(player.position.x,player.position.y,10,10,img);
-        Camera.position.set(player.HitBox.x,player.HitBox.y,20);
+        Camera.position.set(player.hitBox.x,player.hitBox.y,20);
         Camera.update();  
         
-        listmals = new LinkedList<>();      
+        enemieList = new LinkedList<>();      
         batch = new SpriteBatch();
     
     
@@ -109,17 +109,17 @@ public class GameScreen implements Screen {
         //player
         player.draw(batch);
         // enemylist stuff(including collision methods.)
-                ListIterator<Enemie> iter = listmals.listIterator();
-                while(iter.hasNext()) {
-                    Enemie mal = iter.next();
-                    projectile.update(deltaTime);
-                    mal.moveEnemy(batch,player);
+                ListIterator<Enemy> iter = enemieList.listIterator();
+                for(Enemy e: enemieList) {
+                //while (iter.hasNext(){
+                    //Enemie mal = iter.next();
+                    e.draw(batch);
                     
-                    if (player.Scollide(mal)== true){
+                    if (player.collide(e)== true){
                         player.sprite.setTexture(ooftexture);    
                     }else player.sprite.setTexture(img);
-                    if(mal.alive == false){
-                        iter.remove();
+                    if(e.isDead){
+                        //iter.remove();
                         /*Ededsound.play();*/
                     }
                 }
@@ -134,23 +134,19 @@ public class GameScreen implements Screen {
     }
     
     private void spawnEnemy() {
-            Enemie mal = new Enemie();
-            mal.position.x = MathUtils.random(0,1000 - mal.sprite.getTexture().getWidth());
-            mal.position.y = MathUtils.random(0,1000 - mal.sprite.getTexture().getHeight());
-            mal.hitboxRadius = (mal.sprite.getHeight()*mal.sprite.getScaleY()/2);
-            mal.HitBox.x = mal.position.x;mal.HitBox.y = mal.position.y;
-            listmals.add(mal);
+            Enemy mal = new Enemy();
+            enemieList.add((Enemy)mal.spawn());
             this.lastspawnTime = TimeUtils.nanoTime();
     }
     
     public void EnemyAttack() {
-                        ListIterator<Enemie> iter = listmals.listIterator();
+                        ListIterator<Enemy> iter = enemieList.listIterator();
                 while(iter.hasNext()) {
-                    Enemie mal = iter.next();
-                    if (player.Scollide(mal)== true){
+                    Enemy mal = iter.next();
+                    if (player.collide(mal)== true){
                         player.sprite.setTexture(ooftexture);    
                     }else player.sprite.setTexture(img);
-                    if(mal.alive == false){
+                    if(mal.isDead == false){
                         iter.remove();
                         /*Ededsound.play();*/
                     }
