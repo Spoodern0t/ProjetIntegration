@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 /**
  *
- * @author Alexis Fecteau (2060238)
+ * @author Adam Tamine
  */
 public class Projectile extends Entity{
     
@@ -18,6 +18,7 @@ public class Projectile extends Entity{
     public float vitesse_projectile;
     public Sprite sprite_projectile;
     
+    //TODO: remake projectile so it inherits Entity correctly.
     public Projectile(float x, float y, float speed, float angle, Texture texture){
         this.maxHP = maxHP;
         position= new Vector2(0,1000);
@@ -31,16 +32,22 @@ public class Projectile extends Entity{
         
     }
     
+    @Override
     public void update(float deltaTime){
          position.add(position.x * deltaTime, position.y * deltaTime);
         sprite.setPosition(position.x, position.y);
     }
-    public void draw(SpriteBatch batch) {
-        
-        sprite.draw(batch);
+    
+
+    @Override
+    public Entity spawn(){
+        //TODO: remake this when all of Projectile class is remade
+        return new Projectile(
+            0,
+            0,
+            this.speed,
+            0,
+            this.img
+        );
     }
-    
-    /*
-    
-    */
 }

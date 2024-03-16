@@ -5,14 +5,15 @@
 package com.mygdx.locomotor;
 
 /**
- *
+ * Eventual attribute of Player class. Controls projectile spawning logic.
  * @author Alexis Fecteau (2060238)
+ * @Since 21/02/2024
  */
-public class Item { //pourrait être superclasse abstraite pour armes spécifiques. ~AF
+public class Item { //Could be an abstract superclass for specified items. ~AF
 
 //attributs 
     int level = 1;
-    double cooldown; //en secondes
+    double cooldown; //in seconds
     //Projectile projectile;
     
 //constructeurs
@@ -39,6 +40,5 @@ public class Item { //pourrait être superclasse abstraite pour armes spécifiques
         */
         
     }
-    
-    
+       
 }
