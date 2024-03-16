@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -30,14 +31,16 @@ abstract class Entity {
     public Circle HitBox;
     public Texture ooftexture =new Texture("sadge.png");
     public Texture img = new Texture("LilBoy.png");
+    public Rectangle BoundingBox;
 //Constructors
     public Entity(int maxHP, float speed, Vector2 position, Texture img, float hitBoxRadius){
         this.sprite = new Sprite(img);
         sprite.setScale(4); //can be set later
         this.position = position;
         this.hitboxRadius = hitBoxRadius;
+        this.BoundingBox = new Rectangle(position.x,position.y,this.hitboxRadius*2*this.sprite.getScaleX(),this.hitboxRadius*2*this.sprite.getScaleY());
         hitBoxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
-        HitBox = new Circle(position,hitBoxRadius);
+        this.HitBox = new Circle(position,hitBoxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative
@@ -54,33 +57,34 @@ abstract class Entity {
     public Entity(){
         this(100, 300);
     }
-    
-    
-
 
 //methods
-    public void update(float deltaTime)
+    public void update(float deltaTime)//anything that involves timing but isn't movement
     {
 
     }
     
-    public void draw(SpriteBatch batch)
+    public void draw(SpriteBatch batch)//to put the textures here if they come in multiple components.
     {
         
     }
     
-    public void die(){
+    public void die(){//disappearance trigger
         if(this.currentHP <= 0)
            this.alive = false;
     }
     
-    public void spawn(){
+    public void spawn(){//Likely to be placed in GameScreen, Extended thought will be put on it at iteration 2
         
     }
     
-    public boolean collide(Entity target){
-        return(this.HitBox.overlaps(target.HitBox));
+    public boolean collide(Entity target){//hitboxCollide
+        return(this.HitBox.overlaps(target.HitBox));//attempted both. Didn't work.
     }
+    public boolean Scollide(Entity target){//SpriteCollide
+        return(this.sprite.getBoundingRectangle().overlaps(target.sprite.getBoundingRectangle()));
+    }
+    
     
     
 //getters/setters

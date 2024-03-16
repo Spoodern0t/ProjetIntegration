@@ -115,7 +115,7 @@ public class GameScreen implements Screen {
                     projectile.update(deltaTime);
                     mal.moveEnemy(batch,player);
                     
-                    if (player.collide(mal)== true){
+                    if (player.Scollide(mal)== true){
                         player.sprite.setTexture(ooftexture);    
                     }else player.sprite.setTexture(img);
                     if(mal.alive == false){
@@ -147,7 +147,7 @@ public class GameScreen implements Screen {
                         ListIterator<Enemie> iter = listmals.listIterator();
                 while(iter.hasNext()) {
                     Enemie mal = iter.next();
-                    if (player.collide(mal)== true){
+                    if (player.Scollide(mal)== true){
                         player.sprite.setTexture(ooftexture);    
                     }else player.sprite.setTexture(img);
                     if(mal.alive == false){
