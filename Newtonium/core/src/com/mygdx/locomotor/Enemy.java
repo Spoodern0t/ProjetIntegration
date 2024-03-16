@@ -37,7 +37,7 @@ public class Enemy extends Entity {
     }
     
     public Enemy() {
-        this(100, 300);
+        this(100, 50);
 
     }
     

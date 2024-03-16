@@ -118,8 +118,8 @@ public class GameScreen implements Screen {
                     if (player.collide(e)== true){
                         player.sprite.setTexture(ooftexture);    
                     }else player.sprite.setTexture(img);
-                    if(!e.isDead){
-                        iter.remove();
+                    if(e.isDead){
+                        //iter.remove();
                         /*Ededsound.play();*/
                     }
                 }
