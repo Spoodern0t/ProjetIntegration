@@ -24,8 +24,9 @@ public class GameController extends Game {
         GameScreen gameScreen;
         @Override
 	public void create () {
-		gameScreen = new GameScreen(this);
-                setScreen(gameScreen);
+		
+            gameScreen = new GameScreen(this);
+            setScreen(gameScreen);
 
         }
              
@@ -33,7 +34,7 @@ public class GameController extends Game {
 	public void render () {
 		super.render();
 	}
-
+        
             @Override
             public void resize(int width, int height) {
                 gameScreen.resize(width, height);

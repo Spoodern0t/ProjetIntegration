@@ -44,13 +44,14 @@ public class GameScreen implements Screen {
     Texture Map;
     public Sprite Mapsprite;
     
-    //world parameters(things about how the meausrements are treated)ask Ekrem for source
+    //world parameters(things about how the measurements are treated)ask Ekrem for source
     final int WORLD_WIDTH = 1000;
     final int WORLD_HEIGHT = 1000;
 
-    //timings(cooldowns and delays for game objects)
-    public long lastspawnTime = 0L;
+    //timings(cooldowns and delays for game objects that occur in screen)
+    public long lastspawnTime = 0l;
     int vague;
+    
     
     //game objects
     public static Player player;
@@ -82,6 +83,7 @@ public class GameScreen implements Screen {
         Camera.position.set(player.hitBox.x,player.hitBox.y,20);
         Camera.update();  
         
+        
         enemieList = new LinkedList<>();      
         batch = new SpriteBatch();
     
@@ -111,26 +113,31 @@ public class GameScreen implements Screen {
         // enemylist stuff(including collision methods.)
                 ListIterator<Enemy> iter = enemieList.listIterator();
                 for(Enemy e: enemieList) {
-                //while (iter.hasNext(){
+                    //use iterator to find closest enemy
+                    //while (iter.hasNext(){
                     //Enemie mal = iter.next();
                     e.draw(batch);
                     
                     if (player.collide(e)== true){
-                        player.sprite.setTexture(ooftexture);    
-                    }else player.sprite.setTexture(img);
+                        player.sprite.setTexture(ooftexture);System.out.println("True Box");
+                    }else System.out.println("Box False");
                     if(e.isDead){
                         //iter.remove();
                         /*Ededsound.play();*/
                     }
                 }
-                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) spawnEnemy();
+                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) {spawnEnemy();}
+                if (player.canGetHurt() == true) {player.sprite.setTexture(img);player.lastHurtTime = 0;}
+               
                 batch.end();
     }
+    
     private void fireboolet(Projectile projectile){
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))projectile.draw(batch);
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){projectile.draw(batch);System.out.println("Space pressed");}
+        //Try up only first
         projectile.position = player.position;//initial position
         
-
+        
     }
     
     private void spawnEnemy() {
@@ -143,9 +150,10 @@ public class GameScreen implements Screen {
                         ListIterator<Enemy> iter = enemieList.listIterator();
                 while(iter.hasNext()) {
                     Enemy mal = iter.next();
+                    if (player.canGetHurt()==true)
                     if (player.collide(mal)== true){
                         player.sprite.setTexture(ooftexture);    
-                    }else player.sprite.setTexture(img);
+                    } 
                     if(mal.isDead == false){
                         iter.remove();
                         /*Ededsound.play();*/

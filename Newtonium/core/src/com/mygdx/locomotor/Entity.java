@@ -26,7 +26,7 @@ public abstract class Entity {
     double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
     public Sprite sprite;
-    public float speed, hitboxRadius = 24;
+    public float speed, hitboxRadius = 24,lastHurtTime = 0f,timebetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitBox;
     public Texture ooftexture =new Texture("sadge.png");
@@ -67,15 +67,18 @@ public abstract class Entity {
      * @since 15/03/2024
      */
     public void update(float deltaTime){
+        lastHurtTime += deltaTime;
         if (this.currentHP <= 0){
             this.die();
         }
         if (this.isDead){ //skips update early if object is dead
             return;
         }
-        
-    }
     
+    }
+    public boolean canGetHurt(){//damage cooldown timer
+        return(this.lastHurtTime - timebetweenHurt >= 0);//returns true when substraction result becomes higher than 0.
+    }
     /**
      * Updates the object's position and moves its graphics and hit-box there.
      * @param batch This object's associated sprites

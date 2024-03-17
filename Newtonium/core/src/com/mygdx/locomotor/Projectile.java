@@ -32,9 +32,10 @@ public class Projectile extends Entity{
         
     }
     
+    
     @Override
     public void update(float deltaTime){
-         position.add(position.x * deltaTime, position.y * deltaTime);
+        position.add(position.x * deltaTime, position.y * deltaTime);
         sprite.setPosition(position.x, position.y);
     }
     
