@@ -12,13 +12,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -29,161 +24,188 @@ import java.util.ListIterator;
 
 public class GameScreen implements Screen {
 
-    
-    //screen
+//screen
     public Camera Camera;
     
     
-    //Graphics 
+//Graphics 
     SpriteBatch batch;
-    Texture img;
-    Texture ooftexture;
-    Texture BassTerd;
+    Texture idleTexture;
+    Texture oofTexture;
+    Texture evilTexture;
     
-    // background things
-    Texture Map;
-    public Sprite Mapsprite;
     
-    //world parameters(things about how the measurements are treated)ask Ekrem for source
+//background assets
+    Texture mapTexture;
+    public Sprite mapSprite;
+    
+    
+//world parameters (things about how the measurements are treated)ask Ekrem for source
     final int WORLD_WIDTH = 1000;
-    final int WORLD_HEIGHT = 1000;
+    final int WORLD_HEIGHT = 1000; //could the level be the image's dimensions? ~AF
 
-    //timings(cooldowns and delays for game objects that occur in screen)
-    public long lastspawnTime = 0l;
-    int vague;
+    
+//timers (cooldowns and delays for game objects that occur in screen)
+    public long lastSpawnTime = 0l;
+    int wave;
     
     
-    //game objects
+//game objects
     public static Player player;
     Projectile projectile;
     
-    //maybe combine into Entity list? ~AF
-    public LinkedList<Projectile> projectileList; //maybe combine into Entity list? ~AF
-    public LinkedList<Enemy> enemieList;
+    //maybe combine the next two into an Entity list? ~AF
+    public LinkedList<Projectile> projectileList; 
+    public LinkedList<Enemy> enemyList;
     
-    public LinkedList<Entity> despawnList;//clears dead entities after loops
+    public LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
     
-    //equivalent to the create() method for this class.
+    
+//equivalent to the create() method for this class.
     public GameScreen(final GameController game){
+        
         Camera = new OrthographicCamera(800,400);
-                
         
         
-        //texture setup
-        img = new Texture("LilBoy.png");
-        ooftexture = new Texture("sadge.png");
-        BassTerd = new Texture("Evil.png");
-                
+    //texture setup (all placeholder)
+        idleTexture = new Texture("LilBoy.png");
+        oofTexture = new Texture("sadge.png");
+        evilTexture = new Texture("Evil.png");
         
-        //background setup 
-        Map = new Texture("MapImg.jpg");
-        Mapsprite = new Sprite(Map);
-        Mapsprite.setPosition(0,0);
-        Mapsprite.setSize(1000,1000);
         
-
-        //gameobject setup and playercamera.
+    //background setup 
+        mapTexture = new Texture("MapImg.jpg");
+        mapSprite = new Sprite(mapTexture);
+        mapSprite.setPosition(0,0);
+        mapSprite.setSize(WORLD_WIDTH,WORLD_HEIGHT);
+        
+        
+    //gameobject setup and playercamera.
         player = new Player(); 
-        projectile = new Projectile(0);//generic test projectile
-        Camera.position.set(player.hitBox.x,player.hitBox.y,20);
+        projectile = new Projectile(0);//generic test projectile ~AF
+        Camera.position.set(player.hitbox.x,player.hitbox.y,20);
         Camera.update();  
         
         
-        enemieList = new LinkedList<>();
+        enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
-        batch = new SpriteBatch();
+        batch = new SpriteBatch(); //images currently on-screen
     
-    
-    
+       
     }
     //TODO: WE NEED TO REMAKE EVERY METHODS IN EVERY CLASS IN A WAY THAT ONLY METHODS THAT INVOLVE WHAT WE SEE HAPPEN IN A GAME HAPPEN HERE.
     //exceptions are: class descriptors and cooldown related things. I put alot of comments for earier organisation.
+
     
+//Real-time game logic (called for each new frame)
     @Override
-    public void render(float deltaTime) {
+    public void render(float deltaTime){
+        
     //old camera stuff
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
         batch.setProjectionMatrix((Camera.combined));
         
         batch.begin();
+
         
     //map and background
         ScreenUtils.clear(0,0,0,1);
-        Mapsprite.draw(batch);
+        mapSprite.draw(batch);
         
         
     //player
         player.draw(batch);
+
         
-    //projectiles
-        fireboolet(projectile); //checks for spacebar input
+    //projectile logic
+        shootBullet(projectile); //TEMP: fire bullet if spacebar pressed ~AF
+        
         for (Projectile p: projectileList){
             p.draw(batch);
             if (p.isDead){
                 despawnList.add(p);
             }
         }
+        
         projectileList.removeAll(despawnList);
         despawnList.clear();
         
-    // enemylist stuff(including collision methods.)
-            ListIterator<Enemy> iter = enemieList.listIterator();
-            
-            for(Enemy e: enemieList) {
-                    //use iterator to find closest enemy
-                    //while (iter.hasNext(){
-                    //Enemie mal = iter.next();
-                    e.draw(batch);
+        /* Flush all dead projectiles at once: Java raises an exception if a
+           collection is modified while a thread uses it (like in for-loops).
+        
+           TODO all Entities should be handled in the same list, loop and
+           flush regardless of their type. ~AF */
+        
+        
+    //enemylist stuff (including collision methods.)
+        ListIterator<Enemy> iter = enemyList.listIterator();
+        
+        for (Enemy e: enemyList) {
+            //use iterator to find closest enemy
+            //while (iter.hasNext(){
+            //Enemy mal = iter.next();
+            e.draw(batch);
                     
-                    if (player.collide(e)== true){
-                        player.sprite.setTexture(ooftexture);System.out.println("True Box");
-                    }else System.out.println("Box False");
-                    if(e.isDead){
-                        enemieList.remove(e);
-                        //iter.remove();
-                        /*Ededsound.play();*/
-                    }
-                }
-                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) {
-                    spawnEnemy();
-                }
-                if (player.canGetHurt() == true) {player.sprite.setTexture(img);player.lastHurtTime = 0;}
+            if (player.collide(e)){
+                player.sprite.setTexture(oofTexture);System.out.println("True Box");
+            } else System.out.println("Box False");
+            
+            if(e.isDead){
+                despawnList.add(e);
+                //iter.remove();
+                /*Ededsound.play();*/
+            }
+        }
+        enemyList.removeAll(despawnList);
+        despawnList.clear();
+        
+        if(TimeUtils.nanoTime() - this.lastSpawnTime > 3000000000L) {
+            spawnEnemy();
+        }
+        if (player.canGetHurt()) {
+            player.sprite.setTexture(idleTexture);
+            player.lastHurtTime = 0;
+        }
                
-                batch.end();
+        batch.end();
     }
     
-    private void fireboolet(Projectile projectile){
+    private void shootBullet(Projectile projectile){ 
+        
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             System.out.println("Space pressed");
             projectileList.add((Projectile)projectile.spawn());
         }
-
-        
+    }
+    
+    private void spawnEnemy(){
+        Enemy mal = new Enemy();
+        enemyList.add((Enemy)mal.spawn());
+        this.lastSpawnTime = TimeUtils.nanoTime();
         
     }
     
-    private void spawnEnemy() {
-            Enemy mal = new Enemy();
-            enemieList.add((Enemy)mal.spawn());
-            this.lastspawnTime = TimeUtils.nanoTime();
+    public void EnemyAttack(){
+        ListIterator<Enemy> iter = enemyList.listIterator();
+        
+        while(iter.hasNext()){
+            Enemy mal = iter.next();
+            
+            if (player.canGetHurt()==true)
+                if (player.collide(mal)== true){
+                    player.sprite.setTexture(oofTexture);    
+                } 
+            
+            if(mal.isDead){
+                iter.remove(); //this removes from iterator, not main list!
+                /*Ededsound.play();*/
+                
+            }
+        }   
     }
     
-    public void EnemyAttack() {
-                ListIterator<Enemy> iter = enemieList.listIterator();
-                while(iter.hasNext()) {
-                    Enemy mal = iter.next();
-                    if (player.canGetHurt()==true)
-                    if (player.collide(mal)== true){
-                        player.sprite.setTexture(ooftexture);    
-                    } 
-                    if(mal.isDead){
-                        iter.remove(); //this removes from iterator, not main list!
-                        /*Ededsound.play();*/
-                    }
-                }   
-    }
     
     @Override
     public void resize(int width, int height) {
@@ -210,10 +232,10 @@ public class GameScreen implements Screen {
     }
     @Override
     public void dispose() {
-                img.dispose();
-                ooftexture.dispose();
-                Mapsprite.getTexture().dispose();
-                BassTerd.dispose();
+                idleTexture.dispose();
+                oofTexture.dispose();
+                mapSprite.getTexture().dispose();
+                evilTexture.dispose();
                 batch.dispose();
     }
     

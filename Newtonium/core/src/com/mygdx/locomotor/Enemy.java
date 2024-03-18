@@ -90,7 +90,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             pos,
-            this.img
+            this.idleTexture
         );
     }
       

@@ -18,7 +18,6 @@ public class Projectile extends Entity{
     double flatDamage, decayTime;
     double angle;
     
-    //TODO: remake projectile so it inherits Entity correctly.
 //constructors
     public Projectile(double flatDamage, double decayTime, double angle, int maxHP, float speed, Vector2 position, Texture img){
         
@@ -32,7 +31,7 @@ public class Projectile extends Entity{
         */
     }
     
-    public Projectile(double angle){ //mostly for testing purposes
+    public Projectile(double angle){ //only for testing purposes. ~AF
         this(100, 3, angle, 10, 100,
                 new Vector2(GameScreen.player.position.x,GameScreen.player.position.y),
                 new Texture("Evil.png"));

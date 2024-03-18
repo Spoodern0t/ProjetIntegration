@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -26,11 +25,11 @@ public abstract class Entity {
     double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
     public Sprite sprite;
-    public float speed, hitboxRadius = 24,lastHurtTime = 0f,timebetweenHurt = 1f;
+    public float speed, hitboxRadius = 24,lastHurtTime = 0f,timeBetweenHurt = 1f;
     public boolean isDead = false; 
-    public Circle hitBox;
-    public Texture ooftexture =new Texture("sadge.png");
-    public Texture img = new Texture("LilBoy.png");
+    public Circle hitbox;
+    public Texture oofTexture =new Texture("sadge.png");
+    public Texture idleTexture = new Texture("LilBoy.png");
     
     
 //Constructors
@@ -40,7 +39,7 @@ public abstract class Entity {
         this.sprite.setScale(4); //can be set later
         this.position = position;
         this.hitboxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
-        this.hitBox = new Circle(position,hitboxRadius);
+        this.hitbox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative
@@ -77,9 +76,17 @@ public abstract class Entity {
         }
     
     }
+    
+    /**
+     * Tells whether this object can currently take damage.
+     * @return true if the damage cool-down is over.
+     * @author Ekrem Yoruk
+     * @since 16/03/2024
+     */
     public boolean canGetHurt(){//damage cooldown timer
-        return(this.lastHurtTime - timebetweenHurt >= 0);//returns true when substraction result becomes higher than 0.
+        return(this.lastHurtTime - timeBetweenHurt >= 0);//returns true when substraction result becomes higher than 0.
     }
+    
     /**
      * Updates the object's position and moves its graphics and hit-box there.
      * @param batch This object's associated sprites
@@ -89,7 +96,7 @@ public abstract class Entity {
     public void draw(SpriteBatch batch){
         this.update(Gdx.graphics.getDeltaTime());
         this.sprite.setPosition(this.position.x,this.position.y);
-        this.hitBox.setPosition(this.position);
+        this.hitbox.setPosition(this.position);
         this.sprite.draw(batch);
     }
     
@@ -108,6 +115,7 @@ public abstract class Entity {
      * its fundamental attributes. This allows distinct entity types to have
      * varied starting conditions (e.g. coordinates, angle, stat multipliers)
      * without defining them individually.
+     * @return new Entity similar to calling object
      * @author Alexis Fecteau
      * @since 15/03/2024
      */
@@ -122,13 +130,21 @@ public abstract class Entity {
      */
     public boolean collide(Entity target){
         if (this != target){
-            return(this.hitBox.overlaps(target.hitBox));
+            return(this.hitbox.overlaps(target.hitbox));
         } else return false;
     }
     
-    
-    public boolean Scollide(Entity target){//SpriteCollide
+    /**
+     * Checks for collision between this Entity's image and another Entity's
+     * image.
+     * @param target Entity to check for sprite collision with.
+     * @return true if there's a collision, false otherwise.
+     * @author Ekrem Yoruk
+     * @since 16/03/2024
+     */
+    public boolean sCollide(Entity target){//spriteCollide
         return(this.sprite.getBoundingRectangle().overlaps(target.sprite.getBoundingRectangle()));
+        //Isn't this redundant? collide() is already based on sprite's size... ~AF
     }
     
     

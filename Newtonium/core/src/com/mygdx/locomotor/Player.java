@@ -22,7 +22,7 @@ public class Player extends Entity {
 //Attributes
     static int DEFAULT_MAX_HP = 100;
     static float DEFAULT_SPEED = 300;
-    int level, exp, levelTreshold = 100;
+    int level, exp, levelThreshold = 100;
     static float Default_PlayerHitBox = 24;
     
 //Constructors     
@@ -106,7 +106,7 @@ public class Player extends Entity {
             this.maxHP,
             this.speed,
             new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2),
-            this.img
+            this.idleTexture
         );
     }
     
