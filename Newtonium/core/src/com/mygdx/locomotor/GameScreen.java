@@ -198,11 +198,6 @@ public class GameScreen implements Screen {
                     player.sprite.setTexture(oofTexture);    
                 } 
             
-            if(mal.isDead){
-                iter.remove(); //this removes from iterator, not main list!
-                /*Ededsound.play();*/
-                
-            }
         }   
     }
     

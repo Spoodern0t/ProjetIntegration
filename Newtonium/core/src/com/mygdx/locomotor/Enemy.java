@@ -4,11 +4,8 @@
  */
 package com.mygdx.locomotor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
@@ -25,13 +22,12 @@ public class Enemy extends Entity {
     public Enemy(double levelScaling, int maxHP, float speed, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.levelScaling = levelScaling;
-        //sprite.setColor(color);
+        this.sprite.setColor(Color.BLUE); //for testing purposes
 
     }
     
     public Enemy(int maxHP, float speed) {
         this(1, maxHP, speed, new Vector2(0, 0), new Texture("Evil.png"));
-        this.sprite.setColor(Color.BLUE); //for testing purposes
 
     }
     
@@ -90,7 +86,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             pos,
-            this.idleTexture
+            new Texture("Evil.png")
         );
     }
       
