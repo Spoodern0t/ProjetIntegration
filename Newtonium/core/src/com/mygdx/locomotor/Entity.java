@@ -88,8 +88,8 @@ public abstract class Entity {
      */
     public void draw(SpriteBatch batch){
         this.update(Gdx.graphics.getDeltaTime());
-        this.sprite.setPosition(position.x,position.y);
-        this.hitBox.setPosition(position.x,position.y);
+        this.sprite.setPosition(this.position.x,this.position.y);
+        this.hitBox.setPosition(this.position);
         this.sprite.draw(batch);
     }
     
@@ -125,6 +125,8 @@ public abstract class Entity {
             return(this.hitBox.overlaps(target.hitBox));
         } else return false;
     }
+    
+    
     public boolean Scollide(Entity target){//SpriteCollide
         return(this.sprite.getBoundingRectangle().overlaps(target.sprite.getBoundingRectangle()));
     }

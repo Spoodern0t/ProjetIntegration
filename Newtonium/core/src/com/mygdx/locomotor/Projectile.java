@@ -33,7 +33,9 @@ public class Projectile extends Entity{
     }
     
     public Projectile(double angle){ //mostly for testing purposes
-        this(100, 3, angle, 10, 100, GameScreen.player.position, new Texture("Evil.png"));
+        this(100, 3, angle, 10, 100,
+                new Vector2(GameScreen.player.position.x,GameScreen.player.position.y),
+                new Texture("Evil.png"));
         this.sprite.setScale(1);
         this.sprite.setColor(Color.RED);
     }
@@ -53,8 +55,7 @@ public class Projectile extends Entity{
             this.die();
         }
         super.update(deltaTime);
-        position.add(speed *(float)Math.cos(this.angle) * deltaTime, speed * (float)Math.sin(angle) * deltaTime);
-        sprite.setPosition(position.x, position.y);
+        this.position.add(this.speed *(float)Math.cos(this.angle) * deltaTime, this.speed * (float)Math.sin(this.angle) * deltaTime);
     }
     
     /**
@@ -67,13 +68,14 @@ public class Projectile extends Entity{
     @Override
     public Entity spawn(){ //currently simplified for testing purposes
         /*
+        Vector2 pos = new Vector2(GameScreen.player.position.x,GameScreen.player.position.y);
         return new Projectile(
             this.flatDamage,
             this.decayTime,
             MathUtils.random(0,360),
             this.maxHP,
             this.speed,
-            GameScreen.player.position,
+            pos,
             this.img
         );
         */

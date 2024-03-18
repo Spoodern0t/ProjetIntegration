@@ -135,6 +135,7 @@ public class GameScreen implements Screen {
                         player.sprite.setTexture(ooftexture);System.out.println("True Box");
                     }else System.out.println("Box False");
                     if(e.isDead){
+                        enemieList.remove(e);
                         //iter.remove();
                         /*Ededsound.play();*/
                     }
@@ -152,8 +153,7 @@ public class GameScreen implements Screen {
             System.out.println("Space pressed");
             projectileList.add((Projectile)projectile.spawn());
         }
-        //Try up only first
-        projectile.position = player.position;//initial position
+
         
         
     }
