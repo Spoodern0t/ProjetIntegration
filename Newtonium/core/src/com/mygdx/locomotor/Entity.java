@@ -35,11 +35,12 @@ public abstract class Entity {
     
 //Constructors
     public Entity(int maxHP, float speed, Vector2 position, Texture img){
+        
         this.sprite = new Sprite(img);
-        sprite.setScale(4); //can be set later
+        this.sprite.setScale(4); //can be set later
         this.position = position;
         this.hitboxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
-        hitBox = new Circle(position,hitboxRadius);
+        this.hitBox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative

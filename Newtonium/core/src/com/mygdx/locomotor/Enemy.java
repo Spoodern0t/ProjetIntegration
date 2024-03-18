@@ -20,7 +20,6 @@ public class Enemy extends Entity {
     
 //attributes
     public double levelScaling; //boosts enemy stats depending on player level
-    //public float vitesse = 50; //what does enemyhitboxradius do?
 
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, Vector2 position, Texture img) {

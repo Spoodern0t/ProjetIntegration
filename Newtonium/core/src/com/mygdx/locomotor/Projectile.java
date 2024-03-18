@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 /**
  *
@@ -15,40 +16,67 @@ import com.badlogic.gdx.math.Vector2;
 public class Projectile extends Entity{
     
     double flatDamage, decayTime;
-    public float vitesse_projectile;
-    public Sprite sprite_projectile;
+    double angle;
     
     //TODO: remake projectile so it inherits Entity correctly.
-    public Projectile(float x, float y, float speed, float angle, Texture texture){
-        this.maxHP = maxHP;
-        position= new Vector2(0,1000);
-        this.position = new Vector2(x, y);
-        this.position = new Vector2(x, y);
-        this.speed = speed;
-        this.position = new Vector2(speed * (float)Math.cos(angle), speed * (float)Math.sin(angle));
-        this.sprite = new Sprite(texture); 
-        this.sprite.setPosition(x, y);
-        this.sprite.scale(20);
+//constructors
+    public Projectile(double flatDamage, double decayTime, double angle, int maxHP, float speed, Vector2 position, Texture img){
         
+        super(maxHP, speed, position, img);
+        this.flatDamage = flatDamage;
+        this.decayTime = decayTime;
+        this.angle = angle;
+        /*
+        this.position = new Vector2(speed * (float)Math.cos(angle), speed * (float)Math.sin(angle));
+        this.sprite.scale(20);
+        */
     }
     
+    public Projectile(double angle){ //mostly for testing purposes
+        this(100, 3, angle, 10, 100, GameScreen.player.position, new Texture("Evil.png"));
+        this.sprite.setScale(1);
+        this.sprite.setColor(Color.RED);
+    }
     
+//methods
+    /**
+     * Updates the projectile object for the current time and conditions.
+     * Also handles object logic.
+     * @param deltaTime Time since last call to render()
+     * @author Adam Tamine
+     * @since 06/03/2024
+     */
     @Override
     public void update(float deltaTime){
-        position.add(position.x * deltaTime, position.y * deltaTime);
+        this.decayTime -= deltaTime;
+        if (this.decayTime <= 0){
+            this.die();
+        }
+        super.update(deltaTime);
+        position.add(speed *(float)Math.cos(this.angle) * deltaTime, speed * (float)Math.sin(angle) * deltaTime);
         sprite.setPosition(position.x, position.y);
     }
     
-
+    /**
+     * Creates a copy of a Projectile object that spawns at the player's
+     * position with a random angle.
+     * @return new Projectile object similar to calling instance
+     * @author Alexis Fecteau
+     * @since 18/03/2024
+     */
     @Override
-    public Entity spawn(){
-        //TODO: remake this when all of Projectile class is remade
+    public Entity spawn(){ //currently simplified for testing purposes
+        /*
         return new Projectile(
-            0,
-            0,
+            this.flatDamage,
+            this.decayTime,
+            MathUtils.random(0,360),
+            this.maxHP,
             this.speed,
-            0,
+            GameScreen.player.position,
             this.img
         );
+        */
+        return new Projectile(MathUtils.random(0,360));
     }
 }

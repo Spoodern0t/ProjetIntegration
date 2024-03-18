@@ -56,6 +56,7 @@ public class GameScreen implements Screen {
     //game objects
     public static Player player;
     Projectile projectile;
+    public LinkedList<Projectile> projectileList; //maybe combine into Entity list? ~AF
     public LinkedList<Enemy> enemieList;
     
     //equivalent to the create() method for this class.
@@ -79,12 +80,13 @@ public class GameScreen implements Screen {
 
         //gameobject setup and playercamera.
         player = new Player(); 
-        projectile = new Projectile(player.position.x,player.position.y,10,10,img);
+        projectile = new Projectile(0);//generic test projectile
         Camera.position.set(player.hitBox.x,player.hitBox.y,20);
         Camera.update();  
         
         
-        enemieList = new LinkedList<>();      
+        enemieList = new LinkedList<>();
+        projectileList = new LinkedList<>();
         batch = new SpriteBatch();
     
     
@@ -95,24 +97,35 @@ public class GameScreen implements Screen {
     
     @Override
     public void render(float deltaTime) {
-        //old camera stuff
+    //old camera stuff
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
         batch.setProjectionMatrix((Camera.combined));
         
         batch.begin();
         
-        //map and background
+    //map and background
         ScreenUtils.clear(0,0,0,1);
         Mapsprite.draw(batch);
         
         
-        projectile.update(deltaTime);
-        //player
+        fireboolet(projectile);
+        
+    //player
         player.draw(batch);
-        // enemylist stuff(including collision methods.)
-                ListIterator<Enemy> iter = enemieList.listIterator();
-                for(Enemy e: enemieList) {
+        
+    //projectiles
+        fireboolet(projectile); //checks for spacebar input
+        for (Projectile p: projectileList){
+            p.draw(batch);
+            if (p.isDead){
+                projectileList.remove(p);
+            }
+        }
+    // enemylist stuff(including collision methods.)
+            ListIterator<Enemy> iter = enemieList.listIterator();
+            
+            for(Enemy e: enemieList) {
                     //use iterator to find closest enemy
                     //while (iter.hasNext(){
                     //Enemie mal = iter.next();
@@ -126,14 +139,19 @@ public class GameScreen implements Screen {
                         /*Ededsound.play();*/
                     }
                 }
-                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) {spawnEnemy();}
+                if(TimeUtils.nanoTime() - this.lastspawnTime > 3000000000L) {
+                    spawnEnemy();
+                }
                 if (player.canGetHurt() == true) {player.sprite.setTexture(img);player.lastHurtTime = 0;}
                
                 batch.end();
     }
     
     private void fireboolet(Projectile projectile){
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){projectile.draw(batch);System.out.println("Space pressed");}
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            System.out.println("Space pressed");
+            projectileList.add((Projectile)projectile.spawn());
+        }
         //Try up only first
         projectile.position = player.position;//initial position
         
@@ -147,15 +165,15 @@ public class GameScreen implements Screen {
     }
     
     public void EnemyAttack() {
-                        ListIterator<Enemy> iter = enemieList.listIterator();
+                ListIterator<Enemy> iter = enemieList.listIterator();
                 while(iter.hasNext()) {
                     Enemy mal = iter.next();
                     if (player.canGetHurt()==true)
                     if (player.collide(mal)== true){
                         player.sprite.setTexture(ooftexture);    
                     } 
-                    if(mal.isDead == false){
-                        iter.remove();
+                    if(mal.isDead){
+                        iter.remove(); //this removes from iterator, not main list!
                         /*Ededsound.play();*/
                     }
                 }   
