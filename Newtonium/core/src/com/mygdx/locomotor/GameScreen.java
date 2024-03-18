@@ -56,8 +56,12 @@ public class GameScreen implements Screen {
     //game objects
     public static Player player;
     Projectile projectile;
+    
+    //maybe combine into Entity list? ~AF
     public LinkedList<Projectile> projectileList; //maybe combine into Entity list? ~AF
     public LinkedList<Enemy> enemieList;
+    
+    public LinkedList<Entity> despawnList;//clears dead entities after loops
     
     //equivalent to the create() method for this class.
     public GameScreen(final GameController game){
@@ -87,6 +91,7 @@ public class GameScreen implements Screen {
         
         enemieList = new LinkedList<>();
         projectileList = new LinkedList<>();
+        despawnList = new LinkedList<>();
         batch = new SpriteBatch();
     
     
@@ -109,8 +114,6 @@ public class GameScreen implements Screen {
         Mapsprite.draw(batch);
         
         
-        fireboolet(projectile);
-        
     //player
         player.draw(batch);
         
@@ -119,9 +122,12 @@ public class GameScreen implements Screen {
         for (Projectile p: projectileList){
             p.draw(batch);
             if (p.isDead){
-                projectileList.remove(p);
+                despawnList.add(p);
             }
         }
+        projectileList.removeAll(despawnList);
+        despawnList.clear();
+        
     // enemylist stuff(including collision methods.)
             ListIterator<Enemy> iter = enemieList.listIterator();
             
