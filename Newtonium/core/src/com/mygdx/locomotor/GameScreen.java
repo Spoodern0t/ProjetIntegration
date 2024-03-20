@@ -147,7 +147,7 @@ public class GameScreen implements Screen {
         //check for projectile collision with enemy
             for (Projectile p: projectileList){
                 if (p.collide(e)){
-                    e.sprite.setTexture(oofTexture);System.out.println("Ennemy hit");
+                    e.sprite.setTexture(oofTexture);
                 }
             }
             
