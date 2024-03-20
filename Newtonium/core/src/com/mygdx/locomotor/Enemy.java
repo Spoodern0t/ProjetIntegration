@@ -17,6 +17,7 @@ public class Enemy extends Entity {
     
 //attributes
     public double levelScaling; //boosts enemy stats depending on player level
+    private float timeBetweenHurt = 1f; //in seconds
 
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, Vector2 position, Texture img) {

@@ -22,6 +22,7 @@ public class Player extends Entity {
     static float DEFAULT_SPEED = 300;
     int level, exp, levelThreshold = 100;
     static float Default_PlayerHitBox = 24;
+    private float timeBetweenHurt = 3f; //in seconds
     
 //Constructors     
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {

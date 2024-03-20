@@ -143,9 +143,21 @@ public class GameScreen implements Screen {
         ListIterator<Enemy> iter = enemyList.listIterator();
         
         for (Enemy e: enemyList) {
+            
+        //check for projectile collision with enemy
+            for (Projectile p: projectileList){
+                if (p.collide(e)){
+                    e.sprite.setTexture(oofTexture);System.out.println("Ennemy hit");
+                }
+            }
+            
+        //set enemy's sprite to normal if they got hurt too long ago
+            if (e.canGetHurt()) {
+                e.sprite.setTexture(evilTexture);
+                e.lastHurtTime = 0;
+            }
+            
             //use iterator to find closest enemy
-            //while (iter.hasNext(){
-            //Enemy mal = iter.next();
             e.draw(batch);
                     
             if (player.collide(e)){

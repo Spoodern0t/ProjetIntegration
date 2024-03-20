@@ -25,7 +25,8 @@ public abstract class Entity {
     double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
     public Sprite sprite;
-    public float speed, hitboxRadius = 24,lastHurtTime = 0f,timeBetweenHurt = 1f;
+    public float speed, hitboxRadius = 24;
+    protected float lastHurtTime = 0f, timeBetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitbox;
     public Texture oofTexture =new Texture("sadge.png");
