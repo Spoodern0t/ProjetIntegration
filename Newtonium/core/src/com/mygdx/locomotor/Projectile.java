@@ -30,9 +30,10 @@ public class Projectile extends Entity{
     }
     
     public Projectile(double angle){ //only for testing purposes. ~AF
-        this(100, 3, angle, 10, 100,
+        this(1, 3, angle, 1, 100,
                 new Vector2(GameScreen.player.position.x,GameScreen.player.position.y),
                 new Texture("Evil.png"));
+        this.hitbox.radius = 12;
         this.sprite.setScale(1);
         this.sprite.setColor(Color.RED);
     }

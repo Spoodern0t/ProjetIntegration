@@ -148,6 +148,14 @@ public class GameScreen implements Screen {
             for (Projectile p: projectileList){
                 if (p.collide(e)){
                     e.sprite.setTexture(oofTexture);
+                    e.currentHP = e.currentHP - (int)p.flatDamage;
+                    p.currentHP = p.currentHP-1;
+                }
+                if(e.currentHP <=0){
+                    e.die();
+                }
+                if(p.currentHP <= 0){
+                    p.die();
                 }
             }
             
@@ -187,13 +195,14 @@ public class GameScreen implements Screen {
     private void shootBullet(Projectile projectile){ 
         
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            System.out.println("Space pressed");
             projectileList.add((Projectile)projectile.spawn());
         }
     }
     
+    //Enemy spawn
+    
     private void spawnEnemy(){
-        Enemy mal = new Enemy();
+        Enemy mal = new Enemy(1,100);
         enemyList.add((Enemy)mal.spawn());
         this.lastSpawnTime = TimeUtils.nanoTime();
         
