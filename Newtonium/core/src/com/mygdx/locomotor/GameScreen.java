@@ -149,12 +149,11 @@ public class GameScreen implements Screen {
             e.draw(batch);
                     
             if (player.collide(e)){
-                player.sprite.setTexture(oofTexture);System.out.println("True Box");
-            } else System.out.println("Box False");
+                player.sprite.setTexture(oofTexture);
+            }
             
             if(e.isDead){
                 despawnList.add(e);
-                //iter.remove();
                 /*Ededsound.play();*/
             }
         }
@@ -172,6 +171,7 @@ public class GameScreen implements Screen {
         batch.end();
     }
     
+    //only temporary, essentially does what (item).trigger() does. ~AF
     private void shootBullet(Projectile projectile){ 
         
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
@@ -185,22 +185,7 @@ public class GameScreen implements Screen {
         enemyList.add((Enemy)mal.spawn());
         this.lastSpawnTime = TimeUtils.nanoTime();
         
-    }
-    
-    public void EnemyAttack(){
-        ListIterator<Enemy> iter = enemyList.listIterator();
-        
-        while(iter.hasNext()){
-            Enemy mal = iter.next();
-            
-            if (player.canGetHurt()==true)
-                if (player.collide(mal)== true){
-                    player.sprite.setTexture(oofTexture);    
-                } 
-            
-        }   
-    }
-    
+    }       
     
     @Override
     public void resize(int width, int height) {

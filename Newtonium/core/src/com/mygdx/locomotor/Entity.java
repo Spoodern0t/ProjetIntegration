@@ -134,18 +134,6 @@ public abstract class Entity {
         } else return false;
     }
     
-    /**
-     * Checks for collision between this Entity's image and another Entity's
-     * image.
-     * @param target Entity to check for sprite collision with.
-     * @return true if there's a collision, false otherwise.
-     * @author Ekrem Yoruk
-     * @since 16/03/2024
-     */
-    public boolean sCollide(Entity target){//spriteCollide
-        return(this.sprite.getBoundingRectangle().overlaps(target.sprite.getBoundingRectangle()));
-        //Isn't this redundant? collide() is already based on sprite's size... ~AF
-    }
     
     
 //getters/setters
