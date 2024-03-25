@@ -52,6 +52,10 @@ public class Enemy extends Entity {
         Player p = GameScreen.player;
         super.update(deltaTime);
         
+        if (this.canGetHurt()) {
+            this.sprite.setTexture(GameScreen.evilTexture);
+        }
+        
     //moves enemy towards player
         if(p.position.x <= this.position.x){
               position.x -= speed*deltaTime;

@@ -23,10 +23,6 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
         this.flatDamage = flatDamage;
         this.decayTime = decayTime;
         this.angle = angle;
-        /*
-        this.position = new Vector2(speed * (float)Math.cos(angle), speed * (float)Math.sin(angle));
-        this.sprite.scale(20);
-        */
     }
     
     public Projectile(double angle){ //only for testing purposes. ~AF

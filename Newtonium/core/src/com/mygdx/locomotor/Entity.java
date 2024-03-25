@@ -26,7 +26,7 @@ public abstract class Entity {
     public Vector2 position;
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
-    protected float lastHurtTime = 0f, timeBetweenHurt = 1f;
+    public float lastHurtTime = 0f, timeBetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitbox;
     public Texture oofTexture =new Texture("sadge.png");
@@ -68,12 +68,15 @@ public abstract class Entity {
      * @since 15/03/2024
      */
     public void update(float deltaTime){
-        lastHurtTime += deltaTime;
-        if (this.currentHP <= 0){
-            this.die();
-        }
+        
         if (this.isDead){ //skips update early if object is dead
             return;
+        }
+        
+        lastHurtTime += deltaTime;
+        
+        if (this.currentHP <= 0){
+            this.die();
         }
     
     }
@@ -85,7 +88,7 @@ public abstract class Entity {
      * @since 16/03/2024
      */
     public boolean canGetHurt(){//damage cooldown timer
-        return(this.lastHurtTime - timeBetweenHurt >= 0);//returns true when substraction result becomes higher than 0.
+        return(this.lastHurtTime >= timeBetweenHurt);//returns true when substraction result becomes higher than 0.
     }
     
     /**
@@ -102,12 +105,13 @@ public abstract class Entity {
     }
     
     /**
-     * Marks object as dead. Used to prevent updates and remove it from lists.
+     * Marks object as dead and prepares its removal via depawnList.
      * @author Alexis Fecteau
-     * @since 15/03/2024
+     * @since 25/03/2024
      */
     public void die(){
         this.isDead = true;
+        GameScreen.despawnList.add(this);
         //may be overridden to add on-death interactions.
     }
     
