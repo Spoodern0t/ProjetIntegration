@@ -29,7 +29,7 @@ public class GameScreen implements Screen {
     
     
 //Graphics 
-    SpriteBatch batch;
+    
     Texture idleTexture;
     Texture oofTexture;
     Texture evilTexture;
@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
 //background assets
     Texture mapTexture;
     public Sprite mapSprite;
-    
+    GameController game;
     
 //world parameters (things about how the measurements are treated)ask Ekrem for source
     final int WORLD_WIDTH = 1000;
@@ -63,7 +63,7 @@ public class GameScreen implements Screen {
     
 //equivalent to the create() method for this class.
     public GameScreen(final GameController game){
-        
+        this.game = game;
         Camera = new OrthographicCamera(800,400);
         
         
@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
-        batch = new SpriteBatch(); //images currently on-screen
+        
     
        
     }
@@ -108,23 +108,23 @@ public class GameScreen implements Screen {
     //old camera stuff
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
-        batch.setProjectionMatrix((Camera.combined));
+        game.batch.setProjectionMatrix((Camera.combined));
         
-        batch.begin();
+        game.batch.begin();
 
         
     //map and background
         ScreenUtils.clear(0,0,0,1);
-        mapSprite.draw(batch);
+        mapSprite.draw(game.batch);
         
         
     //player
-        player.draw(batch); //as of now, this call triggers all the items. ~AF
+        player.draw(game.batch); //as of now, this call triggers all the items. ~AF
 
         
     //projectile logic        
         for (Projectile p: projectileList){
-            p.draw(batch);
+            p.draw(game.batch);
             if (p.isDead){
                 despawnList.add(p);
             }
@@ -167,7 +167,7 @@ public class GameScreen implements Screen {
             }
             
             //use iterator to find closest enemy
-            e.draw(batch);
+            e.draw(game.batch);
                     
             if (player.collide(e)){
                 player.sprite.setTexture(oofTexture);
@@ -189,7 +189,7 @@ public class GameScreen implements Screen {
             player.lastHurtTime = 0;
         }
                
-        batch.end();
+        game.batch.end();
     }
     
     
@@ -231,7 +231,7 @@ public class GameScreen implements Screen {
                 oofTexture.dispose();
                 mapSprite.getTexture().dispose();
                 evilTexture.dispose();
-                batch.dispose();
+                
     }
     
     
