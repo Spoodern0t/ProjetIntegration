@@ -52,10 +52,10 @@ public class GameScreen implements Screen {
     
 //game objects
     public static Player player;
-    Projectile projectile;
+    Item item;
     
     //maybe combine the next two into an Entity list? ~AF
-    public LinkedList<Projectile> projectileList; 
+    public static LinkedList<Projectile> projectileList; 
     public LinkedList<Enemy> enemyList;
     
     public LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
@@ -82,7 +82,10 @@ public class GameScreen implements Screen {
         
     //gameobject setup and playercamera.
         player = new Player(); 
-        projectile = new Projectile(0);//generic test projectile ~AF
+        
+        item = new Item();//generic test item ~AF
+        player.addItem(item);
+        
         Camera.position.set(player.hitbox.x,player.hitbox.y,20);
         Camera.update();  
         
@@ -116,12 +119,10 @@ public class GameScreen implements Screen {
         
         
     //player
-        player.draw(batch);
+        player.draw(batch); //as of now, this call triggers all the items. ~AF
 
         
-    //projectile logic
-        shootBullet(projectile); //TEMP: fire bullet if spacebar pressed ~AF
-        
+    //projectile logic        
         for (Projectile p: projectileList){
             p.draw(batch);
             if (p.isDead){
@@ -191,13 +192,6 @@ public class GameScreen implements Screen {
         batch.end();
     }
     
-    //only temporary, essentially does what (item).trigger() does. ~AF
-    private void shootBullet(Projectile projectile){ 
-        
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            projectileList.add((Projectile)projectile.spawn());
-        }
-    }
     
     //Enemy spawn
     

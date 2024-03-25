@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Adam Tamine
  */
-public class Projectile extends Entity{
+public class Projectile extends Entity{ //might become abstract superclass. ~AF
     
     double flatDamage, decayTime;
     double angle;

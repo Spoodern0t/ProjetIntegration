@@ -4,39 +4,85 @@
  */
 package com.mygdx.locomotor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
 /**
  * Eventual attribute of Player class. Controls projectile spawning logic.
  * @author Alexis Fecteau (2060238)
  * @Since 21/02/2024
  */
-public class Item { //Could be an abstract superclass for specified items. ~AF
+public class Item { //Will become a superclass for diversified items. ~AF
 
 //attributes
     int level = 1;
-    double cooldown; //seconds
-    //Projectile projectile;
+    protected float cooldown; //in seconds
+    protected float lastTriggerTime = 0f;
+    Projectile projectile;
     
 //constructors
     public Item(){ //unfinished
         this.level = 1;
-        this.cooldown = 1;
-        //this.projectile = 
+        this.cooldown = 0.25f;
+        this.projectile = new Projectile(0); //temporary
     }
     
 //methods
     
-    //item activation
-    public void trigger(){
+    public void update(float deltaTime){
+        
+        this.lastTriggerTime += deltaTime;
+        if (this.canTrigger()){
+            this.trigger();
+        }
+    }
+    
+    /**
+     * Checks whether this item meets the conditions to trigger. Used in update().
+     * @author Alexis Fecteau
+     * @since 25/03/2024
+     */
+    private boolean canTrigger(){
+        
+        //input check is temporary. The final items fire automatically. ~AF
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){ 
+            
+            if (this.lastTriggerTime >= this.cooldown){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Activates this item's effect and handles its logic.
+     * @author Alexis Fecteau
+     * @since 25/03/2024
+     */
+    private void trigger(){
+        
+    //reset trigger cooldown
+        this.lastTriggerTime = 0;
+        
+    //fire projectiles
+        GameScreen.projectileList.add((Projectile)this.projectile.spawn());
+        
         /*
-        this.projectile.spawn()
+        Projectiles should be spawned here, not in GameScreen.java
         
-        the idea is to handle projectile spawns in this method, based on
-        parameters like angle, speed, etc
+        The idea is to calculate projectile spawn parameters (angle, speed, etc)
+        in this method. This can be overridden for every functionally unique
+        projectile that requires new spawning arguments.
         
-        this method will be on a timer and most likely have a switch-case
-        based on item level. ~AF
+        This method's body will most likely include a switch-case block for
+        the item's level if we implement a level cap. Otherwise attributes
+        should upgraded via another method and then used here. 
+        
+        ~AF
         */
         
     }
+    
        
 }

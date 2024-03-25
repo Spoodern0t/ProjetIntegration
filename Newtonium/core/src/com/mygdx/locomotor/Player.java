@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,12 +23,15 @@ public class Player extends Entity {
     static float DEFAULT_SPEED = 300;
     int level, exp, levelThreshold = 100;
     static float Default_PlayerHitBox = 24;
-    private float timeBetweenHurt = 3f; //in seconds
+    
+    static final int MAXIMUM_ITEM_CAPACITY = 6;
+    private ArrayList<Item> items = new ArrayList<>();
     
 //Constructors     
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.level = Math.max(level, 1); //so level never goes under 0
+        this.timeBetweenHurt = 3f;
         //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
     }
@@ -41,6 +45,7 @@ public class Player extends Entity {
     public Player() {
         this(1);
     }
+    
 //Methods
     
     /**
@@ -64,7 +69,7 @@ public class Player extends Entity {
         
         super.update(deltaTime); //checks for death, skips update if dead
         
-    //moves player when movement keys are pressed
+    //player movement logic
         if(Gdx.input.isKeyPressed(Input.Keys.A)) position.x -= deltaTime*speed;
         if(Gdx.input.isKeyPressed(Input.Keys.D)) position.x += deltaTime*speed;
         if(Gdx.input.isKeyPressed(Input.Keys.W)) position.y += deltaTime*speed;
@@ -74,8 +79,14 @@ public class Player extends Entity {
         if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
         if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+         
+    //TODO: damage taken logic
         
-        //TODO: damage taken logic
+    //item trigger logic (Alexis Fecteau 25/03/2024)
+        for (Item i: items){
+            i.update(deltaTime);
+        }
+        
     }
     
     /**
@@ -109,6 +120,19 @@ public class Player extends Entity {
         );
     }
     
+//getters/setters
+    
+    /**
+     * Adds an item to the player's inventory. Restricted by item capacity.
+     * @param item Item to add to the player's inventory 
+     * @author Alexis Fecteau
+     * @since 25/03/2024
+     */
+    public void addItem(Item item){
+        if (items.size() < MAXIMUM_ITEM_CAPACITY){
+            items.add(item);
+        }
+    }
     
     
 }
