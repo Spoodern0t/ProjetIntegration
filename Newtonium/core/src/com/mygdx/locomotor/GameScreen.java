@@ -31,10 +31,13 @@ public class GameScreen implements Screen {
     
 //Graphics 
     
-    Texture idleTexture;
-    Texture oofTexture;
-    Texture evilTexture;
+
     //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
+    
+    static Texture idleTexture;
+    static Texture oofTexture;
+    static Texture evilTexture;
+    
     
 //background assets
     Texture mapTexture;
@@ -54,12 +57,12 @@ public class GameScreen implements Screen {
 //game objects
     public static Player player;
     Item item;
+    Enemy enemy;
     
-    //maybe combine the next two into an Entity list? ~AF
     public static LinkedList<Projectile> projectileList; 
-    public LinkedList<Enemy> enemyList;
+    public static LinkedList<Enemy> enemyList;
     
-    public LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
+    public static LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
     
     
 //equivalent to the create() method for this class.
@@ -81,15 +84,13 @@ public class GameScreen implements Screen {
         mapSprite.setSize(WORLD_WIDTH,WORLD_HEIGHT);
         
         
-    //gameobject setup and playercamera.
+    //gameobject setup (some temporary)
         player = new Player(); 
         
         item = new Item();//generic test item ~AF
         player.addItem(item);
         
-        Camera.position.set(player.hitbox.x,player.hitbox.y,20);
-        Camera.update();  
-        
+        enemy = new Enemy(1,100);
         
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
@@ -106,7 +107,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float deltaTime){
         
-    //old camera stuff
+    //move camera
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
         game.batch.setProjectionMatrix((Camera.combined));
@@ -114,94 +115,65 @@ public class GameScreen implements Screen {
         game.batch.begin();
 
         
-    //map and background
+    //render map background
         ScreenUtils.clear(0,0,0,1);
         mapSprite.draw(game.batch);
         
         
-    //player
+    //calculate player
         player.draw(game.batch); //as of now, this call triggers all the items. ~AF
 
         
-    //projectile logic        
+    //calculate projectiles
         for (Projectile p: projectileList){
             p.draw(game.batch);
-            if (p.isDead){
-                despawnList.add(p);
-            }
         }
-        
-        projectileList.removeAll(despawnList);
-        despawnList.clear();
-        
-        /* Flush all dead projectiles at once: Java raises an exception if a
-           collection is modified while a thread uses it (like in for-loops).
-        
-           TODO all Entities should be handled in the same list, loop and
-           flush regardless of their type. ~AF */
-        
-        
-    //enemylist stuff (including collision methods.)
-        ListIterator<Enemy> iter = enemyList.listIterator();
-        
+             
+    //calculate enemies      
         for (Enemy e: enemyList) {
             
         //check for projectile collision with enemy
             for (Projectile p: projectileList){
                 if (p.collide(e)){
-                    e.sprite.setTexture(oofTexture);
-                    e.currentHP = e.currentHP - (int)p.flatDamage;
-                    p.currentHP = p.currentHP-1;
-                }
-                if(e.currentHP <=0){
-                    e.die();
-                }
-                if(p.currentHP <= 0){
-                    p.die();
-                }
-            }
-            
-        //set enemy's sprite to normal if they got hurt too long ago
-            if (e.canGetHurt()) {
-                e.sprite.setTexture(evilTexture);
-                e.lastHurtTime = 0;
-            }
-            
-            //use iterator to find closest enemy
-            e.draw(game.batch);
                     
+                    //TODO: replace with hurtEnemy() method for Projectile.
+                    if (e.canGetHurt()){
+                        e.lastHurtTime = 0;
+                        e.sprite.setTexture(oofTexture);
+                        e.currentHP -= (int)p.flatDamage;
+                        p.currentHP--;
+                    }
+                }
+            }
+            projectileList.removeAll(despawnList);
+            
+            e.draw(batch);
+        
+        //check for player collision with enemy
             if (player.collide(e)){
-                player.sprite.setTexture(oofTexture);
+                if (player.canGetHurt()) {
+                    player.lastHurtTime = 0;
+                    player.sprite.setTexture(oofTexture);
+                }
             }
             
-            if(e.isDead){
-                despawnList.add(e);
-                /*Ededsound.play();*/
-            }
         }
+        /* 
+        Flush all dead entities at once: Java raises an exception if a
+        collection is modified while a thread uses it (like in for-loops).~AF
+        */
         enemyList.removeAll(despawnList);
         despawnList.clear();
         
-        if(TimeUtils.nanoTime() - this.lastSpawnTime > 3000000000L) {
-            spawnEnemy();
-        }
-        if (player.canGetHurt()) {
-            player.sprite.setTexture(idleTexture);
-            player.lastHurtTime = 0;
+    //spawn enemies periodically
+        if(TimeUtils.nanoTime() - lastSpawnTime > 3000000000L) {
+            enemyList.add((Enemy)enemy.spawn());
+            lastSpawnTime = TimeUtils.nanoTime();
         }
                
         game.batch.end();
     }
     
-    
-    //Enemy spawn
-    
-    private void spawnEnemy(){
-        Enemy mal = new Enemy(1,100);
-        enemyList.add((Enemy)mal.spawn());
-        this.lastSpawnTime = TimeUtils.nanoTime();
-        
-    }       
     
     @Override
     public void resize(int width, int height) {
@@ -227,7 +199,7 @@ public class GameScreen implements Screen {
         
     }
     @Override
-    public void dispose() {
+    public void dispose() { //what does this do? ~AF
                 idleTexture.dispose();
                 oofTexture.dispose();
                 mapSprite.getTexture().dispose();

@@ -81,6 +81,9 @@ public class Player extends Entity {
         if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
          
     //TODO: damage taken logic
+        if (this.canGetHurt()) {
+            this.sprite.setTexture(GameScreen.idleTexture);
+        }
         
     //item trigger logic (Alexis Fecteau 25/03/2024)
         for (Item i: items){
