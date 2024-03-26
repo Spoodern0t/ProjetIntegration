@@ -147,7 +147,7 @@ public class GameScreen implements Screen {
             }
             projectileList.removeAll(despawnList);
             
-            e.draw(batch);
+            e.draw(game.batch);
         
         //check for player collision with enemy
             if (player.collide(e)){

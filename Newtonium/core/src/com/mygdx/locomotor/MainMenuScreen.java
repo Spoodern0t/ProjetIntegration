@@ -7,16 +7,19 @@ package com.mygdx.locomotor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
- *
- * @author Yoruk Ekrem
+ * Warning: This is a very bare bones edition of a main menu. 
+ * Direct any ideas for improvement to the authors by way of messages.
+ * @author Yoruk Ekrem et Cyr Thomas
  */
 public class MainMenuScreen implements Screen {
     
     final GameController game;
     OrthographicCamera camera;
+    
     
     
     public MainMenuScreen(final GameController game) {
