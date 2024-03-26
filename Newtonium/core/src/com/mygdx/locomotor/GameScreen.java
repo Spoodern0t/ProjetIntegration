@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -26,14 +27,14 @@ public class GameScreen implements Screen {
 
 //screen
     public Camera Camera;
-    
+    Viewport viewport;
     
 //Graphics 
     
     Texture idleTexture;
     Texture oofTexture;
     Texture evilTexture;
-    
+    //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
     
 //background assets
     Texture mapTexture;
