@@ -80,10 +80,28 @@ public class Enemy extends Entity {
     @Override
     public Entity spawn(){
         
+        Vector2 pos;
+        
     //random spawning position
         float posx = MathUtils.random(0,1000);
         float posy = MathUtils.random(0,1000);
-        Vector2 pos = new Vector2(posx, posy);
+        
+        if (posx >= 500 & posy >= 500){
+             pos = new Vector2(GameScreen.Camera.position.x+400 , GameScreen.Camera.position.y + 200);
+        }else
+        if (posx <= 500 & posy >= 500){
+             pos = new Vector2(GameScreen.Camera.position.x-400 , GameScreen.Camera.position.y + 200);
+        }else
+        if (posx >= 500 & posy <= 500){
+             pos = new Vector2(GameScreen.Camera.position.x+400 , GameScreen.Camera.position.y - 200);
+        }else
+        if (posx <= 500 & posy <= 500){
+             pos = new Vector2(GameScreen.Camera.position.x-400 , GameScreen.Camera.position.y - 200);
+        }
+        else{
+            pos = new Vector2(GameScreen.Camera.position.x-400 , GameScreen.Camera.position.y - 200);
+        }
+    
         //TODO: make enemies spawn at edge of screen instead of random stage coordinates
         
         return new Enemy(

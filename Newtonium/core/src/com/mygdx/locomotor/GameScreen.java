@@ -26,7 +26,7 @@ import java.util.ListIterator;
 public class GameScreen implements Screen {
 
 //screen
-    public Camera Camera;
+    static public Camera Camera;
     Viewport viewport;
     
 //Graphics 
@@ -41,14 +41,9 @@ public class GameScreen implements Screen {
     
 //background assets
     Texture mapTexture;
-    public Sprite mapSprite;
+    static public Sprite mapSprite;
     GameController game;
-    
-//world parameters (things about how the measurements are treated)ask Ekrem for source
-    final int WORLD_WIDTH = 1000;
-    final int WORLD_HEIGHT = 1000; //could the level be the image's dimensions? ~AF
-
-    
+        
 //timers (cooldowns and delays for game objects that occur in screen)
     public long lastSpawnTime = 0l;
     int wave;
@@ -81,7 +76,12 @@ public class GameScreen implements Screen {
         mapTexture = new Texture("MapImg.jpg");
         mapSprite = new Sprite(mapTexture);
         mapSprite.setPosition(0,0);
-        mapSprite.setSize(WORLD_WIDTH,WORLD_HEIGHT);
+        
+        //world boudries
+        final int WORLD_WIDTH = mapSprite.getRegionWidth();
+        final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
+        mapSprite.setSize(1000,1000);
+       
         
         
     //gameobject setup (some temporary)
@@ -152,8 +152,10 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
+                    player.currentHP -= e.damageMod;
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(oofTexture);
+                    e.currentHP --;
                 }
             }
             

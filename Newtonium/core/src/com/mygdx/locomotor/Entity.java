@@ -134,8 +134,8 @@ public abstract class Entity {
      * @since 15/03/2024
      */
     public boolean collide(Entity target){
-        if (this != target){
-            return(this.hitbox.overlaps(target.hitbox));
+        if (this.hitbox.overlaps(target.hitbox)){
+            return true;
         } else return false;
     }
     

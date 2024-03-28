@@ -29,9 +29,9 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
         this(1, 3, angle, 1, 100,
                 new Vector2(GameScreen.player.position.x,GameScreen.player.position.y),
                 new Texture("Evil.png"));
-        this.hitbox.radius = 12;
         this.sprite.setScale(1);
         this.sprite.setColor(Color.RED);
+        this.hitbox.radius = this.sprite.getScaleX()/2;
     }
     
 //methods

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Player extends Entity {
     
 //Attributes
-    static int DEFAULT_MAX_HP = 100;
+    static int DEFAULT_MAX_HP = 10;
     static float DEFAULT_SPEED = 300;
     int level, exp, levelThreshold = 100;
     static float Default_PlayerHitBox = 24;
@@ -76,9 +76,9 @@ public class Player extends Entity {
         if(Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
         
         if(position.x-(sprite.getWidth()*sprite.getScaleX()/2)<=0) position.x=(sprite.getWidth()*sprite.getScaleX()/2);
-        if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x=Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
+        if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=GameScreen.mapSprite.getWidth()) position.x=GameScreen.mapSprite.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
         if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
-        if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y=Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+        if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=GameScreen.mapSprite.getHeight()) position.y=GameScreen.mapSprite.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
          
     //TODO: damage taken logic
         if (this.canGetHurt()) {
