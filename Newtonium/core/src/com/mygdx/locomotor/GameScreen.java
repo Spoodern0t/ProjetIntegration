@@ -12,11 +12,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Locale;
 
 /**
  *
@@ -54,11 +57,15 @@ public class GameScreen implements Screen {
     Item item;
     Enemy enemy;
     
+    
     public static LinkedList<Projectile> projectileList; 
     public static LinkedList<Enemy> enemyList;
     
     public static LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
+// Heads up Display    
     
+    public int score = 0;
+    float hudVertMargin, hudScorex, hudRightx, hudHealthx, hudRow1y,hudRow2y,hudSectionWidth;//Tableau 2x3 pour placer les objets hud.
     
 //equivalent to the create() method for this class.
     public GameScreen(final GameController game){
@@ -77,7 +84,7 @@ public class GameScreen implements Screen {
         mapSprite = new Sprite(mapTexture);
         mapSprite.setPosition(0,0);
         
-        //world boudries
+        //world boundaries
         final int WORLD_WIDTH = mapSprite.getRegionWidth();
         final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
         mapSprite.setSize(1000,1000);
@@ -96,12 +103,33 @@ public class GameScreen implements Screen {
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-    
+        prepHud();//prepares Hud once.
        
     }
+    float xmodifier = -200;
+    float ymodifier = -200;
+    
+    public void prepHud(){
+        //Make default bitmapfont customizable(size and all.)
+        //FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(INSERT FONT FILE NAME HERE);
+        //FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        //example: fontParameter.size = 64;//to change letter size kinda like in word.
+        
+        
+        //Scaling hud to fit game window.
+        game.font.getData().setScale(1);
+        //calculate Margins
+        hudVertMargin = game.font.getCapHeight() /2;
+        hudScorex = hudVertMargin + xmodifier ;
+        hudRightx = ((Camera.viewportWidth * 2/3) - hudScorex );
+        hudHealthx = (Camera.viewportWidth* 2/3 );
+        hudRow1y = (Camera.viewportHeight - hudVertMargin );
+        hudRow2y = (hudRow1y - hudVertMargin - game.font.getCapHeight()) ;
+        hudSectionWidth = Camera.viewportWidth / 2;
+    }
+    
     //TODO: WE NEED TO REMAKE EVERY METHODS IN EVERY CLASS IN A WAY THAT ONLY METHODS THAT INVOLVE WHAT WE SEE HAPPEN IN A GAME HAPPEN HERE.
     //exceptions are: class descriptors and cooldown related things. I put alot of comments for earier organisation.
-
     
 //Real-time game logic (called for each new frame)
     @Override
@@ -158,7 +186,9 @@ public class GameScreen implements Screen {
                     e.currentHP --;
                 }
             }
-            
+            if(e.currentHP<=0){
+                score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
+            }
         }
         /* 
         Flush all dead entities at once: Java raises an exception if a
@@ -172,8 +202,36 @@ public class GameScreen implements Screen {
             enemyList.add((Enemy)enemy.spawn());
             lastSpawnTime = TimeUtils.nanoTime();
         }
-               
+    // Hud related things(PLACEHOLDER)-EY           
+        updateHud();
+        
         game.batch.end();
+    }
+    private void updateHud(){
+        /*//Testing equipment FOR (CO ORDINATES)
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) { 
+                                                       ymodifier += Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) { 
+                                                       ymodifier -= Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) { 
+                                                       xmodifier -= Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { 
+                                                        xmodifier += Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
+        
+        
+        System.out.println(String.valueOf(hudRow1y)+" scorey");
+        System.out.println(String.valueOf(hudScorex)+" scorex");
+        System.out.println(String.valueOf(xmodifier)+" modifierscorex");
+        System.out.println(String.valueOf(ymodifier)+" modifierscorey");
+        */
+        
+        //Rendering top row
+        game.font.draw(game.batch, "Score",Camera.position.x + hudScorex + xmodifier,Camera.position.y + hudRow1y +ymodifier, hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
+        //2nd row
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        
     }
     
     

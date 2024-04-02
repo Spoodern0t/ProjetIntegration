@@ -19,7 +19,6 @@ public class GameController extends Game {
             
             batch = new SpriteBatch(); //images currently on-screen
             font = new BitmapFont();
-            
             menuScreen = new MainMenuScreen(this);
             this.setScreen(menuScreen);
 
@@ -40,6 +39,7 @@ public class GameController extends Game {
             public void dispose () {
                 batch.dispose();
                 menuScreen.dispose();
+                font.dispose();
 	}
 
     
