@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 27/03/2024
+ * @since 02/04/2024
  */
 public class Enemy extends Entity {
     
@@ -79,8 +79,26 @@ public class Enemy extends Entity {
     public Entity spawn(){
         
         Vector2 pos;
-        
+        float posX;
+        float posY;
+              
     //random spawning position
+        float camW = GameScreen.Camera.viewportWidth/2;
+        float camH = GameScreen.Camera.viewportHeight/2;
+        float camX = GameScreen.Camera.position.x;
+        float camY = GameScreen.Camera.position.y;
+        
+        if (MathUtils.randomBoolean()){
+            posX = MathUtils.random(camX-camW-sprite.getWidth(), camX+camW);
+            posY = (MathUtils.randomBoolean()) ? camY-camH-sprite.getHeight() : camY+camH;
+        } else {
+            posX = (MathUtils.randomBoolean()) ? camX-camW-sprite.getWidth() : camX+camW;
+            posY = MathUtils.random(camY-camH-sprite.getHeight(), camY+camH);
+        }
+        
+        pos = new Vector2(posX, posY);
+
+        /*
         float posx = MathUtils.random(0,1000);
         float posy = MathUtils.random(0,1000);
         
@@ -99,6 +117,7 @@ public class Enemy extends Entity {
         else{
             pos = new Vector2(GameScreen.Camera.position.x-400 , GameScreen.Camera.position.y - 200);
         }
+        */
     
         //TODO: make enemies spawn at edge of screen instead of random stage coordinates
         

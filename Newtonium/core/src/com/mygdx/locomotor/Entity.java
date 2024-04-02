@@ -22,7 +22,6 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Entity {
     
 //Attributes
-    
     public int maxHP, currentHP, knockBack=0;
     double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
@@ -39,7 +38,7 @@ public abstract class Entity {
     public Entity(int maxHP, float speed, Vector2 position, Texture img){
         
         this.sprite = new Sprite(img);
-        this.sprite.setScale(4); //can be set later
+        //this.sprite.setScale(4); //TODO: set size instead of scale. ~AF 
         this.position = position;
         this.hitboxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
         this.hitbox = new Circle(position,hitboxRadius);
