@@ -25,7 +25,6 @@ public class Player extends Entity {
     static int DEFAULT_MAX_HP = 10;
     static float DEFAULT_SPEED = 300;
     int level, exp, levelThreshold = 100;
-    static float Default_PlayerHitBox = 24;
     
     static final int MAXIMUM_ITEM_CAPACITY = 6;
     private ArrayList<Item> items = new ArrayList<>();
@@ -42,7 +41,6 @@ public class Player extends Entity {
     public Player(int level) {
         this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
         this.sprite.setColor(Color.GREEN);
-        this.hitboxRadius = Player.Default_PlayerHitBox;
     }
     
     public Player() {
@@ -74,17 +72,15 @@ public class Player extends Entity {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) position.y += deltaTime*speed;
         if (Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
         
-        //keep player witin the boundaries
-        float offsetX = (sprite.getWidth()*sprite.getScaleX() - sprite.getWidth())/2;
-        float offsetY = (sprite.getHeight()*sprite.getScaleY() - sprite.getHeight())/2;
-        if (position.x - offsetX < 0)
-            position.x = offsetX;
-        if (position.x + sprite.getWidth() + offsetX > GameScreen.mapSprite.getWidth())
-            position.x = GameScreen.mapSprite.getWidth() - (sprite.getWidth() + offsetX);
-        if (position.y - offsetY < 0)
-            position.y = offsetY;
-        if (position.y + sprite.getHeight() + offsetY > GameScreen.mapSprite.getHeight())
-            position.y = GameScreen.mapSprite.getHeight() - (sprite.getHeight() + offsetY);
+        //keep player within the boundaries
+        if (position.x < 0)
+            position.x = 0;
+        if (position.x + sprite.getWidth() > GameScreen.mapSprite.getWidth())
+            position.x = GameScreen.mapSprite.getWidth() - sprite.getWidth();
+        if (position.y < 0)
+            position.y = 0;
+        if (position.y + sprite.getHeight() > GameScreen.mapSprite.getHeight())
+            position.y = GameScreen.mapSprite.getHeight() - sprite.getHeight();
          
     //damage taken logic
         if (this.canGetHurt()) {

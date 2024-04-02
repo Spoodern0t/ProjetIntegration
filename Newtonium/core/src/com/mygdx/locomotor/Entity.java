@@ -38,9 +38,11 @@ public abstract class Entity {
     public Entity(int maxHP, float speed, Vector2 position, Texture img){
         
         this.sprite = new Sprite(img);
-        //this.sprite.setScale(4); //TODO: set size instead of scale. ~AF 
+        //DO NOT USE SETSCALE()!
+        //Either use setSize() or manually change the texture file's dimensions.
+        //A sprite's position is its bottom left corner, and it doesn't adjust when scaling! ~AF
         this.position = position;
-        this.hitboxRadius = (sprite.getHeight()*sprite.getScaleY())/2;
+        this.hitboxRadius = sprite.getHeight()/2;
         this.hitbox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
         this.currentHP = maxHP;
@@ -95,7 +97,7 @@ public abstract class Entity {
      */
     public void draw(SpriteBatch batch){
         this.update(Gdx.graphics.getDeltaTime());
-        this.sprite.setPosition(this.position.x,this.position.y);
+        this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
         this.hitbox.setPosition(this.position);
         this.sprite.draw(batch);
     }
@@ -124,9 +126,7 @@ public abstract class Entity {
      * @return true if there's a collision, false otherwise.
      */
     public boolean collide(Entity target){
-        if (this.hitbox.overlaps(target.hitbox)){
-            return true;
-        } else return false;
+        return (this.hitbox.overlaps(target.hitbox));
     }
     
     
