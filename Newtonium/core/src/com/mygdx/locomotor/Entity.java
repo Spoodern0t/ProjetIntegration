@@ -13,8 +13,10 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  *
- * @author Yoruk Ekrem (1676683)
+ * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
+ * 
+ * @since 25/03/2024
  */
 
 public abstract class Entity {
@@ -64,8 +66,6 @@ public abstract class Entity {
      * current time/conditions.
      * @param deltaTime Time since last call to render(). Usually gotten from 
      * Gdx.graphics.getDeltaTime()
-     * @author Alexis Fecteau
-     * @since 15/03/2024
      */
     public void update(float deltaTime){
         
@@ -84,8 +84,6 @@ public abstract class Entity {
     /**
      * Tells whether this object can currently take damage.
      * @return true if the damage cool-down is over.
-     * @author Ekrem Yoruk
-     * @since 16/03/2024
      */
     public boolean canGetHurt(){//damage cooldown timer
         return(this.lastHurtTime >= timeBetweenHurt);//returns true when substraction result becomes higher than 0.
@@ -94,7 +92,6 @@ public abstract class Entity {
     /**
      * Updates the object's position and moves its graphics and hit-box there.
      * @param batch This object's associated sprites
-     * @author Nathan Latendresse, Ekrem Yoruk
      * @since 15/03/2024
      */
     public void draw(SpriteBatch batch){
@@ -106,8 +103,6 @@ public abstract class Entity {
     
     /**
      * Marks object as dead and prepares its removal via depawnList.
-     * @author Alexis Fecteau
-     * @since 25/03/2024
      */
     public void die(){
         this.isDead = true;
@@ -121,8 +116,6 @@ public abstract class Entity {
      * varied starting conditions (e.g. coordinates, angle, stat multipliers)
      * without defining them individually.
      * @return new Entity similar to calling object
-     * @author Alexis Fecteau
-     * @since 15/03/2024
      */
     public abstract Entity spawn();
     
@@ -130,8 +123,6 @@ public abstract class Entity {
      * Checks for collision between this object and another Entity.
      * @param target Entity to check for collision with. 
      * @return true if there's a collision, false otherwise.
-     * @author Alexis Fecteau
-     * @since 15/03/2024
      */
     public boolean collide(Entity target){
         if (this.hitbox.overlaps(target.hitbox)){

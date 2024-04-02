@@ -4,6 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * 
+ * @author Ekrem Yoruk (1676683)
+ * 
+ * @since 15/03/2024
+ */
 public class GameController extends Game {
         //this class will likely be reserved for main menu.
         //this version has not much in ways of change but the change will be arriving strongly VERY SOON.

@@ -9,8 +9,10 @@ import com.badlogic.gdx.Input;
 
 /**
  * Eventual attribute of Player class. Controls projectile spawning logic.
+ * 
  * @author Alexis Fecteau (2060238)
- * @Since 21/02/2024
+ * 
+ * @Since 25/03/2024
  */
 public class Item { //Will become a superclass for diversified items. ~AF
 
@@ -39,8 +41,6 @@ public class Item { //Will become a superclass for diversified items. ~AF
     
     /**
      * Checks whether this item meets the conditions to trigger. Used in update().
-     * @author Alexis Fecteau
-     * @since 25/03/2024
      */
     private boolean canTrigger(){
         
@@ -57,8 +57,6 @@ public class Item { //Will become a superclass for diversified items. ~AF
     
     /**
      * Activates this item's effect and handles its logic.
-     * @author Alexis Fecteau
-     * @since 25/03/2024
      */
     private void trigger(){
         

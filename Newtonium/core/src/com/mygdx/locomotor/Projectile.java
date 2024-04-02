@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 /**
  *
  * @author Adam Tamine
+ * @author Alexis Fecteau (2060238)
+ * 
+ * @since 18/03/2024
  */
 public class Projectile extends Entity{ //might become abstract superclass. ~AF
     
@@ -39,8 +42,6 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * Updates the projectile object for the current time and conditions.
      * Also handles object logic.
      * @param deltaTime Time since last call to render()
-     * @author Adam Tamine
-     * @since 06/03/2024
      */
     @Override
     public void update(float deltaTime){
@@ -56,8 +57,6 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * Creates a copy of a Projectile object that spawns at the player's
      * position with a random angle.
      * @return new Projectile object similar to calling instance
-     * @author Alexis Fecteau
-     * @since 18/03/2024
      */
     @Override
     public Entity spawn(){ //currently simplified for testing purposes

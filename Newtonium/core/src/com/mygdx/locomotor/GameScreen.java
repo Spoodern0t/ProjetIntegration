@@ -23,7 +23,10 @@ import java.util.Locale;
 
 /**
  *
- * @author Yoruk Ekrem
+ * @author Ekrem Yoruk (1676683)
+ * @author Alexis Fecteau (2060238)
+ * 
+ * @since 01/04/2024
  */
 
 public class GameScreen implements Screen {
@@ -88,6 +91,7 @@ public class GameScreen implements Screen {
         final int WORLD_WIDTH = mapSprite.getRegionWidth();
         final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
         mapSprite.setSize(1000,1000);
+        
        
         
         

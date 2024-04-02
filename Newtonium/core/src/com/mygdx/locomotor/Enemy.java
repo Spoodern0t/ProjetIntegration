@@ -12,6 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 /**
  *
  * @author Nathan Latendresse (2249229)
+ * @author Alexis Fecteau (2060238)
+ * 
+ * @since 27/03/2024
  */
 public class Enemy extends Entity {
     
@@ -38,13 +41,10 @@ public class Enemy extends Entity {
     }
     
  //methods
-
     /**
      * Updates the enemy object for the current time and conditions.
      * Also handles object logic.
      * @param deltaTime Time since last call to render()
-     * @author Nathan Latendresse
-     * @since 21/02/2024
      */
     @Override
     public void update (float deltaTime){
@@ -74,8 +74,6 @@ public class Enemy extends Entity {
     /**
      * Creates a copy of an Enemy object that spawns at a random location.
      * @return new Enemy object similar to calling instance
-     * @author Alexis Fecteau
-     * @since 15/03/2024
      */
     @Override
     public Entity spawn(){

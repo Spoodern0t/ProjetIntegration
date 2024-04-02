@@ -53,7 +53,6 @@ public class Player extends Entity {
     
     /**
      * Increases the player object's level attribute
-     * @since 15/03/2024
      */
     public void levelUp(){
         this.level++; //maybe add an int parameter later for multiple level-ups?
@@ -63,7 +62,6 @@ public class Player extends Entity {
      * Updates the player object for the current time and conditions.
      * Also handles object logic.
      * @param deltaTime Time since last call to render()
-     * @since 02/04/2024
      */
     @Override  
     public void update(float deltaTime){
@@ -102,8 +100,6 @@ public class Player extends Entity {
     
     /**
      * Marks player as dead and prints test message.
-     * TODO: show game over screen upon player death
-     * @since 05/03/2024
      */
     @Override
     public void die(){
@@ -119,7 +115,6 @@ public class Player extends Entity {
      * Creates a copy of a Player object that's level 1 and spawns at the
      * middle of the screen.
      * @return new Player object similar to calling instance
-     * @since 15/03/2024
      */
     @Override
     public Entity spawn(){
@@ -137,7 +132,6 @@ public class Player extends Entity {
     /**
      * Adds an item to the player's inventory. Restricted by item capacity.
      * @param item Item to add to the player's inventory 
-     * @since 25/03/2024
      */
     public void addItem(Item item){
         if (items.size() < MAXIMUM_ITEM_CAPACITY){

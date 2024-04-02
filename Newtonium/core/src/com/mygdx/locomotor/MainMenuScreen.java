@@ -13,7 +13,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /**
  * Warning: This is a very bare bones edition of a main menu. 
  * Direct any ideas for improvement to the authors by way of messages.
- * @author Yoruk Ekrem et Cyr Thomas
+ * 
+ * @author Ekrem Yoruk (1676683)
+ * @author Thomas Cyr
+ * 
+ * @since 25/03/2024
  */
 public class MainMenuScreen implements Screen {
     
