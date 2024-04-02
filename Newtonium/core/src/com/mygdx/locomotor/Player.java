@@ -14,6 +14,9 @@ import java.util.ArrayList;
 /**
  *
  * @author Nathan Latendresse (2249229)
+ * @author Alexis Fecteau (2060238)
+ * 
+ * @since 02/04/2024
  *
  */
 public class Player extends Entity {
@@ -50,7 +53,6 @@ public class Player extends Entity {
     
     /**
      * Increases the player object's level attribute
-     * @author Alexis Fecteau
      * @since 15/03/2024
      */
     public void levelUp(){
@@ -61,8 +63,7 @@ public class Player extends Entity {
      * Updates the player object for the current time and conditions.
      * Also handles object logic.
      * @param deltaTime Time since last call to render()
-     * @author Nathan Latendresse
-     * @since 21/02/2024
+     * @since 02/04/2024
      */
     @Override  
     public void update(float deltaTime){
@@ -70,22 +71,29 @@ public class Player extends Entity {
         super.update(deltaTime); //checks for death, skips update if dead
         
     //player movement logic
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) position.x -= deltaTime*speed;
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) position.x += deltaTime*speed;
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) position.y += deltaTime*speed;
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) position.x -= deltaTime*speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) position.x += deltaTime*speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) position.y += deltaTime*speed;
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
         
-        if(position.x-(sprite.getWidth()*sprite.getScaleX()/2)<=0) position.x=(sprite.getWidth()*sprite.getScaleX()/2);
-        if(position.x+(sprite.getWidth()*sprite.getScaleX()/2)>=GameScreen.mapSprite.getWidth()) position.x=GameScreen.mapSprite.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
-        if(position.y-(sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y=(sprite.getHeight()*sprite.getScaleY()/2);
-        if(position.y+(sprite.getHeight()*sprite.getScaleY()/2)>=GameScreen.mapSprite.getHeight()) position.y=GameScreen.mapSprite.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+        //keep player witin the boundaries
+        float offsetX = (sprite.getWidth()*sprite.getScaleX() - sprite.getWidth())/2;
+        float offsetY = (sprite.getHeight()*sprite.getScaleY() - sprite.getHeight())/2;
+        if (position.x - offsetX < 0)
+            position.x = offsetX;
+        if (position.x + sprite.getWidth() + offsetX > GameScreen.mapSprite.getWidth())
+            position.x = GameScreen.mapSprite.getWidth() - (sprite.getWidth() + offsetX);
+        if (position.y - offsetY < 0)
+            position.y = offsetY;
+        if (position.y + sprite.getHeight() + offsetY > GameScreen.mapSprite.getHeight())
+            position.y = GameScreen.mapSprite.getHeight() - (sprite.getHeight() + offsetY);
          
-    //TODO: damage taken logic
+    //damage taken logic
         if (this.canGetHurt()) {
             this.sprite.setTexture(GameScreen.idleTexture);
         }
         
-    //item trigger logic (Alexis Fecteau 25/03/2024)
+    //item trigger logic
         for (Item i: items){
             i.update(deltaTime);
         }
@@ -95,21 +103,22 @@ public class Player extends Entity {
     /**
      * Marks player as dead and prints test message.
      * TODO: show game over screen upon player death
-     * @author Ekrem Yoruk
      * @since 05/03/2024
      */
     @Override
     public void die(){
         super.die();
-        /*endgamemenuopeninator(); to, you know open the darn game over screen.*/
-        System.out.println("Playur is ded! Not big souprice.");  /*endgamemenuopen();*/
+        /*
+        //player death prompts game to end, etc
+        endgameMenuOpen();
+        System.out.println("Playur is ded! Not big souprice.");
+        */
     }
     
     /**
      * Creates a copy of a Player object that's level 1 and spawns at the
      * middle of the screen.
      * @return new Player object similar to calling instance
-     * @author Alexis Fecteau
      * @since 15/03/2024
      */
     @Override
@@ -128,7 +137,6 @@ public class Player extends Entity {
     /**
      * Adds an item to the player's inventory. Restricted by item capacity.
      * @param item Item to add to the player's inventory 
-     * @author Alexis Fecteau
      * @since 25/03/2024
      */
     public void addItem(Item item){
