@@ -56,9 +56,9 @@ public class GameScreen implements Screen {
     
     
 //game objects
-    public static Player player;
+    static Player currentPlayer = Global.Players.testPlayer;
     Item item;
-    Enemy enemy;
+    Enemy enemy = Global.Enemies.testEnemy;
     
     
     public static LinkedList<Projectile> projectileList; 
@@ -96,12 +96,7 @@ public class GameScreen implements Screen {
         
         
     //gameobject setup (some temporary)
-        player = new Player(); 
-        
-        item = new Item();//generic test item ~AF
-        player.addItem(item);
-        
-        enemy = new Enemy(1,100);
+        currentPlayer.addItem(Global.Items.testItem);
         
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
@@ -140,7 +135,7 @@ public class GameScreen implements Screen {
     public void render(float deltaTime){
         
     //move camera
-        Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
+        Camera.position.set(currentPlayer.sprite.getX(),currentPlayer.sprite.getY(),0);
         Camera.update();
         game.batch.setProjectionMatrix((Camera.combined));
         
@@ -153,7 +148,7 @@ public class GameScreen implements Screen {
         
         
     //calculate player
-        player.draw(game.batch); //as of now, this call triggers all the items. ~AF
+        currentPlayer.draw(game.batch); //as of now, this call triggers all the items. ~AF
 
         
     //calculate projectiles
@@ -182,11 +177,11 @@ public class GameScreen implements Screen {
             e.draw(game.batch);
         
         //check for player collision with enemy
-            if (player.collide(e)){
-                if (player.canGetHurt()) {
-                    player.currentHP -= e.damageMod;
-                    player.lastHurtTime = 0;
-                    player.sprite.setTexture(oofTexture);
+            if (currentPlayer.collide(e)){
+                if (currentPlayer.canGetHurt()) {
+                    currentPlayer.currentHP -= e.damageMod;
+                    currentPlayer.lastHurtTime = 0;
+                    currentPlayer.sprite.setTexture(oofTexture);
                     e.currentHP --;
                 }
             }
@@ -235,7 +230,7 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
         //2nd row
         game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
         
     }
     
@@ -264,11 +259,7 @@ public class GameScreen implements Screen {
         
     }
     @Override
-    public void dispose() { //what does this do? ~AF
-                idleTexture.dispose();
-                oofTexture.dispose();
-                mapSprite.getTexture().dispose();
-                evilTexture.dispose();
+    public void dispose() {
                 
     }
     

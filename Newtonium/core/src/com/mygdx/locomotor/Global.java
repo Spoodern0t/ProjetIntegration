@@ -4,43 +4,68 @@
  */
 package com.mygdx.locomotor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 
 /**
  *
  * @author Thomas Cyr 
+ * @author Alexis Fecteau (2060238)
+ * 
+ * @since 03/04/2024
  */
 public class Global {
     
+    //preset coordinates
+    private static final Vector2 nullPosition = new Vector2(0,0); //for when calling instance position doesnt matter
+    private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
     
+    //textures
+    private static final Texture hurtPlaceholder = new Texture("sadge.png");
+    private static final Texture playerPlaceholder = new Texture("LilBoy.png");
+    private static final Texture evilPlaceholder = new Texture("Evil.png");
+    private static final Texture mapPlaceholder = new Texture("MapImg.jpg");
     
-    public static class Textures {
-   
-        //creating the textures
-        public static Texture hurt =new Texture("sadge.png");
+    //player types
+    public static class Players{
         
-        public static Texture idlePlayer = new Texture("LilBoy.png");
+        private static final int DEFAULT_PLAYER_HP = 10;
+        private static final float DEFAULT_PLAYER_SPEED = 300;
         
-        public static Texture evil = new Texture("Evil.png");
-        
-        public static Texture map = new Texture("MapImg.jpg");
+        //template objects for spawn() copies
+        static Player testPlayer = new Player(1, DEFAULT_PLAYER_HP, DEFAULT_PLAYER_SPEED, centerScreen, playerPlaceholder);
         
     }
     
-    //Put all the different types of enemy objects and their attributes (for later mostly)
-    public static class Enemies {
+    //enemy types
+    public static class Enemies{
+        
+        private static final int DEFAULT_ENEMY_HP = 1;
+        private static final float DEFAULT_ENEMY_SPEED = 100;
+        
+        //template objects for spawn() copies
+        public static Enemy testEnemy = new Enemy(1, DEFAULT_ENEMY_HP, DEFAULT_ENEMY_SPEED, nullPosition, evilPlaceholder);
         
     }
     
-    //Put all the different types of projectile objects and their attributes (for later mostly)
+    //projectile types
     public static class Projectiles {
         
+        private static final double DEFAULT_PROJ_DECAYTIME = 3; //seconds before normal despawn
+        private static final int DEFAULT_PROJ_PIERCE = 1; //enemy contacts necessary for early despawn
+        private static final float DEFAULT_PROJ_SPEED = 150;
+        
+        //template objects for spawn() copies
+        public static Projectile testProjectile = new Projectile(1, DEFAULT_PROJ_DECAYTIME, 0, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
     }
     
-    //Put all the different item objects and their attributes (for later mostly)
-    public static class items {
+    //prebuilt item objects (NOT templates, these get used as themselves)
+    public static class Items {
         
+        //prebuilt objects to equip Player with
+        public static Item testItem = new Item(1, 0.25f, Projectiles.testProjectile);
     }
     
 }

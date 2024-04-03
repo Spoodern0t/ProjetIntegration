@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 25/03/2024
+ * @since 03/04/2024
  */
 
 public abstract class Entity {
@@ -30,8 +30,6 @@ public abstract class Entity {
     public float lastHurtTime = 0f, timeBetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitbox;
-    public Texture oofTexture =new Texture("sadge.png");
-    public Texture idleTexture = new Texture("LilBoy.png");
     
     
 //Constructors
@@ -102,7 +100,7 @@ public abstract class Entity {
             this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
             this.hitbox.setPosition(this.position);
         } catch (DeadEntityException e){
-            GameScreen.despawnList.add(this);
+            
         }finally{
             this.sprite.draw(batch);
         }

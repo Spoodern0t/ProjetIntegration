@@ -14,29 +14,18 @@ import com.badlogic.gdx.math.Vector2;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 02/04/2024
+ * @since 03/04/2024
  */
 public class Enemy extends Entity {
     
 //attributes
     public double levelScaling; //boosts enemy stats depending on player level
-    private float timeBetweenHurt = 1f; //in seconds
 
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.levelScaling = levelScaling;
         this.sprite.setColor(Color.BLUE); //for testing purposes
-
-    }
-    
-    public Enemy(int maxHP, float speed) {
-        this(1, maxHP, speed, new Vector2(0, 0), new Texture("Evil.png"));
-
-    }
-    
-    public Enemy() {
-        this(100, 50);
 
     }
     
@@ -49,7 +38,7 @@ public class Enemy extends Entity {
     @Override
     public void update (float deltaTime) throws DeadEntityException{
         
-        Player p = GameScreen.player;
+        Player p = GameScreen.currentPlayer;
         super.update(deltaTime);
         
         if (this.canGetHurt()) {
@@ -102,7 +91,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             pos,
-            new Texture("Evil.png")
+            this.sprite.getTexture()
         );
     }
       

@@ -16,14 +16,12 @@ import java.util.ArrayList;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 02/04/2024
+ * @since 03/04/2024
  *
  */
 public class Player extends Entity {
     
 //Attributes
-    static int DEFAULT_MAX_HP = 10;
-    static float DEFAULT_SPEED = 300;
     int level, exp, levelThreshold = 100;
     
     static final int MAXIMUM_ITEM_CAPACITY = 6;
@@ -36,15 +34,6 @@ public class Player extends Entity {
         this.timeBetweenHurt = 0.5f;
         //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
-    }
-    
-    public Player(int level) {
-        this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
-        this.sprite.setColor(Color.GREEN);
-    }
-    
-    public Player() {
-        this(1);
     }
     
 //Methods
@@ -119,7 +108,7 @@ public class Player extends Entity {
             this.maxHP,
             this.speed,
             new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2),
-            this.idleTexture
+            this.sprite.getTexture()
         );
     }
     
