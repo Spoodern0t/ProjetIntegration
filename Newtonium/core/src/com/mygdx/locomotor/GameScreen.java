@@ -168,7 +168,7 @@ public class GameScreen implements Screen {
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
                         e.sprite.setTexture(oofTexture);
-                        e.currentHP -= (int)p.flatDamage*p.speed*player.damageMod;
+                        e.currentHP -= (int)p.flatDamage*p.speed*currentPlayer.damageMod;
                         p.currentHP--;
                     }
                 }
@@ -187,14 +187,14 @@ public class GameScreen implements Screen {
             }
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
-                player.exp = 50;
-                player.currentEXP += player.exp;
-                player.levelThreshold -= player.exp;
+                currentPlayer.exp = 50;
+                currentPlayer.currentEXP += currentPlayer.exp;
+                currentPlayer.levelThreshold -= currentPlayer.exp;
             }
             //Player can level up
-            if (player.levelThreshold <=0){
-                player.levelUp();
-                player.levelThreshold = player.DEFAULT_LEVELTHRESHOLD * player.level;
+            if (currentPlayer.levelThreshold <=0){
+                currentPlayer.levelUp();
+                currentPlayer.levelThreshold = currentPlayer.DEFAULT_LEVELTHRESHOLD * currentPlayer.level;
                 //System.out.println("level up");
             }
         }
@@ -244,11 +244,11 @@ public class GameScreen implements Screen {
         
         //EXP and Level
         
-        game.font.draw(game.batch,"EXP",Camera.position.x+player.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.currentEXP),Camera.position.x+player.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch,"EXP",Camera.position.x+currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentEXP),Camera.position.x+currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
         
-        game.font.draw(game.batch,"Level",Camera.position.x-player.sprite.getWidth()*3 ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.level),Camera.position.x-player.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch,"Level",Camera.position.x-currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy - ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.level),Camera.position.x- currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
         
         //HP Enemy
         for(Enemy e: enemyList){
