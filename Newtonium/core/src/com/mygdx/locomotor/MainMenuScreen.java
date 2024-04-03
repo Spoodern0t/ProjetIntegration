@@ -46,14 +46,14 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);//Reevaluate yDown = false and find Functionnality
         //playTexture Setup
-        playActive = new Texture("NewtoniumSelectionBox.png");//Active is when pictture changes when you mouse over it.
-        playPassive = new Texture("NewtoniumLaunchSymbol.png");//Passive is when mouse is NOT over the Texture
+        playActive = Global.playButtonDown;//Active is when pictture changes when you mouse over it.
+        playPassive = Global.playButton;//Passive is when mouse is NOT over the Texture
         //Quit texture setup
         quitActive = new Texture("NewtoniumSelectionBox.png");
         quitPassive = new Texture("NewtoniumTitle.png");
         //Playbutton sprite setup
         playButton = new Sprite(playPassive);
-        playButton.setSize(600,60);
+        playButton.setSize(256,256);
         playButton.setX(360);
         playButton.setY(camera.viewportHeight/2);
         //quitButton sprite setup

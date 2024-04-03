@@ -27,6 +27,13 @@ public class Global {
     private static final Texture playerPlaceholder = new Texture("LilBoy.png");
     private static final Texture evilPlaceholder = new Texture("Evil.png");
     private static final Texture mapPlaceholder = new Texture("MapImg.jpg");
+    public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
+    public static Texture info = new Texture("NewtoniumHelp.png");
+    public static Texture playButton = new Texture("NewtoniumLaunchSymbol.png");
+    public static Texture playButtonDown = new Texture("NewtoniumLaunchSymbolDown.png");
+    public static Texture SelectionBox = new Texture("NewtoniumSelectionBox.png");
+    public static Texture SelectionRectangle = new Texture("NewtoniumSelectionRectangle.png");
+    public static Texture title = new Texture("NewtoniumTitle.png");
     
     //player types
     public static class Players{
