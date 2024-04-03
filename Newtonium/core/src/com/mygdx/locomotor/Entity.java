@@ -67,11 +67,12 @@ public abstract class Entity {
      * current time/conditions.
      * @param deltaTime Time since last call to render(). Usually gotten from 
      * Gdx.graphics.getDeltaTime()
+     * @throws com.mygdx.locomotor.Entity.DeadEntityException
      */
-    public void update(float deltaTime){
+    public void update(float deltaTime) throws DeadEntityException{
         
         if (this.isDead){ //skips update early if object is dead
-            return;
+            throw new DeadEntityException();
         }
         
         lastHurtTime += deltaTime;
@@ -96,10 +97,16 @@ public abstract class Entity {
      * @since 15/03/2024
      */
     public void draw(SpriteBatch batch){
-        this.update(Gdx.graphics.getDeltaTime());
-        this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
-        this.hitbox.setPosition(this.position);
-        this.sprite.draw(batch);
+        try{
+            this.update(Gdx.graphics.getDeltaTime());
+            this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
+            this.hitbox.setPosition(this.position);
+        } catch (DeadEntityException e){
+            GameScreen.despawnList.add(this);
+        }finally{
+            this.sprite.draw(batch);
+        }
+
     }
     
     /**
@@ -129,8 +136,18 @@ public abstract class Entity {
         return (this.hitbox.overlaps(target.hitbox));
     }
     
-    
-    
+//custom exception type
+    protected class DeadEntityException extends Exception{
+        
+        public DeadEntityException(){
+            
+        }
+        public DeadEntityException(String message){
+            super(message);
+        }
+        
+    }
+
 //getters/setters
     
 }

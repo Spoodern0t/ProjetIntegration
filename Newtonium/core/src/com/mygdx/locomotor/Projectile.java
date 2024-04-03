@@ -42,7 +42,7 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * @param deltaTime Time since last call to render()
      */
     @Override
-    public void update(float deltaTime){
+    public void update(float deltaTime) throws DeadEntityException{
         this.decayTime -= deltaTime;
         if (this.decayTime <= 0){
             this.die();

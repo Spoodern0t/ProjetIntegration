@@ -160,7 +160,8 @@ public class GameScreen implements Screen {
         for (Projectile p: projectileList){
             p.draw(game.batch);
         }
-             
+        projectileList.removeAll(despawnList);
+        
     //calculate enemies      
         for (Enemy e: enemyList) {
             
@@ -177,7 +178,6 @@ public class GameScreen implements Screen {
                     }
                 }
             }
-            projectileList.removeAll(despawnList);
             
             e.draw(game.batch);
         
@@ -211,6 +211,7 @@ public class GameScreen implements Screen {
         
         game.batch.end();
     }
+    
     private void updateHud(){
         /*//Testing equipment FOR (CO ORDINATES)
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) { 
