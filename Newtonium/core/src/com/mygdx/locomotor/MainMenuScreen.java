@@ -10,6 +10,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 /**
@@ -25,12 +28,13 @@ public class MainMenuScreen implements Screen {
     
     final GameController game;
     OrthographicCamera camera;
-    
+    Stage stage;//PlaceHolder in case shit goes down REAAAAL bad.
+    //Textures
     Texture playActive;
     Texture playPassive;
     Texture quitActive;
     Texture quitPassive;
-    
+    //Sprites to facilitate texture Change.
     Sprite playButton;
     Sprite quitButton;
     
@@ -38,18 +42,25 @@ public class MainMenuScreen implements Screen {
     
     public MainMenuScreen(final GameController game) {
         this.game = game;
-        
+        //camera setup
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
-        
+        camera.setToOrtho(false, 1280, 720);//Reevaluate yDown = false and find Functionnality
+        //playTexture Setup
         playActive = new Texture("NewtoniumSelectionBox.png");//Active is when pictture changes when you mouse over it.
         playPassive = new Texture("NewtoniumLaunchSymbol.png");//Passive is when mouse is NOT over the Texture
+        //Quit texture setup
         quitActive = new Texture("NewtoniumSelectionBox.png");
         quitPassive = new Texture("NewtoniumTitle.png");
-        
+        //Playbutton sprite setup
         playButton = new Sprite(playPassive);
+        playButton.setSize(600,60);
+        playButton.setX(360);
+        playButton.setY(camera.viewportHeight/2);
+        //quitButton sprite setup
         quitButton = new Sprite(quitPassive);
-                
+        quitButton.setSize(600,60);
+        quitButton.setX(playButton.getX());
+        quitButton.setY(playButton.getY()- playButton.getHeight());        
     }
 
     @Override
@@ -67,42 +78,45 @@ public class MainMenuScreen implements Screen {
 	game.batch.begin();
 	
         
-        playButton.setScale(1);
-        playButton.setX(camera.viewportWidth/3);
+
         playButton.draw(game.batch);
         
-        quitButton.setScale(1/4);
-        quitButton.setX(playButton.getX());
-        quitButton.setY(playButton.getY()-playButton.getHeight());
+        
         quitButton.draw(game.batch);
         
-	
         
-	if (Gdx.input.getX() < playButton.getX() + playButton.getWidth() 
-         && Gdx.input.getX() > playButton.getX()
-         && Gdx.input.getY() < playButton.getY() + playButton.getHeight() 
-         && Gdx.input.getY() > playButton.getY() ) {
-        playButton.setTexture(playActive);
+        
+        //Corrects Mouse input to desired parameters.
+        int targetX = Gdx.input.getX();
+        int targetY = Gdx.input.getY();
+        Vector3 MouseInTranslator = new Vector3(targetX,targetY,0);
+        camera.unproject(MouseInTranslator);
+        
+        // Button Logic.
+        //Play Button
+	if (MouseInTranslator.x < playButton.getX() + playButton.getWidth() && MouseInTranslator.x > playButton.getX() && MouseInTranslator.y < playButton.getY() + playButton.getHeight() && MouseInTranslator.y > playButton.getY() ) {
+        playButton.setTexture(playActive);//Button Detection and margins
         if(Gdx.input.isButtonJustPressed(LEFT)){
-           game.setScreen(new GameScreen(game));
+           game.setScreen(new GameScreen(game));//Button Functionnality
         }
         }
         else playButton.setTexture(playPassive);
         
-        if (Gdx.input.getX() < quitButton.getX() + quitButton.getWidth() 
-         && Gdx.input.getX() > quitButton.getX()
-         && Gdx.input.getY() < quitButton.getY() + quitButton.getHeight() 
-         && Gdx.input.getY() > quitButton.getY() ) {
-        quitButton.setTexture(quitActive);
+        //Quit Button
+        if (MouseInTranslator.x < quitButton.getX() + quitButton.getWidth() && MouseInTranslator.x > quitButton.getX() && MouseInTranslator.y < quitButton.getY() + quitButton.getHeight() && MouseInTranslator.y > quitButton.getY() ) {
+        quitButton.setTexture(quitActive);//Button Detection and margins
+        if(Gdx.input.isButtonPressed(LEFT)){
+            Gdx.app.exit();//Button Functionallity
+        }
         }
         else {quitButton.setTexture(quitPassive);
         }
             
-       game.batch.end(); 
+        game.batch.end(); 
         
 //        game.setScreen(new GameScreen(game));//ScreenTransition prompter. Condition it as you see fit.
 
-        dispose();
+       
 		
     }
 
@@ -128,8 +142,10 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        
-        
+        playPassive.dispose();
+        playActive.dispose();
+        quitPassive.dispose();
+        quitActive.dispose();
     }
     
 }
