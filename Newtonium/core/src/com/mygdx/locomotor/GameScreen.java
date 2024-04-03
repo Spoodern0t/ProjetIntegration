@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
 // Heads up Display    
     
     public int score = 0;
-    float hudVertMargin, hudScorex, hudRightx, hudHealthx, hudRow1y,hudRow2y,hudSectionWidth;//Tableau 2x3 pour placer les objets hud.
+    float hudVertMargin, hudScorex, hudRightx, hudHealthx, hudRow1y,hudRow2y,hudSectionWidth, hudEXPx,hudEXPy;//Tableau 2x3 pour placer les objets hud.
     
 //equivalent to the create() method for this class.
     public GameScreen(final GameController game){
@@ -172,7 +172,7 @@ public class GameScreen implements Screen {
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
                         e.sprite.setTexture(oofTexture);
-                        e.currentHP -= (int)p.flatDamage;
+                        e.currentHP -= (int)p.flatDamage*p.speed*player.damageMod;
                         p.currentHP--;
                     }
                 }
@@ -184,7 +184,7 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
-                    player.currentHP -= e.damageMod;
+                    player.currentHP -= e.damageMod*e.speed;
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(oofTexture);
                     e.currentHP --;
@@ -192,6 +192,15 @@ public class GameScreen implements Screen {
             }
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
+                player.exp = 50;
+                player.currentEXP += player.exp;
+                player.levelThreshold -= player.exp;
+            }
+            //Player can level up
+            if (player.levelThreshold <=0){
+                player.levelUp();
+                player.levelThreshold = player.DEFAULT_LEVELTHRESHOLD * player.level;
+                //System.out.println("level up");
             }
         }
         /* 
@@ -229,12 +238,29 @@ public class GameScreen implements Screen {
         System.out.println(String.valueOf(ymodifier)+" modifierscorey");
         */
         
+        //HP and Score
         //Rendering top row
         game.font.draw(game.batch, "Score",Camera.position.x + hudScorex + xmodifier,Camera.position.y + hudRow1y +ymodifier, hudSectionWidth,Align.left,false);
         game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
         //2nd row
         game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
         game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        
+        //EXP and Level
+        
+        game.font.draw(game.batch,"EXP",Camera.position.x+player.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.currentEXP),Camera.position.x+player.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        
+        game.font.draw(game.batch,"Level",Camera.position.x-player.sprite.getWidth()*3 ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
+        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", player.level),Camera.position.x-player.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        
+        //HP Enemy
+        for(Enemy e: enemyList){
+            float HpPosX = e.position.x,HpPosY = e.position.y+e.sprite.getHeight()*2 ;
+            
+            game.font.draw(game.batch,"HP",HpPosX,HpPosY ,hudSectionWidth,Align.left,false);
+            game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", e.currentHP),HpPosX ,HpPosY-e.sprite.getHeight()/2,hudSectionWidth,Align.left,false);
+        }
         
     }
     

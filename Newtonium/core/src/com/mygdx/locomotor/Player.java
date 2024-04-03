@@ -22,9 +22,10 @@ import java.util.ArrayList;
 public class Player extends Entity {
     
 //Attributes
-    static int DEFAULT_MAX_HP = 10;
+    static int DEFAULT_MAX_HP = 1000;
     static float DEFAULT_SPEED = 300;
-    int level, exp, levelThreshold = 100;
+    int DEFAULT_LEVELTHRESHOLD = 100;
+    int currentEXP, level, exp, levelThreshold = 100;
     
     static final int MAXIMUM_ITEM_CAPACITY = 6;
     private ArrayList<Item> items = new ArrayList<>();
@@ -41,6 +42,7 @@ public class Player extends Entity {
     public Player(int level) {
         this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
         this.sprite.setColor(Color.GREEN);
+        this.currentEXP = 0;
     }
     
     public Player() {
@@ -54,6 +56,7 @@ public class Player extends Entity {
      */
     public void levelUp(){
         this.level++; //maybe add an int parameter later for multiple level-ups?
+        this.currentEXP = 0;
     }
     
     /**
