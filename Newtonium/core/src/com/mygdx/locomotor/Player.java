@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 02/04/2024
+ * @since 03/04/2024
  *
  */
 public class Player extends Entity {
@@ -34,7 +34,7 @@ public class Player extends Entity {
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.level = Math.max(level, 1); //so level never goes under 0
-        this.timeBetweenHurt = 3f;
+        this.timeBetweenHurt = 0.5f;
         //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
     }
@@ -65,7 +65,7 @@ public class Player extends Entity {
      * @param deltaTime Time since last call to render()
      */
     @Override  
-    public void update(float deltaTime){
+    public void update(float deltaTime) throws DeadEntityException{
         
         super.update(deltaTime); //checks for death, skips update if dead
         
@@ -122,7 +122,7 @@ public class Player extends Entity {
             this.maxHP,
             this.speed,
             new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2),
-            this.idleTexture
+            this.sprite.getTexture()
         );
     }
     

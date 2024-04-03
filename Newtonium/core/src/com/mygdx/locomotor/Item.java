@@ -12,21 +12,21 @@ import com.badlogic.gdx.Input;
  * 
  * @author Alexis Fecteau (2060238)
  * 
- * @Since 25/03/2024
+ * @Since 03/04/2024
  */
 public class Item { //Will become a superclass for diversified items. ~AF
 
 //attributes
-    int level = 1;
+    int level;
     protected float cooldown; //in seconds
     protected float lastTriggerTime = 0f;
     Projectile projectile;
     
 //constructors
-    public Item(){ //unfinished
-        this.level = 1;
-        this.cooldown = 0.25f;
-        this.projectile = new Projectile(0); //temporary
+    public Item(int level, float cooldown, Projectile projectile){
+        this.level = Math.max(1, level);
+        this.cooldown = cooldown;
+        this.projectile = projectile;
     }
     
 //methods

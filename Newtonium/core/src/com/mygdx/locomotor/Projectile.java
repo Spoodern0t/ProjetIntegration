@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Adam Tamine
  * @author Alexis Fecteau (2060238)
  * 
- * @since 18/03/2024
+ * @since 03/04/2024
  */
 public class Projectile extends Entity{ //might become abstract superclass. ~AF
     
@@ -28,13 +28,6 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
         this.angle = angle;
     }
     
-    public Projectile(double angle){ //only for testing purposes. ~AF
-        this(1, 3, angle, 1, 100,
-                new Vector2(GameScreen.player.position.x,GameScreen.player.position.y),
-                new Texture("Evil.png"));
-        this.sprite.setColor(Color.RED);
-    }
-    
 //methods
     /**
      * Updates the projectile object for the current time and conditions.
@@ -42,7 +35,7 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * @param deltaTime Time since last call to render()
      */
     @Override
-    public void update(float deltaTime){
+    public void update(float deltaTime) throws DeadEntityException{
         this.decayTime -= deltaTime;
         if (this.decayTime <= 0){
             this.die();
@@ -57,19 +50,18 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * @return new Projectile object similar to calling instance
      */
     @Override
-    public Entity spawn(){ //currently simplified for testing purposes
-        /*
-        Vector2 pos = new Vector2(GameScreen.player.position.x,GameScreen.player.position.y);
+    public Entity spawn(){
+        
+        Vector2 pos = new Vector2(GameScreen.currentPlayer.position.x,GameScreen.currentPlayer.position.y);
         return new Projectile(
             this.flatDamage,
             this.decayTime,
-            MathUtils.random(0,360),
+            MathUtils.random(0,360), //TODO: remove angle when this becomes a superclass
             this.maxHP,
             this.speed,
             pos,
-            this.img
+            this.sprite.getTexture()
         );
-        */
-        return new Projectile(MathUtils.random(0,360));
+        
     }
 }
