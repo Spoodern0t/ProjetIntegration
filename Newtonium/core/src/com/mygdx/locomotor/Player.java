@@ -33,7 +33,7 @@ public class Player extends Entity {
     public Player(int level, int maxHP, float speed, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.level = Math.max(level, 1); //so level never goes under 0
-        this.timeBetweenHurt = 3f;
+        this.timeBetweenHurt = 0.5f;
         //ITERATION 2: this.exp calculated with level input and levelUp() method            
         
     }
@@ -62,7 +62,7 @@ public class Player extends Entity {
      * @param deltaTime Time since last call to render()
      */
     @Override  
-    public void update(float deltaTime){
+    public void update(float deltaTime) throws DeadEntityException{
         
         super.update(deltaTime); //checks for death, skips update if dead
         
