@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
     Viewport viewport;
     
 //Graphics 
-    
+    public Hud hud;
 
     //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
     
@@ -74,8 +74,7 @@ public class GameScreen implements Screen {
     public GameScreen(final GameController game){
         this.game = game;
         Camera = new OrthographicCamera(800,400);
-        
-        
+            
     //texture setup (all placeholder)
         idleTexture = new Texture("LilBoy.png");
         oofTexture = new Texture("sadge.png");
@@ -87,13 +86,10 @@ public class GameScreen implements Screen {
         mapSprite = new Sprite(mapTexture);
         mapSprite.setPosition(0,0);
         
-        //world boundaries
+    //world boundaries
         final int WORLD_WIDTH = mapSprite.getRegionWidth();
         final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
         mapSprite.setSize(1000,1000);
-        
-       
-        
         
     //gameobject setup (some temporary)
         currentPlayer.addItem(Global.Items.testItem);
@@ -102,13 +98,15 @@ public class GameScreen implements Screen {
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-        prepHud();//prepares Hud once.
+        //Used the screen to fetch The hp and score and Likely other relevant Data.
+        hud = new Hud(game.batch,this);
+        //prepHud();//prepares Hud once.
        
     }
-    float xmodifier = -200;
-    float ymodifier = -200;
+    //float xmodifier = -200;
+    //float ymodifier = -200;
     
-    public void prepHud(){
+    /*public void prepHud(){
         //Make default bitmapfont customizable(size and all.)
         //FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(INSERT FONT FILE NAME HERE);
         //FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -127,10 +125,8 @@ public class GameScreen implements Screen {
         hudSectionWidth = Camera.viewportWidth / 2;
     }
     
-    //TODO: WE NEED TO REMAKE EVERY METHODS IN EVERY CLASS IN A WAY THAT ONLY METHODS THAT INVOLVE WHAT WE SEE HAPPEN IN A GAME HAPPEN HERE.
-    //exceptions are: class descriptors and cooldown related things. I put alot of comments for earier organisation.
-    
-//Real-time game logic (called for each new frame)
+    */
+    //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
         
@@ -214,6 +210,11 @@ public class GameScreen implements Screen {
         updateHud();
         
         game.batch.end();
+        
+        game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+        //Updating hud
+        hud.getStage().draw();//Drawing hud
+        hud.update(deltaTime);
     }
     
     private void updateHud(){
@@ -235,23 +236,25 @@ public class GameScreen implements Screen {
         */
         
         //HP and Score
+        
         //Rendering top row
-        game.font.draw(game.batch, "Score",Camera.position.x + hudScorex + xmodifier,Camera.position.y + hudRow1y +ymodifier, hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch, "Score",Camera.position.x + hudScorex + xmodifier,Camera.position.y + hudRow1y +ymodifier, hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
+        
         //2nd row
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
         
         //EXP and Level
         
-        game.font.draw(game.batch,"EXP",Camera.position.x+currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentEXP),Camera.position.x+currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch,"EXP",Camera.position.x+currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentEXP),Camera.position.x+currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
         
-        game.font.draw(game.batch,"Level",Camera.position.x-currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy - ymodifier,hudSectionWidth,Align.left,false);
-        game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.level),Camera.position.x- currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch,"Level",Camera.position.x-currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy - ymodifier,hudSectionWidth,Align.left,false);
+        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.level),Camera.position.x- currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
         
         //HP Enemy
-        for(Enemy e: enemyList){
+        for(Enemy e: enemyList){//This is debugging things.
             float HpPosX = e.position.x,HpPosY = e.position.y+e.sprite.getHeight()*2 ;
             
             game.font.draw(game.batch,"HP",HpPosX,HpPosY ,hudSectionWidth,Align.left,false);
@@ -263,7 +266,7 @@ public class GameScreen implements Screen {
     
     @Override
     public void resize(int width, int height) {
-        
+        hud.getStage().getViewport().update(width,height);
     }
 
     @Override
@@ -286,7 +289,8 @@ public class GameScreen implements Screen {
     }
     @Override
     public void dispose() {
-                
+          hud.dispose();
+          
     }
     
     

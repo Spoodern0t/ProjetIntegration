@@ -28,7 +28,7 @@ public class MainMenuScreen implements Screen {
     
     final GameController game;
     OrthographicCamera camera;
-    Stage stage;//PlaceHolder in case shit goes down REAAAAL bad.
+   
     //Textures
     Texture playActive;
     Texture playPassive;
@@ -45,18 +45,22 @@ public class MainMenuScreen implements Screen {
         //camera setup
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280, 720);//Reevaluate yDown = false and find Functionnality
-        //playTexture Setup
+        
+    //playTexture Setup
         playActive = Global.playButtonDown;//Active is when pictture changes when you mouse over it.
         playPassive = Global.playButton;//Passive is when mouse is NOT over the Texture
-        //Quit texture setup
+        
+    //Quit texture setup
         quitActive = new Texture("NewtoniumSelectionBox.png");
         quitPassive = new Texture("NewtoniumTitle.png");
-        //Playbutton sprite setup
+        
+    //Playbutton sprite setup
         playButton = new Sprite(playPassive);
         playButton.setSize(256,256);
         playButton.setX(360);
         playButton.setY(camera.viewportHeight/2);
-        //quitButton sprite setup
+        
+    //quitButton sprite setup
         quitButton = new Sprite(quitPassive);
         quitButton.setSize(600,60);
         quitButton.setX(playButton.getX());
@@ -92,7 +96,8 @@ public class MainMenuScreen implements Screen {
         Vector3 MouseInTranslator = new Vector3(targetX,targetY,0);
         camera.unproject(MouseInTranslator);
         
-        // Button Logic.
+        
+    // Button Logic.
         //Play Button
 	if (MouseInTranslator.x < playButton.getX() + playButton.getWidth() && MouseInTranslator.x > playButton.getX() && MouseInTranslator.y < playButton.getY() + playButton.getHeight() && MouseInTranslator.y > playButton.getY() ) {
         playButton.setTexture(playActive);//Button Detection and margins
@@ -100,8 +105,8 @@ public class MainMenuScreen implements Screen {
            game.setScreen(new GameScreen(game));//Button Functionnality
         }
         }
-        else playButton.setTexture(playPassive);
-        
+        else {playButton.setTexture(playPassive);
+        }
         //Quit Button
         if (MouseInTranslator.x < quitButton.getX() + quitButton.getWidth() && MouseInTranslator.x > quitButton.getX() && MouseInTranslator.y < quitButton.getY() + quitButton.getHeight() && MouseInTranslator.y > quitButton.getY() ) {
         quitButton.setTexture(quitActive);//Button Detection and margins
@@ -112,12 +117,7 @@ public class MainMenuScreen implements Screen {
         else {quitButton.setTexture(quitPassive);
         }
             
-        game.batch.end(); 
-        
-//        game.setScreen(new GameScreen(game));//ScreenTransition prompter. Condition it as you see fit.
-
-       
-		
+        game.batch.end(); 	
     }
 
     @Override
