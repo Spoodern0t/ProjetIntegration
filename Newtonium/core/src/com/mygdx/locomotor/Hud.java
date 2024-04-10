@@ -28,44 +28,49 @@ import java.util.Locale;
  * @author Yoruk Ekrem(1676683)
  */
 public class Hud {
-
+//Game related parameters.
+    int HealthValue;
+    int ScoreValue;
+//Stage related methods turned out to be the more viable option for me this time.-EY
     private Stage stage;
     private FitViewport stageViewport;
-    Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
+//Aesthetics.
+    Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));//Called in a Text uiskinpack from Libgdx Wiki. Can change anytime.Ask when wanting to change looks.
+//Calling GameScreen to take in game attributes.    
     final GameScreen screen;
     
-    int HealthValue = 0;
-    int ScoreValue = 0;// These are placeholders because for some reason, Them numbers Ain't updatin.
+//Creating Labels
+    Label HealthLabel = new Label("HP " + String.format("%03d",HealthValue),skin);
+    Label ScoreLabel = new Label("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue),skin);
+    // These are placeholders because for some reason, Them numbers Ain't updatin.
     
     public Hud(SpriteBatch spriteBatch,GameScreen screen) {
+        //Camera related stuff
         this.screen = screen;
         stageViewport = new FitViewport(800,400);
+        //to bring in Stage related methods to the work.
         stage = new Stage(stageViewport,spriteBatch); //create stage with the stageViewport and the SpriteBatch given in Constructor
         
-      
-       
-        
-        
-        Table root = new Table();
+        Table root = new Table();//Root table is the one that takes the whole screen(Viewport).-Ey
         
         root.setDebug(true);
         
         root.setSize(800,400);
 
-        //add the Buttons etc.
-        
-        Label HealthLabel = new Label( String.format("%03d",HealthValue),skin);
-        Label ScoreLabel = new Label( String.format(Locale.getDefault(), "%6d", ScoreValue),skin);
-        
+        //add the components(labels buttons etc) to the Root Table.   
         root.top();
         root.add(HealthLabel).expandX().height(screen.game.font.getCapHeight()).width(100).top().fillX().padTop(screen.game.font.getCapHeight());
         root.add(ScoreLabel).expandX().height(screen.game.font.getCapHeight()).width(100).top().fillX().padTop(screen.game.font.getCapHeight());
         
         stage.addActor(root);
     }
-    public void update(float deltaTime){
-     this.HealthValue = GameScreen.currentPlayer.currentHP;
+    public void updateText(float deltaTime){
+     //this fetches the correct value from GameScreen.
      this.ScoreValue = screen.score;
+     this.HealthValue = GameScreen.currentPlayer.currentHP;
+     //This changes the text inside the labels to appropriate values fetched above.
+     HealthLabel.setText("HP " + String.format("%03d",HealthValue));
+     ScoreLabel.setText("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue));
     }
 
     public Stage getStage() { return stage; }

@@ -103,29 +103,7 @@ public class GameScreen implements Screen {
         //prepHud();//prepares Hud once.
        
     }
-    //float xmodifier = -200;
-    //float ymodifier = -200;
-    
-    /*public void prepHud(){
-        //Make default bitmapfont customizable(size and all.)
-        //FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(INSERT FONT FILE NAME HERE);
-        //FreeTypeFontGenerator.FreeTypeFontParameter fontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        //example: fontParameter.size = 64;//to change letter size kinda like in word.
-        
-        
-        //Scaling hud to fit game window.
-        game.font.getData().setScale(1);
-        //calculate Margins
-        hudVertMargin = game.font.getCapHeight() /2;
-        hudScorex = hudVertMargin + xmodifier ;
-        hudRightx = ((Camera.viewportWidth * 2/3) - hudScorex );
-        hudHealthx = (Camera.viewportWidth* 2/3 );
-        hudRow1y = (Camera.viewportHeight - hudVertMargin );
-        hudRow2y = (hudRow1y - hudVertMargin - game.font.getCapHeight()) ;
-        hudSectionWidth = Camera.viewportWidth / 2;
-    }
-    
-    */
+    //Erased PrepHud Method and migrated related parameters to Hud class.
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
@@ -207,52 +185,19 @@ public class GameScreen implements Screen {
             lastSpawnTime = TimeUtils.nanoTime();
         }
     // Hud related things(PLACEHOLDER)-EY           
-        updateHud();
+        updateEnemyHp();
         
         game.batch.end();
         
         game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
         //Updating hud
         hud.getStage().draw();//Drawing hud
-        hud.update(deltaTime);
+        hud.getStage().act(deltaTime);
+        hud.updateText(deltaTime);
     }
     
-    private void updateHud(){
-        /*//Testing equipment FOR (CO ORDINATES)
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) { 
-                                                       ymodifier += Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) { 
-                                                       ymodifier -= Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) { 
-                                                       xmodifier -= Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { 
-                                                        xmodifier += Gdx.graphics.getDeltaTime()*(hudVertMargin*100);}
-        
-        
-        System.out.println(String.valueOf(hudRow1y)+" scorey");
-        System.out.println(String.valueOf(hudScorex)+" scorex");
-        System.out.println(String.valueOf(xmodifier)+" modifierscorex");
-        System.out.println(String.valueOf(ymodifier)+" modifierscorey");
-        */
-        
-        //HP and Score
-        
-        //Rendering top row
-        //game.font.draw(game.batch, "Score",Camera.position.x + hudScorex + xmodifier,Camera.position.y + hudRow1y +ymodifier, hudSectionWidth,Align.left,false);
-        //game.font.draw(game.batch,"HP",Camera.position.x + hudHealthx + xmodifier ,Camera.position.y + hudRow1y +ymodifier,hudSectionWidth,Align.left,false);
-        
-        //2nd row
-        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%6d", score),Camera.position.x + hudScorex + xmodifier, Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
-        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentHP),Camera.position.x + hudHealthx + xmodifier,Camera.position.y + hudRow2y + ymodifier,hudSectionWidth,Align.left,false);
-        
-        //EXP and Level
-        
-        //game.font.draw(game.batch,"EXP",Camera.position.x+currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy -ymodifier,hudSectionWidth,Align.left,false);
-        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.currentEXP),Camera.position.x+currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
-        
-        //game.font.draw(game.batch,"Level",Camera.position.x-currentPlayer.sprite.getWidth()*3 ,Camera.position.y - hudEXPy - ymodifier,hudSectionWidth,Align.left,false);
-        //game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", currentPlayer.level),Camera.position.x- currentPlayer.sprite.getWidth() ,Camera.position.y - hudEXPy- ymodifier,hudSectionWidth,Align.left,false);
-        
+    private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)
+
         //HP Enemy
         for(Enemy e: enemyList){//This is debugging things.
             float HpPosX = e.position.x,HpPosY = e.position.y+e.sprite.getHeight()*2 ;
@@ -262,7 +207,6 @@ public class GameScreen implements Screen {
         }
         
     }
-    
     
     @Override
     public void resize(int width, int height) {
