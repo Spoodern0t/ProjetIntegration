@@ -7,13 +7,23 @@ package com.mygdx.locomotor;
 import com.badlogic.gdx.Gdx;
 import static com.badlogic.gdx.Input.Buttons.LEFT;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import static com.badlogic.gdx.scenes.scene2d.ui.Table.Debug.actor;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
  * Warning: This is a very bare bones edition of a main menu. 
@@ -27,44 +37,64 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MainMenuScreen implements Screen {
     
     final GameController game;
-    OrthographicCamera camera;
-   
-    //Textures
-    Texture playActive;
-    Texture playPassive;
-    Texture quitActive;
-    Texture quitPassive;
-    //Sprites to facilitate texture Change.
-    Sprite playButton;
-    Sprite quitButton;
     
-    
-    
+    //Initialising Stage related methods
+    private Skin skin;
+    Stage stage;
+    Button playButton;
+    Button HowtoButton;
+    Button QuitButton;
+    Button SettingsButton;
+    //Tables
+    Table root;
+    Table Center;
+    ScreenViewport viewport;
     public MainMenuScreen(final GameController game) {
         this.game = game;
-        //camera setup
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);//Reevaluate yDown = false and find Functionnality
+
+        //Stage related Setups
+        viewport = new ScreenViewport();
+        stage = new Stage(viewport);
         
-    //playTexture Setup
-        playActive = Global.playButtonDown;//Active is when pictture changes when you mouse over it.
-        playPassive = Global.playButton;//Passive is when mouse is NOT over the Texture
+        Gdx.input.setInputProcessor(stage);//This is for Any input related things in Stage related crap.
         
-    //Quit texture setup
-        quitActive = new Texture("NewtoniumSelectionBox.png");
-        quitPassive = new Texture("NewtoniumTitle.png");
-        
-    //Playbutton sprite setup
-        playButton = new Sprite(playPassive);
-        playButton.setSize(256,256);
-        playButton.setX(360);
-        playButton.setY(camera.viewportHeight/2);
-        
-    //quitButton sprite setup
-        quitButton = new Sprite(quitPassive);
-        quitButton.setSize(600,60);
-        quitButton.setX(playButton.getX());
-        quitButton.setY(playButton.getY()- playButton.getHeight());        
+        skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
+       
+        //Table setup.
+
+ 
+            Center = new Table();//The thing that will house buttons.
+            Center.setFillParent(true);
+            Center.center();
+            Center.setDebug(true);
+                //creating and adding Relevant buttons to Center Table 9logic included.
+                playButton = new TextButton("play",skin);
+                Center.add(playButton).fill();
+                playButton.addListener(new ChangeListener(){
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor){
+                        game.setScreen(new GameScreen(game));//Button Functionnality
+                    }
+                });
+                Center.row();
+                HowtoButton = new TextButton("How to play",skin);
+                Center.add(HowtoButton).fill().padTop(10);
+                
+                Center.row();
+                SettingsButton = new TextButton("Settings",skin);
+                Center.add(SettingsButton).fill().padTop(10);
+                
+                Center.row();
+                QuitButton = new TextButton("Quit",skin);
+                Center.add(QuitButton).fill().padTop(10);
+                QuitButton.addListener(new ChangeListener(){
+                   @Override
+                   public void changed(ChangeEvent event, Actor actor){
+                     Gdx.app.exit();//Button Functionallity
+                   }
+                });
+                stage.addActor(Center);
+
     }
 
     @Override
@@ -74,55 +104,16 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float deltaTime) {
-        ScreenUtils.clear(0,0,0,1);
+            ScreenUtils.clear(0,0,0,1);
         
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-        
-	game.batch.begin();
-	
-        
-
-        playButton.draw(game.batch);
-        
-        
-        quitButton.draw(game.batch);
-        
-        
-        
-        //Corrects Mouse input to desired parameters.
-        int targetX = Gdx.input.getX();
-        int targetY = Gdx.input.getY();
-        Vector3 MouseInTranslator = new Vector3(targetX,targetY,0);
-        camera.unproject(MouseInTranslator);
-        
-        
-    // Button Logic.
-        //Play Button
-	if (MouseInTranslator.x < playButton.getX() + playButton.getWidth() && MouseInTranslator.x > playButton.getX() && MouseInTranslator.y < playButton.getY() + playButton.getHeight() && MouseInTranslator.y > playButton.getY() ) {
-        playButton.setTexture(playActive);//Button Detection and margins
-        if(Gdx.input.isButtonJustPressed(LEFT)){
-           game.setScreen(new GameScreen(game));//Button Functionnality
-        }
-        }
-        else {playButton.setTexture(playPassive);
-        }
-        //Quit Button
-        if (MouseInTranslator.x < quitButton.getX() + quitButton.getWidth() && MouseInTranslator.x > quitButton.getX() && MouseInTranslator.y < quitButton.getY() + quitButton.getHeight() && MouseInTranslator.y > quitButton.getY() ) {
-        quitButton.setTexture(quitActive);//Button Detection and margins
-        if(Gdx.input.isButtonPressed(LEFT)){
-            Gdx.app.exit();//Button Functionallity
-        }
-        }
-        else {quitButton.setTexture(quitPassive);
-        }
-            
-        game.batch.end(); 	
+            game.batch.setProjectionMatrix(stage.getCamera().combined);
+            stage.act(deltaTime);
+            stage.draw();         	
     }
 
     @Override
     public void resize(int width, int height) {
-        
+        stage.getViewport().update(width, height);
     }
 
     @Override
@@ -142,10 +133,9 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        playPassive.dispose();
-        playActive.dispose();
-        quitPassive.dispose();
-        quitActive.dispose();
+
+        stage.dispose();
+        skin.dispose();
     }
     
 }
