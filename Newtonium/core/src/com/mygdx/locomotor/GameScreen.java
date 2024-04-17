@@ -161,7 +161,7 @@ public class GameScreen implements Screen {
             }
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
-                currentPlayer.exp = 50;
+                currentPlayer.exp = 10;
                 currentPlayer.currentEXP += currentPlayer.exp;
                 currentPlayer.levelThreshold -= currentPlayer.exp;
             }
@@ -193,7 +193,7 @@ public class GameScreen implements Screen {
         //Updating hud
         hud.getStage().draw();//Drawing hud
         hud.getStage().act(deltaTime);
-        hud.updateText(deltaTime);
+        hud.updateHud(deltaTime);
     }
     
     private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)

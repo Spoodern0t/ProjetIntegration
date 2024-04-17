@@ -11,16 +11,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import static com.badlogic.gdx.scenes.scene2d.ui.Table.Debug.actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -40,6 +44,8 @@ public class MainMenuScreen implements Screen {
     
     //Initialising Stage related methods
     private Skin skin;
+    Image GameLogo;
+    Drawable Logo;
     Stage stage;
     Button playButton;
     Button HowtoButton;
@@ -61,13 +67,20 @@ public class MainMenuScreen implements Screen {
         skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
        
         //Table setup.
-
+            
  
             Center = new Table();//The thing that will house buttons.
             Center.setFillParent(true);
             Center.center();
-            Center.setDebug(true);
+            Center.setDebug(false);
                 //creating and adding Relevant buttons to Center Table 9logic included.
+                //GaleLogo
+                GameLogo = new Image();
+                Logo = new TextureRegionDrawable(new TextureRegion(Global.title));
+                GameLogo.setDrawable(Logo);
+                Center.add(GameLogo).top();
+                Center.row();
+                //PlayButton
                 playButton = new TextButton("play",skin);
                 Center.add(playButton).fill();
                 playButton.addListener(new ChangeListener(){
@@ -76,15 +89,16 @@ public class MainMenuScreen implements Screen {
                         game.setScreen(new GameScreen(game));//Button Functionnality
                     }
                 });
-                Center.row();
+                Center.row();//Changes Row, Adds to Below.
+                //HowtoplayButton
                 HowtoButton = new TextButton("How to play",skin);
                 Center.add(HowtoButton).fill().padTop(10);
-                
                 Center.row();
+                
                 SettingsButton = new TextButton("Settings",skin);
                 Center.add(SettingsButton).fill().padTop(10);
-                
                 Center.row();
+                
                 QuitButton = new TextButton("Quit",skin);
                 Center.add(QuitButton).fill().padTop(10);
                 QuitButton.addListener(new ChangeListener(){
