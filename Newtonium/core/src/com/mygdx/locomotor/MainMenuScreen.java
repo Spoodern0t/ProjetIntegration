@@ -74,7 +74,7 @@ public class MainMenuScreen implements Screen {
             Center.center();
             Center.setDebug(false);
                 //creating and adding Relevant buttons to Center Table 9logic included.
-                //GaleLogo
+                //GameLogo
                 GameLogo = new Image();
                 Logo = new TextureRegionDrawable(new TextureRegion(Global.title));
                 GameLogo.setDrawable(Logo);
@@ -93,10 +93,22 @@ public class MainMenuScreen implements Screen {
                 //HowtoplayButton
                 HowtoButton = new TextButton("How to play",skin);
                 Center.add(HowtoButton).fill().padTop(10);
+                HowtoButton.addListener(new ChangeListener(){
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor){
+                        game.setScreen(new SettingsMenu(game));//Button Functionnality
+                    }
+                });
                 Center.row();
                 
                 SettingsButton = new TextButton("Settings",skin);
                 Center.add(SettingsButton).fill().padTop(10);
+                SettingsButton.addListener(new ChangeListener(){
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor){
+                        game.setScreen(new SettingsMenu(game));//Button Functionnality
+                    }
+                });
                 Center.row();
                 
                 QuitButton = new TextButton("Quit",skin);
