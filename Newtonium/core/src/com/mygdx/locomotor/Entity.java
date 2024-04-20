@@ -94,9 +94,9 @@ public abstract class Entity {
      * @param batch This object's associated sprites
      * @since 15/03/2024
      */
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch,float deltaTime){
         try{
-            this.update(Gdx.graphics.getDeltaTime());
+            this.update(deltaTime);
             this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
             this.hitbox.setPosition(this.position);
         } catch (DeadEntityException e){

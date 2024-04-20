@@ -6,6 +6,8 @@ package com.mygdx.locomotor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import static com.badlogic.gdx.Input.Keys.E;
+import static com.badlogic.gdx.Input.Keys.SPACE;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -37,7 +39,7 @@ public class GameScreen implements Screen {
     
 //Graphics 
     public Hud hud;
-
+    public GoverOverlay GoverLay;
     //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
     
     static Texture idleTexture;
@@ -68,7 +70,13 @@ public class GameScreen implements Screen {
 // Heads up Display    
     
     public int score = 0;
-    float hudVertMargin, hudScorex, hudRightx, hudHealthx, hudRow1y,hudRow2y,hudSectionWidth, hudEXPx,hudEXPy;//Tableau 2x3 pour placer les objets hud.
+    float hudSectionWidth;//Attribut pour Des labels sur l'ennemie
+    
+//Popup and Pause related Attributes
+    //Game Over Related Attributes
+     public static boolean isOver = false;
+    //Pause Related Attributes
+     public static boolean isPaused = false;
     
 //equivalent to the create() method for this class.
     public GameScreen(final GameController game){
@@ -100,14 +108,27 @@ public class GameScreen implements Screen {
         
         //Used the screen to fetch The hp and score and Likely other relevant Data.
         hud = new Hud(game.batch,this);
-        //prepHud();//prepares Hud once.
+        GoverLay = new GoverOverlay(game.batch,this,this.game);
        
     }
     //Erased PrepHud Method and migrated related parameters to Hud class.
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
-        
+        if(Gdx.input.isKeyJustPressed(E)){
+            isPaused = !isPaused;
+        }
+        if(isOver || isPaused){
+            deltaTime = 0;
+            game.batch.setProjectionMatrix(GoverLay.GoverStage.getCamera().combined);
+            if(isOver){
+               GoverLay.GoverStage.draw();
+               GoverLay.GoverStage.act(Gdx.graphics.getDeltaTime());
+            }
+            if(isPaused){
+               
+            }
+        }
     //move camera
         Camera.position.set(currentPlayer.sprite.getX(),currentPlayer.sprite.getY(),0);
         Camera.update();
@@ -122,12 +143,12 @@ public class GameScreen implements Screen {
         
         
     //calculate player
-        currentPlayer.draw(game.batch); //as of now, this call triggers all the items. ~AF
+        currentPlayer.draw(game.batch,deltaTime); //as of now, this call triggers all the items. ~AF
 
         
     //calculate projectiles
         for (Projectile p: projectileList){
-            p.draw(game.batch);
+            p.draw(game.batch,deltaTime);
         }
         projectileList.removeAll(despawnList);
         
@@ -148,8 +169,8 @@ public class GameScreen implements Screen {
                 }
             }
             
-            e.draw(game.batch);
-        
+            e.draw(game.batch,deltaTime);
+            
         //check for player collision with enemy
             if (currentPlayer.collide(e)){
                 if (currentPlayer.canGetHurt()) {
@@ -180,16 +201,22 @@ public class GameScreen implements Screen {
         despawnList.clear();
         
     //spawn enemies periodically
+        
         if(TimeUtils.nanoTime() - lastSpawnTime > 3000000000L) {
+            
             enemyList.add((Enemy)enemy.spawn());
+            if(isOver || isPaused){
+            lastSpawnTime = 999999999999999999l;//Temporary fix To stop Enemies from spawning while Game is paused or over.
+            }else
             lastSpawnTime = TimeUtils.nanoTime();
         }
     // Hud related things(PLACEHOLDER)-EY           
         updateEnemyHp();
         
         game.batch.end();
-        
+        //Combining Camera View with other Windows In case.
         game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
+        
         //Updating hud
         hud.getStage().draw();//Drawing hud
         hud.getStage().act(deltaTime);
@@ -211,6 +238,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.getStage().getViewport().update(width,height);
+        GoverLay.GoverStage.getViewport().update(width, height);
     }
 
     @Override
@@ -234,7 +262,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
           hud.dispose();
-          
+          GoverLay.dispose();
     }
     
     

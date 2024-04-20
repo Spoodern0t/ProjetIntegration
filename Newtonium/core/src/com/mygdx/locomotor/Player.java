@@ -103,6 +103,8 @@ public class Player extends Entity {
     @Override
     public void die(){
         super.die();
+        GameScreen.isOver = true;
+        
         /*
         //player death prompts game to end, etc
         endgameMenuOpen();

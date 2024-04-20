@@ -34,9 +34,9 @@ public class Hud {
     int ScoreValue;
     int levelValue = GameScreen.currentPlayer.level;
     long StartTime = System.currentTimeMillis();
-    int minutes;
-    int seconds;
-    long GameTime = 0;
+    float minutes = 0f;
+    float seconds = 0f;
+    float GameTime = 0l;
 //Stage related methods turned out to be the more viable option for me this time.-EY
     private Stage stage;
     private FitViewport stageViewport;
@@ -49,7 +49,7 @@ public class Hud {
     Label HealthLabel = new Label("HP " + String.format("%03d",HealthValue),skin);
     Label ScoreLabel = new Label("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue),skin);
     Label LevelLabel = new Label("Level" + String.format(Locale.getDefault(), "%2d",levelValue),skin);
-    Label TimeLabel = new Label(String.format(Locale.getDefault(),"%2d",minutes)+":"+String.format(Locale.getDefault(),"%2d",seconds),skin);
+    Label TimeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds),skin);
 //Hp and EXP bar
     ProgressBar Hpbar = new ProgressBar(0,GameScreen.currentPlayer.maxHP,1,false,skin);
     ProgressBar Expbar = new ProgressBar(0,GameScreen.currentPlayer.levelThreshold,1,false,skin);
@@ -93,10 +93,13 @@ public class Hud {
      Hpbar.setValue(HealthValue);
      Expbar.setValue(GameScreen.currentPlayer.currentEXP);
      //Time Related things.
-     GameTime = ((StartTime - System.currentTimeMillis())/1000)*-1;
-     minutes = (int)(GameTime / 60);
-     seconds = (int)(GameTime % 60);
-     TimeLabel.setText(String.format(Locale.getDefault(),"%2d",minutes)+":"+String.format(Locale.getDefault(),"%2d",seconds));
+     
+     GameTime += deltaTime;
+     minutes = (float)Math.floor(GameTime / 60.0f);
+     seconds = GameTime - minutes * 60.0f;
+     
+     
+     TimeLabel.setText(String.format("%.00f:%.00f", minutes, seconds));
     }
 
     public Stage getStage() { return stage; }
