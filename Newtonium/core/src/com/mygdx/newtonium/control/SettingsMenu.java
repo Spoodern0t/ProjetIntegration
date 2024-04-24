@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  *
  * @author Thomas Cyr
  */
-public class TutorialScreen implements Screen {
+public class SettingsMenu implements Screen {
     
     private Skin skin;
     final GameController game;
@@ -30,7 +30,7 @@ public class TutorialScreen implements Screen {
     Table mainTable;
     Viewport viewport;
     
-    public TutorialScreen(final GameController game) {
+    public SettingsMenu(final GameController game) {
         this.game = game;
         
         //Setting the stage

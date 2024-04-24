@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.model;
 
+import com.mygdx.newtonium.control.Global;
+import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -38,11 +40,11 @@ public class Enemy extends Entity {
     @Override
     protected void update (float deltaTime) throws DeadEntityException{
         
-        Player p = GameScreen.currentPlayer;
+        Player p = GameScreen.currentPlayer; //todo: Move currentplayer and enemylist to Global
         super.update(deltaTime);
         
         if (this.canGetHurt()) {
-            this.sprite.setTexture(GameScreen.evilTexture);
+            this.sprite.setTexture(Global.evilPlaceholder);
         }
         
     //moves enemy towards player

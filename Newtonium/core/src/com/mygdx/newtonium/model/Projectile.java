@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.model;
+import com.mygdx.newtonium.control.Global;
+import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,7 +18,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Projectile extends Entity{ //might become abstract superclass. ~AF
     
-    double flatDamage, decayTime;
+    public double flatDamage, decayTime;
     double angle;
     
 //constructors

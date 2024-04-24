@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.control;
 
+import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import static com.badlogic.gdx.Input.Keys.E;
@@ -58,7 +59,7 @@ public class GameScreen implements Screen {
     
     
 //game objects
-    static Player currentPlayer = Global.Players.testPlayer;
+    public static Player currentPlayer = Global.Players.testPlayer;
     Item item;
     Enemy enemy = Global.Enemies.testEnemy;
     

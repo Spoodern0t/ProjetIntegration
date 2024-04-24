@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.model;
 
+import com.mygdx.newtonium.control.Global;
+import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -22,8 +24,8 @@ import java.util.ArrayList;
 public class Player extends Entity {
     
 //Attributes
-    int DEFAULT_LEVELTHRESHOLD = 100;
-    int currentExp, level, exp, levelThreshold = 100;
+    public int DEFAULT_LEVELTHRESHOLD = 100;
+    public int currentExp, level, exp, levelThreshold = 100;
     
     static final int MAXIMUM_ITEM_CAPACITY = 6;
     private ArrayList<Item> items = new ArrayList<>();
@@ -75,7 +77,7 @@ public class Player extends Entity {
          
     //damage taken logic
         if (this.canGetHurt()) {
-            this.sprite.setTexture(GameScreen.idleTexture);
+            this.sprite.setTexture(Global.playerPlaceholder);
         }
         
     //item trigger logic

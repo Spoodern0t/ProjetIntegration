@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.control;
 
+import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -23,10 +24,10 @@ public class Global {
     private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
     
     //textures
-    private static final Texture hurtPlaceholder = new Texture("sadge.png");
-    private static final Texture playerPlaceholder = new Texture("LilBoy.png");
-    private static final Texture evilPlaceholder = new Texture("Evil.png");
-    private static final Texture mapPlaceholder = new Texture("MapImg.jpg");
+    public static final Texture hurtPlaceholder = new Texture("sadge.png");
+    public static final Texture playerPlaceholder = new Texture("LilBoy.png");
+    public static final Texture evilPlaceholder = new Texture("Evil.png");
+    public static final Texture mapPlaceholder = new Texture("MapImg.jpg");
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
     public static Texture info = new Texture("NewtoniumHelp.png");
     public static Texture playButton = new Texture("NewtoniumLaunchSymbol.png");

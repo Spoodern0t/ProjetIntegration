@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.model;
 
+import com.mygdx.newtonium.control.Global;
+import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -23,7 +25,7 @@ public abstract class Entity {
     
 //Attributes
     public int maxHP, currentHP, knockBack=0;
-    double damageMod = 1; //multiplier to apply on base stats in spawn()
+    public double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position;
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
@@ -53,7 +55,7 @@ public abstract class Entity {
      * current time/conditions.
      * @param deltaTime Time since last call to render(). Usually gotten from 
      * Gdx.graphics.getDeltaTime()
-     * @throws com.mygdx.locomotor.Entity.DeadEntityException
+     * @throws com.mygdx.newtonium.model.Entity.DeadEntityException
      */
     protected void update(float deltaTime) throws DeadEntityException{
         

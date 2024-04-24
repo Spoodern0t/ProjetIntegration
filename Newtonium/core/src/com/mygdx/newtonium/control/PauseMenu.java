@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mygdx.locomotor;
+package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -21,34 +20,34 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  *
  * @author Yoruk Ekrem
  */
-public class GoverOverlay {
+public class PauseMenu {
     final GameScreen screen;
     final GameController game;
     //Stage related boilerplate
-    FitViewport GoverView;
-    Stage GoverStage;
+    FitViewport PauseViewport;
+    Stage PauseStage;
     
     Skin skin;
     //Components
-    Table GoverTable;
+    Table PauseMtable;
     TextButton Mbutton;
     Label ScoreLabel;
-    Window goverW;
-    public GoverOverlay(SpriteBatch batch,GameScreen screen,GameController game){
+    Window PauseW;
+    public PauseMenu(SpriteBatch batch,GameScreen screen,GameController game){
         //Calling Likely necessary Classes or Entities.
         this.screen = screen;
         this.game = game;
         //Stage related.
         skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
-        GoverView = new FitViewport(600,300);
-        GoverView.setScreenSize(600, 300);//To make it a window that is smaller than The GameScreen and hud.
-        GoverStage = new Stage(GoverView,batch);
+        PauseViewport = new FitViewport(600,300);
+        PauseViewport.setScreenSize(600, 300);//To make it a window that is smaller than The GameScreen and hud.
+        PauseStage = new Stage(PauseViewport,batch);
         
         
-        GoverTable = new Table().center();
-        GoverTable.setFillParent(true);
+        PauseMtable = new Table().center();
+        PauseMtable.setFillParent(true);
         Mbutton= new TextButton("back to main menu",skin);
-        GoverTable.add(Mbutton).expandY();
+        PauseMtable.add(Mbutton).expandY();
         Mbutton.center();
         Mbutton.addListener(new ChangeListener(){
             @Override
@@ -56,15 +55,9 @@ public class GoverOverlay {
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
                     }
         });
-        GoverTable.row();
+        PauseMtable.row();
         ScoreLabel =  new Label(String.valueOf(screen.hud.ScoreValue),skin);
-        
-        GoverTable.add(ScoreLabel).center();
-        GoverStage.addActor(GoverTable);
-        
+        PauseMtable.add(ScoreLabel);
+        PauseStage.addActor(PauseMtable);
     }
-    
-    public void dispose(){
-        GoverStage.dispose();
-    }    
 }
