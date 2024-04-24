@@ -4,7 +4,6 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.mygdx.newtonium.control.Global;
 import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

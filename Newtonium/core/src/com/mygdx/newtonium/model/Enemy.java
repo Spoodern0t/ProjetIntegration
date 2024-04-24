@@ -40,7 +40,7 @@ public class Enemy extends Entity {
     @Override
     protected void update (float deltaTime) throws DeadEntityException{
         
-        Player p = GameScreen.currentPlayer; //todo: Move currentplayer and enemylist to Global
+        Player p = Global.currentPlayer; //todo: Move currentplayer and enemylist to Global
         super.update(deltaTime);
         
         if (this.canGetHurt()) {

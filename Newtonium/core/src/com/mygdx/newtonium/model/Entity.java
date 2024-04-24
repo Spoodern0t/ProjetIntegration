@@ -4,9 +4,7 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.mygdx.newtonium.control.Global;
 import com.mygdx.newtonium.control.GameScreen;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -82,6 +80,7 @@ public abstract class Entity {
     /**
      * Updates the object's position and moves its graphics and hit-box there.
      * @param batch This object's associated sprites
+     * @param deltaTime Time since last render
      * @since 15/03/2024
      */
     public void draw(SpriteBatch batch,float deltaTime){

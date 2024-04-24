@@ -6,22 +6,17 @@ package com.mygdx.newtonium.control;
 
 import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import static com.badlogic.gdx.Input.Keys.E;
-import static com.badlogic.gdx.Input.Keys.SPACE;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Locale;
 
 /**
@@ -43,10 +38,6 @@ public class GameScreen implements Screen {
     public GoverOverlay GoverLay;
     //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
     
-    static Texture idleTexture;
-    static Texture oofTexture;
-    static Texture evilTexture;
-    
     
 //background assets
     Texture mapTexture;
@@ -59,8 +50,7 @@ public class GameScreen implements Screen {
     
     
 //game objects
-    public static Player currentPlayer = Global.Players.testPlayer;
-    Item item;
+    Player player = Global.currentPlayer;
     Enemy enemy = Global.Enemies.testEnemy;
     
     
@@ -83,12 +73,6 @@ public class GameScreen implements Screen {
     public GameScreen(final GameController game){
         this.game = game;
         Camera = new OrthographicCamera(800,400);
-            
-    //texture setup (all placeholder)
-        idleTexture = new Texture("LilBoy.png");
-        oofTexture = new Texture("sadge.png");
-        evilTexture = new Texture("Evil.png");
-        
         
     //background setup 
         mapTexture = new Texture("MapImg.jpg");
@@ -101,7 +85,7 @@ public class GameScreen implements Screen {
         mapSprite.setSize(1000,1000);
         
     //gameobject setup (some temporary)
-        currentPlayer.addItem(Global.Items.testItem);
+        player.addItem(Global.Items.testItem);
         
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
@@ -131,7 +115,7 @@ public class GameScreen implements Screen {
             }
         }
     //move camera
-        Camera.position.set(currentPlayer.sprite.getX(),currentPlayer.sprite.getY(),0);
+        Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
         game.batch.setProjectionMatrix((Camera.combined));
         
@@ -144,7 +128,7 @@ public class GameScreen implements Screen {
         
         
     //calculate player
-        currentPlayer.draw(game.batch,deltaTime); //as of now, this call triggers all the items. ~AF
+        player.draw(game.batch,deltaTime); //as of now, this call triggers all the items. ~AF
 
         
     //calculate projectiles
@@ -163,8 +147,8 @@ public class GameScreen implements Screen {
                     //TODO: replace with hurtEnemy() method for Projectile.
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
-                        e.sprite.setTexture(oofTexture);
-                        e.currentHP -= (int)p.flatDamage*p.speed*currentPlayer.damageMod;
+                        e.sprite.setTexture(Global.evilPlaceholder);
+                        e.currentHP -= (int)p.flatDamage*p.speed*player.damageMod;
                         p.currentHP--;
                     }
                 }
@@ -173,11 +157,11 @@ public class GameScreen implements Screen {
             e.draw(game.batch,deltaTime);
             
         //check for player collision with enemy
-            if (currentPlayer.collide(e)){
-                if (currentPlayer.canGetHurt()) {
-                    currentPlayer.currentHP -= e.damageMod; //that's not what damageMod is for! ~AF
-                    currentPlayer.lastHurtTime = 0;
-                    currentPlayer.sprite.setTexture(oofTexture);
+            if (player.collide(e)){
+                if (player.canGetHurt()) {
+                    player.currentHP -= e.damageMod; //that's not what damageMod is for! ~AF
+                    player.lastHurtTime = 0;
+                    player.sprite.setTexture(Global.hurtPlaceholder);
                     e.currentHP --;
                 }
             }
@@ -185,14 +169,14 @@ public class GameScreen implements Screen {
         //TODO: rewrite this part to use exp and levelThreshold like they're meant to
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
-                currentPlayer.exp = 10;
-                currentPlayer.currentExp += currentPlayer.exp;
-                currentPlayer.levelThreshold -= currentPlayer.exp;
+                player.exp = 10;
+                player.currentExp += player.exp;
+                player.levelThreshold -= player.exp;
             }
             //Player can level up
-            if (currentPlayer.levelThreshold <=0){
-                currentPlayer.levelUp();
-                currentPlayer.levelThreshold = currentPlayer.DEFAULT_LEVELTHRESHOLD * currentPlayer.level;
+            if (player.levelThreshold <=0){
+                player.levelUp();
+                player.levelThreshold = player.DEFAULT_LEVELTHRESHOLD * player.level;
                 //System.out.println("level up");
             }
         }

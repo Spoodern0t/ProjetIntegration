@@ -4,7 +4,6 @@
  */
 package com.mygdx.newtonium.model;
 import com.mygdx.newtonium.control.Global;
-import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -54,7 +53,7 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
     @Override
     public Entity spawn(){
         
-        Vector2 pos = new Vector2(GameScreen.currentPlayer.position.x,GameScreen.currentPlayer.position.y);
+        Vector2 pos = new Vector2(Global.currentPlayer.position.x,Global.currentPlayer.position.y);
         return new Projectile(
             this.flatDamage,
             this.decayTime,

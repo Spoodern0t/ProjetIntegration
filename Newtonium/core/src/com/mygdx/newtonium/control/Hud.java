@@ -5,22 +5,13 @@
 package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import static com.badlogic.gdx.utils.Align.center;
-import static com.badlogic.gdx.utils.Align.left;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.Locale;
 
@@ -32,7 +23,7 @@ public class Hud {
 //Game related parameters.
     int HealthValue;
     int ScoreValue;
-    int levelValue = GameScreen.currentPlayer.level;
+    int levelValue = Global.currentPlayer.level;
     long StartTime = System.currentTimeMillis();
     float minutes = 0f;
     float seconds = 0f;
@@ -51,8 +42,8 @@ public class Hud {
     Label LevelLabel = new Label("Level" + String.format(Locale.getDefault(), "%2d",levelValue),skin);
     Label TimeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds),skin);
 //Hp and EXP bar
-    ProgressBar Hpbar = new ProgressBar(0,GameScreen.currentPlayer.maxHP,1,false,skin);
-    ProgressBar Expbar = new ProgressBar(0,GameScreen.currentPlayer.levelThreshold,1,false,skin);
+    ProgressBar Hpbar = new ProgressBar(0,Global.currentPlayer.maxHP,1,false,skin);
+    ProgressBar Expbar = new ProgressBar(0,Global.currentPlayer.levelThreshold,1,false,skin);
     // These are placeholders because for some reason, Them numbers Ain't updatin.
     
     public Hud(SpriteBatch spriteBatch,GameScreen screen) {
@@ -82,8 +73,8 @@ public class Hud {
     public void updateHud(float deltaTime){
      //this fetches the correct value from GameScreen.
      this.ScoreValue = screen.score;
-     this.HealthValue = GameScreen.currentPlayer.currentHP;
-     this.levelValue = GameScreen.currentPlayer.level;
+     this.HealthValue = Global.currentPlayer.currentHP;
+     this.levelValue = Global.currentPlayer.level;
      //This changes the text inside the labels to appropriate values fetched above.
      HealthLabel.setText("HP " + String.format("%03d",HealthValue));
      ScoreLabel.setText("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue));
@@ -91,7 +82,7 @@ public class Hud {
      
      //This is to update the values in the Bars.
      Hpbar.setValue(HealthValue);
-     Expbar.setValue(GameScreen.currentPlayer.currentExp);
+     Expbar.setValue(Global.currentPlayer.currentExp);
      //Time Related things.
      
      GameTime += deltaTime;

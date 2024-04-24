@@ -23,11 +23,12 @@ public class Global {
     private static final Vector2 nullPosition = new Vector2(0,0); //for when calling instance position doesnt matter
     private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
     
-    //textures
+    //preset textures
     public static final Texture hurtPlaceholder = new Texture("sadge.png");
     public static final Texture playerPlaceholder = new Texture("LilBoy.png");
     public static final Texture evilPlaceholder = new Texture("Evil.png");
     public static final Texture mapPlaceholder = new Texture("MapImg.jpg");
+    
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
     public static Texture info = new Texture("NewtoniumHelp.png");
     public static Texture playButton = new Texture("NewtoniumLaunchSymbol.png");
@@ -36,6 +37,8 @@ public class Global {
     public static Texture SelectionRectangle = new Texture("NewtoniumSelectionRectangle.png");
     public static Texture title = new Texture("NewtoniumTitle.png");
     
+     public static Player currentPlayer = Global.Players.testPlayer;
+     
     //player types
     public static class Players{
         
