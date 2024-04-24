@@ -16,16 +16,14 @@ import java.util.ArrayList;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 03/04/2024
+ * @since 23/04/2024
  *
  */
 public class Player extends Entity {
     
 //Attributes
-    static int DEFAULT_MAX_HP = 1000;
-    static float DEFAULT_SPEED = 300;
     int DEFAULT_LEVELTHRESHOLD = 100;
-    int currentEXP, level, exp, levelThreshold = 100;
+    int currentExp, level, exp, levelThreshold = 100;
     
     static final int MAXIMUM_ITEM_CAPACITY = 6;
     private ArrayList<Item> items = new ArrayList<>();
@@ -39,16 +37,6 @@ public class Player extends Entity {
         
     }
     
-    public Player(int level) {
-        this(level, DEFAULT_MAX_HP, DEFAULT_SPEED, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2), new Texture("LilBoy.png"));
-        this.sprite.setColor(Color.GREEN);
-        this.currentEXP = 0;
-    }
-    
-    public Player() {
-        this(1);
-    }
-    
 //Methods
     
     /**
@@ -56,7 +44,7 @@ public class Player extends Entity {
      */
     public void levelUp(){
         this.level++; //maybe add an int parameter later for multiple level-ups?
-        this.currentEXP = 0;
+        this.currentExp = 0;
     }
     
     /**
@@ -65,7 +53,7 @@ public class Player extends Entity {
      * @param deltaTime Time since last call to render()
      */
     @Override  
-    public void update(float deltaTime) throws DeadEntityException{
+    protected void update(float deltaTime) throws DeadEntityException{
         
         super.update(deltaTime); //checks for death, skips update if dead
         

@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Adam Tamine
  * @author Alexis Fecteau (2060238)
  * 
- * @since 03/04/2024
+ * @since 23/04/2024
  */
 public class Projectile extends Entity{ //might become abstract superclass. ~AF
     
@@ -20,12 +20,12 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
     double angle;
     
 //constructors
-    public Projectile(double flatDamage, double decayTime, double angle, int maxHP, float speed, Vector2 position, Texture img){
+    public Projectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         
         super(maxHP, speed, position, img);
         this.flatDamage = flatDamage;
         this.decayTime = decayTime;
-        this.angle = angle;
+        this.angle = MathUtils.random(0,360);
     }
     
 //methods
@@ -35,7 +35,7 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
      * @param deltaTime Time since last call to render()
      */
     @Override
-    public void update(float deltaTime) throws DeadEntityException{
+    protected void update(float deltaTime) throws DeadEntityException{
         this.decayTime -= deltaTime;
         if (this.decayTime <= 0){
             this.die();
@@ -56,7 +56,6 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
         return new Projectile(
             this.flatDamage,
             this.decayTime,
-            MathUtils.random(0,360), //TODO: remove angle when this becomes a superclass
             this.maxHP,
             this.speed,
             pos,

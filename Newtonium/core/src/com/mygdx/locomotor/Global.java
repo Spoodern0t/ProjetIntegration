@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Thomas Cyr 
  * @author Alexis Fecteau (2060238)
  * 
- * @since 03/04/2024
+ * @since 23/04/2024
  */
 public class Global {
     
@@ -65,7 +65,7 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150;
         
         //template objects for spawn() copies
-        public static Projectile testProjectile = new Projectile(1, DEFAULT_PROJ_DECAYTIME, 0, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
+        public static Projectile testProjectile = new Projectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
     }
     
     //prebuilt item objects (NOT templates, these get used as themselves)

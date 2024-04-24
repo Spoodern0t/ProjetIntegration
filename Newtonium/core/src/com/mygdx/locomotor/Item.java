@@ -31,7 +31,7 @@ public class Item { //Will become a superclass for diversified items. ~AF
     
 //methods
     
-    public void update(float deltaTime){
+    protected void update(float deltaTime){
         
         this.lastTriggerTime += deltaTime;
         if (this.canTrigger()){

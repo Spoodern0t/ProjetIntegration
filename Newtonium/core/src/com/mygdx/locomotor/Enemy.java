@@ -36,7 +36,7 @@ public class Enemy extends Entity {
      * @param deltaTime Time since last call to render()
      */
     @Override
-    public void update (float deltaTime) throws DeadEntityException{
+    protected void update (float deltaTime) throws DeadEntityException{
         
         Player p = GameScreen.currentPlayer;
         super.update(deltaTime);

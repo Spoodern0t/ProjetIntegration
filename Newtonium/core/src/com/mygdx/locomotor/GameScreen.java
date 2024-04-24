@@ -28,7 +28,7 @@ import java.util.Locale;
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 01/04/2024
+ * @since 17/04/2024
  */
 
 public class GameScreen implements Screen {
@@ -174,16 +174,18 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (currentPlayer.collide(e)){
                 if (currentPlayer.canGetHurt()) {
-                    currentPlayer.currentHP -= e.damageMod;
+                    currentPlayer.currentHP -= e.damageMod; //that's not what damageMod is for! ~AF
                     currentPlayer.lastHurtTime = 0;
                     currentPlayer.sprite.setTexture(oofTexture);
                     e.currentHP --;
                 }
             }
+            
+        //TODO: rewrite this part to use exp and levelThreshold like they're meant to
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
                 currentPlayer.exp = 10;
-                currentPlayer.currentEXP += currentPlayer.exp;
+                currentPlayer.currentExp += currentPlayer.exp;
                 currentPlayer.levelThreshold -= currentPlayer.exp;
             }
             //Player can level up

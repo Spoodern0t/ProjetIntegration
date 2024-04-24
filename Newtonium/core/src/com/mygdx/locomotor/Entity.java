@@ -16,7 +16,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 03/04/2024
+ * @since 23/04/2024
  */
 
 public abstract class Entity {
@@ -46,18 +46,6 @@ public abstract class Entity {
         this.currentHP = maxHP;
         this.speed = Math.max(speed, 0); //so speed can't be negative
     }
-    
-    public Entity(int maxHP, float speed, Vector2 position){
-        this(maxHP, speed, position, new Texture("LilBoy.png"));
-    }
-    
-    public Entity(int maxHP, float speed){
-        this(maxHP, speed, new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2));
-    }
-    
-    public Entity(){
-        this(100, 300);
-    }
 
 //methods
     /**
@@ -67,7 +55,7 @@ public abstract class Entity {
      * Gdx.graphics.getDeltaTime()
      * @throws com.mygdx.locomotor.Entity.DeadEntityException
      */
-    public void update(float deltaTime) throws DeadEntityException{
+    protected void update(float deltaTime) throws DeadEntityException{
         
         if (this.isDead){ //skips update early if object is dead
             throw new DeadEntityException();
