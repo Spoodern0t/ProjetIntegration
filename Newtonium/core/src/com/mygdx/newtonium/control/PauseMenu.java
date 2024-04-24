@@ -27,7 +27,6 @@ public class PauseMenu {
     FitViewport PauseViewport;
     Stage PauseStage;
     
-    Skin skin;
     //Components
     Table PauseMtable;
     TextButton Mbutton;
@@ -38,7 +37,6 @@ public class PauseMenu {
         this.screen = screen;
         this.game = game;
         //Stage related.
-        skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
         PauseViewport = new FitViewport(600,300);
         PauseViewport.setScreenSize(600, 300);//To make it a window that is smaller than The GameScreen and hud.
         PauseStage = new Stage(PauseViewport,batch);
@@ -46,7 +44,7 @@ public class PauseMenu {
         
         PauseMtable = new Table().center();
         PauseMtable.setFillParent(true);
-        Mbutton= new TextButton("back to main menu",skin);
+        Mbutton= new TextButton("back to main menu",Global.skin);
         PauseMtable.add(Mbutton).expandY();
         Mbutton.center();
         Mbutton.addListener(new ChangeListener(){
@@ -56,7 +54,7 @@ public class PauseMenu {
                     }
         });
         PauseMtable.row();
-        ScoreLabel =  new Label(String.valueOf(screen.hud.ScoreValue),skin);
+        ScoreLabel =  new Label(String.valueOf(screen.hud.ScoreValue),Global.skin);
         PauseMtable.add(ScoreLabel);
         PauseStage.addActor(PauseMtable);
     }

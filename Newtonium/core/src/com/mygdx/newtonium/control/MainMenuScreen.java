@@ -43,7 +43,6 @@ public class MainMenuScreen implements Screen {
     final GameController game;
     
     //Initialising Stage related methods
-    private Skin skin;
     Image GameLogo;
     Drawable Logo;
     Stage stage;
@@ -64,7 +63,7 @@ public class MainMenuScreen implements Screen {
         
         Gdx.input.setInputProcessor(stage);//This is for Any input related things in Stage related crap.
         
-        skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
+        
        
         //Table setup.
             
@@ -81,7 +80,7 @@ public class MainMenuScreen implements Screen {
                 Center.add(GameLogo).top();
                 Center.row();
                 //PlayButton
-                playButton = new TextButton("play",skin);
+                playButton = new TextButton("play",Global.skin);
                 Center.add(playButton).fill();
                 playButton.addListener(new ChangeListener(){
                     @Override
@@ -91,7 +90,7 @@ public class MainMenuScreen implements Screen {
                 });
                 Center.row();//Changes Row, Adds to Below.
                 //HowtoplayButton
-                HowtoButton = new TextButton("How to play",skin);
+                HowtoButton = new TextButton("How to play",Global.skin);
                 Center.add(HowtoButton).fill().padTop(10);
                 HowtoButton.addListener(new ChangeListener(){
                     @Override
@@ -101,7 +100,7 @@ public class MainMenuScreen implements Screen {
                 });
                 Center.row();
                 
-                SettingsButton = new TextButton("Settings",skin);
+                SettingsButton = new TextButton("Settings",Global.skin);
                 Center.add(SettingsButton).fill().padTop(10);
                 SettingsButton.addListener(new ChangeListener(){
                     @Override
@@ -111,7 +110,7 @@ public class MainMenuScreen implements Screen {
                 });
                 Center.row();
                 
-                QuitButton = new TextButton("Quit",skin);
+                QuitButton = new TextButton("Quit",Global.skin);
                 Center.add(QuitButton).fill().padTop(10);
                 QuitButton.addListener(new ChangeListener(){
                    @Override
@@ -161,7 +160,7 @@ public class MainMenuScreen implements Screen {
     public void dispose() {
 
         stage.dispose();
-        skin.dispose();
+        Global.skin.dispose();
     }
     
 }

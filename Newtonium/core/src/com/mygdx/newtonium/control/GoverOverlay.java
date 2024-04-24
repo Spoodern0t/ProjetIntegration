@@ -27,8 +27,6 @@ public class GoverOverlay {
     //Stage related boilerplate
     FitViewport GoverView;
     Stage GoverStage;
-    
-    Skin skin;
     //Components
     Table GoverTable;
     TextButton Mbutton;
@@ -39,7 +37,6 @@ public class GoverOverlay {
         this.screen = screen;
         this.game = game;
         //Stage related.
-        skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
         GoverView = new FitViewport(600,300);
         GoverView.setScreenSize(600, 300);//To make it a window that is smaller than The GameScreen and hud.
         GoverStage = new Stage(GoverView,batch);
@@ -47,7 +44,7 @@ public class GoverOverlay {
         
         GoverTable = new Table().center();
         GoverTable.setFillParent(true);
-        Mbutton= new TextButton("back to main menu",skin);
+        Mbutton= new TextButton("back to main menu",Global.skin);
         GoverTable.add(Mbutton).expandY();
         Mbutton.center();
         Mbutton.addListener(new ChangeListener(){
@@ -57,7 +54,7 @@ public class GoverOverlay {
                     }
         });
         GoverTable.row();
-        ScoreLabel =  new Label(String.valueOf(screen.hud.ScoreValue),skin);
+        ScoreLabel =  new Label(String.valueOf(screen.hud.ScoreValue),Global.skin);
         
         GoverTable.add(ScoreLabel).center();
         GoverStage.addActor(GoverTable);

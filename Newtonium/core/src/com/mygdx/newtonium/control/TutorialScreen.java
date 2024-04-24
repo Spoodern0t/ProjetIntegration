@@ -23,7 +23,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public class TutorialScreen implements Screen {
     
-    private Skin skin;
     final GameController game;
     Stage stage;
     Button backButton;
@@ -38,9 +37,6 @@ public class TutorialScreen implements Screen {
         stage = new Stage(viewport);
         Gdx.input.setInputProcessor(stage);
         
-        //setting up the skin for the buttons
-        skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
-        
         //table setup
         mainTable = new Table();//The thing that will house buttons.
         mainTable.setFillParent(true);
@@ -48,7 +44,7 @@ public class TutorialScreen implements Screen {
         mainTable.setDebug(false);
         
         //buttons go here, options selections will go here in a later version, just a back button for now
-        backButton = new TextButton("Go Back", skin);
+        backButton = new TextButton("Go Back", Global.skin);
         mainTable.add(backButton).fill();
         backButton.addListener(new ChangeListener(){
             @Override
@@ -97,7 +93,7 @@ public class TutorialScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
+        Global.skin.dispose();
     }
     
 }

@@ -31,19 +31,17 @@ public class Hud {
 //Stage related methods turned out to be the more viable option for me this time.-EY
     private Stage stage;
     private FitViewport stageViewport;
-//Aesthetics.
-    Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));//Called in a Text uiskinpack from Libgdx Wiki. Can change anytime.Ask when wanting to change looks.
 //Calling GameScreen to take in game attributes.    
     final GameScreen screen;
     
 //Creating Labels
-    Label HealthLabel = new Label("HP " + String.format("%03d",HealthValue),skin);
-    Label ScoreLabel = new Label("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue),skin);
-    Label LevelLabel = new Label("Level" + String.format(Locale.getDefault(), "%2d",levelValue),skin);
-    Label TimeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds),skin);
+    Label HealthLabel = new Label("HP " + String.format("%03d",HealthValue),Global.skin);
+    Label ScoreLabel = new Label("Score "+ String.format(Locale.getDefault(), "%6d", ScoreValue),Global.skin);
+    Label LevelLabel = new Label("Level" + String.format(Locale.getDefault(), "%2d",levelValue),Global.skin);
+    Label TimeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds),Global.skin);
 //Hp and EXP bar
-    ProgressBar Hpbar = new ProgressBar(0,Global.currentPlayer.maxHP,1,false,skin);
-    ProgressBar Expbar = new ProgressBar(0,Global.currentPlayer.levelThreshold,1,false,skin);
+    ProgressBar Hpbar = new ProgressBar(0,Global.currentPlayer.maxHP,1,false,Global.skin);
+    ProgressBar Expbar = new ProgressBar(0,Global.currentPlayer.levelThreshold,1,false,Global.skin);
     // These are placeholders because for some reason, Them numbers Ain't updatin.
     
     public Hud(SpriteBatch spriteBatch,GameScreen screen) {

@@ -8,6 +8,7 @@ import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 
 /**
@@ -37,7 +38,9 @@ public class Global {
     public static Texture SelectionRectangle = new Texture("NewtoniumSelectionRectangle.png");
     public static Texture title = new Texture("NewtoniumTitle.png");
     
-     public static Player currentPlayer = Global.Players.testPlayer;
+    public static Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
+    
+    public static Player currentPlayer = Global.Players.testPlayer;
      
     //player types
     public static class Players{
