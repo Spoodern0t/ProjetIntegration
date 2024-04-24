@@ -45,7 +45,7 @@ public class GameScreen implements Screen {
     GameController game;
         
 //timers (cooldowns and delays for game objects that occur in screen)
-    public long lastSpawnTime = 0l;
+    public float lastSpawnTime = 0f;
     int wave;
     
     
@@ -188,15 +188,12 @@ public class GameScreen implements Screen {
         despawnList.clear();
         
     //spawn enemies periodically
-        
-        if(TimeUtils.nanoTime() - lastSpawnTime > 3000000000L) {
-            
+        lastSpawnTime += deltaTime;
+        if(lastSpawnTime > 3f) {
             enemyList.add((Enemy)enemy.spawn());
-            if(isOver || isPaused){
-            lastSpawnTime = 999999999999999999l;//Temporary fix To stop Enemies from spawning while Game is paused or over.
-            }else
-            lastSpawnTime = TimeUtils.nanoTime();
+            lastSpawnTime = 0;
         }
+        
     // Hud related things(PLACEHOLDER)-EY           
         updateEnemyHp();
         
