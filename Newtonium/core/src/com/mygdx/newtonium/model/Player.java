@@ -47,6 +47,7 @@ public class Player extends Entity {
     public void levelUp(){
         this.level++; //maybe add an int parameter later for multiple level-ups?
         this.currentExp = 0;
+        this.levelThreshold = DEFAULT_LEVELTHRESHOLD * this.level;
     }
     
     /**

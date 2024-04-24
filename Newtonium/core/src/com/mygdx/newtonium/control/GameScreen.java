@@ -171,14 +171,14 @@ public class GameScreen implements Screen {
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
                 player.exp = 10;
                 player.currentExp += player.exp;
-                player.levelThreshold -= player.exp;
+                
             }
             //Player can level up
-            if (player.levelThreshold <=0){
+            if (player.currentExp >= player.levelThreshold){
                 player.levelUp();
-                player.levelThreshold = player.DEFAULT_LEVELTHRESHOLD * player.level;
-                //System.out.println("level up");
+                System.out.println("level up");
             }
+            //System.out.println("Player xp : "+player.currentExp+ " Player level : "+player.level+" Level Treshold : "+player.levelThreshold);
         }
         /* 
         Flush all dead entities at once: Java raises an exception if a

@@ -81,6 +81,7 @@ public class Hud {
      //This is to update the values in the Bars.
      Hpbar.setValue(HealthValue);
      Expbar.setValue(Global.currentPlayer.currentExp);
+     Expbar.setRange(0,Global.currentPlayer.levelThreshold );
      //Time Related things.
      
      GameTime += deltaTime;
