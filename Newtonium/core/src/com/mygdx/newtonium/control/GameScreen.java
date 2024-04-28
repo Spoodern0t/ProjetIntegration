@@ -7,6 +7,7 @@ package com.mygdx.newtonium.control;
 import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
 import static com.badlogic.gdx.Input.Keys.E;
+import static com.badlogic.gdx.Input.Keys.P;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,7 +36,6 @@ public class GameScreen implements Screen {
     
 //Graphics 
     public Hud hud;
-    public GoverOverlay GoverLay;
     //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
     
     
@@ -92,27 +92,22 @@ public class GameScreen implements Screen {
         despawnList = new LinkedList<>();
         
         //Used the screen to fetch The hp and score and Likely other relevant Data.
-        hud = new Hud(game.batch,this);
-        GoverLay = new GoverOverlay(game.batch,this,this.game);
+        hud = new Hud(game.batch,this,this.game);
+        
        
     }
     //Erased PrepHud Method and migrated related parameters to Hud class.
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
-        if(Gdx.input.isKeyJustPressed(E)){
-            isPaused = !isPaused;
+        if(Gdx.input.isKeyJustPressed(P)){//Pause Actin funky, Needs Fix.Only does 1 thing at a Time, Might be me with a severe lapse in logic. To any that can solve it, thank you in advance -EY
+           hud.pmenu.Pause();
         }
         if(isOver || isPaused){
             deltaTime = 0;
-            game.batch.setProjectionMatrix(GoverLay.GoverStage.getCamera().combined);
-            if(isOver){
-               GoverLay.GoverStage.draw();
-               GoverLay.GoverStage.act(Gdx.graphics.getDeltaTime());
-            }
-            if(isPaused){
-               
-            }
+            /*if(isPaused){
+               hud.pmenu.Unpause();   
+            }*/
         }
     //move camera
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
@@ -197,6 +192,8 @@ public class GameScreen implements Screen {
     // Hud related things(PLACEHOLDER)-EY           
         updateEnemyHp();
         
+        
+        
         game.batch.end();
         //Combining Camera View with other Windows In case.
         game.batch.setProjectionMatrix(hud.getStage().getCamera().combined);
@@ -204,6 +201,13 @@ public class GameScreen implements Screen {
         //Updating hud
         hud.getStage().draw();//Drawing hud
         hud.getStage().act(deltaTime);
+        
+        hud.getOverlayStage().draw();
+        hud.getOverlayStage().act(Gdx.graphics.getDeltaTime());
+        
+        hud.getPbuttonStage().draw();
+        hud.getPbuttonStage().act(deltaTime);
+        
         hud.updateHud(deltaTime);
     }
     
@@ -222,7 +226,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         hud.getStage().getViewport().update(width,height);
-        GoverLay.GoverStage.getViewport().update(width, height);
+
     }
 
     @Override
@@ -246,7 +250,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
           hud.dispose();
-          GoverLay.dispose();
+
     }
     
     
