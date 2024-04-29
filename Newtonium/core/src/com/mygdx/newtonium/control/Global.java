@@ -24,12 +24,18 @@ public class Global {
     private static final Vector2 nullPosition = new Vector2(0,0); //for when calling instance position doesnt matter
     private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
     
-    //preset textures
+    //gameplay textures
     public static final Texture hurtPlaceholder = new Texture("sadge.png");
     public static final Texture playerPlaceholder = new Texture("LilBoy.png");
     public static final Texture evilPlaceholder = new Texture("Evil.png");
-    public static final Texture mapPlaceholder = new Texture("MapImg.jpg");
     
+    public static final Texture mapPlaceholder = new Texture("MapImg.png");
+    public static final Texture scaleMapPlaceholder = new Texture("MapImgScale.png");
+    
+    public static final Texture bulletPlaceholder = new Texture("plh_bullet.png");
+    public static final Texture orbitPlaceholder = new Texture("plh_orbit.png");
+    
+    //ui textures
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
     public static Texture info = new Texture("NewtoniumHelp.png");
     public static Texture playButton = new Texture("NewtoniumLaunchSymbol.png");
@@ -40,6 +46,7 @@ public class Global {
     
     public static Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
     
+    //game objects
     public static Player currentPlayer = Global.Players.testPlayer;
      
     //player types
@@ -72,7 +79,7 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150;
         
         //template objects for spawn() copies
-        public static Projectile testProjectile = new TestProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
+        public static Projectile testProjectile = new TestProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
     }
     
     //prebuilt item objects (NOT templates, these get used as themselves)

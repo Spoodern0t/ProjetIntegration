@@ -40,7 +40,6 @@ public class GameScreen implements Screen {
     
     
 //background assets
-    Texture mapTexture;
     static public Sprite mapSprite;
     GameController game;
         
@@ -75,14 +74,15 @@ public class GameScreen implements Screen {
         Camera = new OrthographicCamera(800,400);
         
     //background setup 
-        mapTexture = new Texture("MapImg.jpg");
-        mapSprite = new Sprite(mapTexture);
+        mapSprite = new Sprite(Global.scaleMapPlaceholder);
         mapSprite.setPosition(0,0);
-        
+    
+    /*
     //world boundaries
         final int WORLD_WIDTH = mapSprite.getRegionWidth();
         final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
         mapSprite.setSize(1000,1000);
+    */
         
     //gameobject setup (some temporary)
         player.addItem(Global.Items.testItem);
