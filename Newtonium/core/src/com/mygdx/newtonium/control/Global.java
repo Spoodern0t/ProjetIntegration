@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  * @author Thomas Cyr 
  * @author Alexis Fecteau (2060238)
  * 
- * @since 23/04/2024
+ * @since 25/04/2024
  */
 public class Global {
     
@@ -72,7 +72,7 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150;
         
         //template objects for spawn() copies
-        public static Projectile testProjectile = new Projectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
+        public static Projectile testProjectile = new TestProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, evilPlaceholder);
     }
     
     //prebuilt item objects (NOT templates, these get used as themselves)
