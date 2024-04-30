@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mygdx.newtonium.model;
-import com.mygdx.newtonium.control.Global;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 /**
@@ -11,17 +10,17 @@ import com.badlogic.gdx.math.Vector2;
  * @author Adam Tamine
  * @author Alexis Fecteau (2060238)
  * 
- * @since 25/04/2024
+ * @since 29/04/2024
  */
-public class Projectile extends Entity{ //might become abstract superclass. ~AF
+public abstract class Projectile extends Entity{ //might become abstract superclass. ~AF
     
     public double flatDamage, decayTime;
-    double angle;
+    double angle = 0;
     
 //constructors
-    public Projectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
+    public Projectile(double flatDamage, double decayTime, int pierceAmount, float speed, Vector2 position, Texture img){
         
-        super(maxHP, speed, position, img);
+        super(pierceAmount, speed, position, img);
         this.flatDamage = flatDamage;
         this.decayTime = decayTime;
     }
@@ -42,10 +41,10 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
     }
     
     /**
-     * Creates a copy of a Projectile object that spawns at the player's
-     * position with a random angle.
+     * Creates a copy of this projectile at the player's current position.
      * @return new Projectile object similar to calling instance
      */
+    /*
     @Override
     public Entity spawn(){
         
@@ -59,5 +58,5 @@ public class Projectile extends Entity{ //might become abstract superclass. ~AF
             this.sprite.getTexture()
         );
         
-    }
+    }*/
 }

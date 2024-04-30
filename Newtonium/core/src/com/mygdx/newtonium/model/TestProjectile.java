@@ -4,7 +4,6 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -22,7 +21,6 @@ public class TestProjectile extends Projectile{
     public TestProjectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         
         super(flatDamage, decayTime, maxHP, speed, position, img);
-        this.sprite.setColor(Color.RED);
         this.angle = MathUtils.random(0,360);
     }
     
@@ -38,15 +36,14 @@ public class TestProjectile extends Projectile{
         this.position.add(this.speed *(float)Math.cos(this.angle) * deltaTime, this.speed * (float)Math.sin(this.angle) * deltaTime);
     }
     
-        /**
-     * Creates a copy of a Projectile object that spawns at the player's
-     * position with a random angle.
-     * @return new Projectile object similar to calling instance
+    /**
+     * Creates a copy of this projectile at the player's current position.
+     * @return new TestProjectile object similar to calling instance
      */
     @Override
     public Entity spawn(){
         
-        Vector2 pos = new Vector2(Global.currentPlayer.position.x,Global.currentPlayer.position.y);
+        Vector2 pos = new Vector2(Global.currentPlayer.position);
         return new TestProjectile(
             this.flatDamage,
             this.decayTime,

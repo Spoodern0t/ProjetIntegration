@@ -9,7 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("Newtonium_V_0.1.4");
+		config.setTitle("Newtonium_V_0.1.5");
                 config.setWindowedMode(1280,720);
                 config.setForegroundFPS(60);
 		new Lwjgl3Application(new GameController(), config);

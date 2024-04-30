@@ -6,16 +6,13 @@ package com.mygdx.newtonium.control;
 
 import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
-import static com.badlogic.gdx.Input.Keys.E;
 import static com.badlogic.gdx.Input.Keys.P;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -25,7 +22,7 @@ import java.util.Locale;
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 17/04/2024
+ * @since 29/04/2024
  */
 
 public class GameScreen implements Screen {
@@ -85,7 +82,8 @@ public class GameScreen implements Screen {
     */
         
     //gameobject setup (some temporary)
-        player.addItem(Global.Items.testItem);
+        //player.addItem(Global.Items.testItem);
+        player.addItem(Global.Items.satelliteTester);
         
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
@@ -143,7 +141,8 @@ public class GameScreen implements Screen {
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
                         e.sprite.setTexture(Global.evilPlaceholder);
-                        e.currentHP -= (int)p.flatDamage*p.speed*player.damageMod;
+                        e.currentHP -= (int)p.flatDamage*p.damageMod;
+                        System.out.println(p.flatDamage + "Newtons!"); //for testing
                         p.currentHP--;
                     }
                 }
@@ -154,10 +153,10 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
-                    player.currentHP -= e.damageMod; //that's not what damageMod is for! ~AF
+                    player.currentHP--; //possible TODO: implement varying damage for enemy types. ~AF
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(Global.hurtPlaceholder);
-                    e.currentHP --;
+                    e.currentHP--;
                 }
             }
             
@@ -184,7 +183,7 @@ public class GameScreen implements Screen {
         
     //spawn enemies periodically
         lastSpawnTime += deltaTime;
-        if(lastSpawnTime > 3f) {
+        if(lastSpawnTime > 1f) {
             enemyList.add((Enemy)enemy.spawn());
             lastSpawnTime = 0;
         }
