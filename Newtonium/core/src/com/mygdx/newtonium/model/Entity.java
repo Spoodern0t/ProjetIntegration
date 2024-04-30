@@ -88,7 +88,7 @@ public abstract class Entity {
     public void draw(SpriteBatch batch,float deltaTime){
         try{
             this.update(deltaTime);
-            this.sprite.setPosition(this.position.x,this.position.y); //TODO: change to sprite.setCenter() and deal with consequences
+            this.sprite.setCenter(this.position.x,this.position.y);
             this.hitbox.setPosition(this.position);
         } catch (DeadEntityException e){
             

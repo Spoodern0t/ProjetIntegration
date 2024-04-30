@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 23/04/2024
+ * @since 29/04/2024
  *
  */
 public class Player extends Entity {
@@ -66,14 +66,14 @@ public class Player extends Entity {
         if (Gdx.input.isKeyPressed(Input.Keys.S)) position.y -= deltaTime*speed;
         
         //keep player within the boundaries
-        if (position.x < 0)
-            position.x = 0;
-        if (position.x + sprite.getWidth() > GameScreen.mapSprite.getWidth())
-            position.x = GameScreen.mapSprite.getWidth() - sprite.getWidth();
-        if (position.y < 0)
-            position.y = 0;
-        if (position.y + sprite.getHeight() > GameScreen.mapSprite.getHeight())
-            position.y = GameScreen.mapSprite.getHeight() - sprite.getHeight();
+        if (position.x < sprite.getWidth()/2)
+            position.x = sprite.getWidth()/2;
+        if (position.x + sprite.getWidth()/2 > GameScreen.mapSprite.getWidth())
+            position.x = GameScreen.mapSprite.getWidth() - sprite.getWidth()/2;
+        if (position.y < sprite.getHeight()/2)
+            position.y = sprite.getHeight()/2;
+        if (position.y + sprite.getHeight()/2 > GameScreen.mapSprite.getHeight())
+            position.y = GameScreen.mapSprite.getHeight() - sprite.getHeight()/2;
          
     //damage taken logic
         if (this.canGetHurt()) {
