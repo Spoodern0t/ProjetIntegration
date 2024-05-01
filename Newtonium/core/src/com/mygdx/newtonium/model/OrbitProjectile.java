@@ -72,7 +72,7 @@ public class OrbitProjectile extends Projectile{
         Vector2 targetDeltaX =  new Vector2(target.position.x - target.lastPosition.x, target.lastPosition.y - target.lastPosition.y);
         
     //get a relative pixel displacement length between this and target
-        float relativeDeltaX = deltaX.sub(targetDeltaX).len();
+        float relativeDeltaX = deltaX.dst(targetDeltaX);
         
     //convert length from pixels to meters
         relativeDeltaX /= 25; // 1 meter = 25 pixels
