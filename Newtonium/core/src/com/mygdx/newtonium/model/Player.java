@@ -77,7 +77,7 @@ public class Player extends Entity {
          
     //damage taken logic
         if (this.canGetHurt()) {
-            this.sprite.setTexture(Global.playerPlaceholder);
+            this.sprite.setTexture(this.initTexture);
         }
         
     //item trigger logic

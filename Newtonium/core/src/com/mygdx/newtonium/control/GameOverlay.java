@@ -111,6 +111,7 @@ public class GameOverlay {
             Cbutton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
+                        GameScreen.isPaused = false;
                         Unpause();
                     }
             });
@@ -118,6 +119,7 @@ public class GameOverlay {
             Pbutton.addListener(new ChangeListener(){//PauseButton
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
+                        GameScreen.isPaused = true;
                         Pause();//Button Functionnality
                     }
             });

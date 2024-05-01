@@ -31,17 +31,19 @@ public abstract class Entity {
     public float lastHurtTime = 0f, timeBetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitbox;
+    protected Texture initTexture;
     
     
 //Constructors
     public Entity(int maxHP, float speed, Vector2 position, Texture img){
         
+        this.initTexture = img;
         this.sprite = new Sprite(img);
         //DO NOT USE SETSCALE()!
         //Either use setSize() or manually change the texture file's dimensions.
         //A sprite's position is its bottom left corner, and it doesn't adjust when scaling! ~AF
         this.position = position;
-        this.lastPosition = position;
+        this.lastPosition = new Vector2(position.x, position.y);
         this.hitboxRadius = sprite.getHeight()/2;
         this.hitbox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
@@ -62,7 +64,7 @@ public abstract class Entity {
         if (this.isDead){ //skips update early if object is dead
             throw new DeadEntityException();
         }
-        lastPosition = new Vector2(position);
+        lastPosition.set(position);
         lastHurtTime += deltaTime;
         
         if (this.currentHP <= 0){
