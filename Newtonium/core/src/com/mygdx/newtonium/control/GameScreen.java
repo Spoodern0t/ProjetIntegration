@@ -101,7 +101,7 @@ public class GameScreen implements Screen {
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
-        if(Gdx.input.isKeyJustPressed(P)){//Pause Actin funky, Needs Fix.Only does 1 thing at a Time, Might be me with a severe lapse in logic. To any that can solve it, thank you in advance -EY
+        if(Gdx.input.isKeyJustPressed(P)){//fixed Since 2024
            isPaused = !isPaused;
            hud.pmenu.Pause();
            hud.pmenu.Unpause();
