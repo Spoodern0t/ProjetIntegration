@@ -68,8 +68,8 @@ public class OrbitProjectile extends Projectile{
     private float relativeVelocity(Entity target, float deltaTime){
         
     //get this and target's pixel displacements vectors since last render
-        Vector2 deltaX = this.position.sub(this.lastPosition);
-        Vector2 targetDeltaX = target.position.sub(target.lastPosition);
+        Vector2 deltaX = new Vector2(this.position.x - this.lastPosition.x, this.lastPosition.y - this.lastPosition.y);
+        Vector2 targetDeltaX =  new Vector2(target.position.x - target.lastPosition.x, target.lastPosition.y - target.lastPosition.y);
         
     //get a relative pixel displacement length between this and target
         float relativeDeltaX = deltaX.sub(targetDeltaX).len();
