@@ -57,7 +57,7 @@ public class Global {
     //player types
     public static class Players{
         
-        private static final int DEFAULT_PLAYER_HP = 100;
+        private static final int DEFAULT_PLAYER_HP = 10;
         private static final float DEFAULT_PLAYER_SPEED = 300;
         
         //template objects for spawn() copies
@@ -68,11 +68,10 @@ public class Global {
     //enemy types
     public static class Enemies{
         private static final double DEFAULT_LEVEL_SCALING = 1;
-        private static final int DEFAULT_ENEMY_HP = 10000;
+        private static final int DEFAULT_ENEMY_HP = 1;
         private static final float DEFAULT_ENEMY_SPEED = 100;
         private static final int DEFAULT_ENEMY_STRENGTH = 1;
         private static final int DEFAULT_XP_VALUE = 10;
-        private static final int DEFAULT_ENEMY_MASSE =10;
         
         //template objects for spawn() copies
         public static Enemy defaultEnemy = new Enemy(
@@ -82,7 +81,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE, 
                                     nullPosition,
-                                    evilPlaceholder,DEFAULT_ENEMY_MASSE );
+                                    evilPlaceholder);
         
         public static Enemy fastEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
@@ -91,7 +90,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE, 
                                     nullPosition,
-                                    evilFast,DEFAULT_ENEMY_MASSE/2);
+                                    evilFast);
         
         public static Enemy strongEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
@@ -100,7 +99,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH*2, 
                                     DEFAULT_XP_VALUE*2, 
                                     nullPosition,
-                                    evilStrong,DEFAULT_ENEMY_MASSE);
+                                    evilStrong);
         
         public static Enemy tankyEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
@@ -109,7 +108,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE*3, 
                                     nullPosition,
-                                    evilTanky,DEFAULT_ENEMY_MASSE*3);
+                                    evilTanky);
         
         public static Enemy[] enemyRotation = new Enemy[]{defaultEnemy, fastEnemy, strongEnemy, tankyEnemy};
     }

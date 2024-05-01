@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mygdx.newtonium.model;
-import com.mygdx.newtonium.control.GameScreen;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -21,12 +21,9 @@ public class TestProjectile extends Projectile{
     public TestProjectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         
         super(flatDamage, decayTime, maxHP, speed, position, img);
-        /* IF WE USE THIS IT WIL AIM (CAN'T WORK, TO MUCH CLASS)
-        for(Enemy e: GameScreen.enemyList){
-            this.angle=Math.atan((e.position.y-GameScreen.player.position.y)/(e.position.x-GameScreen.player.position.x));
+        this.angle = MathUtils.random(0,360);
     }
-        */
-    }
+    
 //methods
     /**
      * Updates the projectile object for the current time and conditions.

@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
     
     
 //game objects
-    public static Player player = Global.currentPlayer;
+    Player player = Global.currentPlayer;
     Enemy[] enemyTypes = Global.Enemies.enemyRotation;
     
     public static LinkedList<Projectile> projectileList; 
@@ -147,7 +147,7 @@ public class GameScreen implements Screen {
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
                         e.currentHP -= (int)p.flatDamage*p.damageMod;
-                        System.out.println(p.flatDamage*p.damageMod*p.speed*p.masse + "Newtons!"); //for testing
+                        System.out.println(p.flatDamage + "Newtons!"); //for testing
                         p.currentHP--;
                     }
                 }

@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Entity {
     
 //Attributes
-    public int maxHP,currentHP,  knockBack=0, masse;
+    public int maxHP, currentHP, knockBack=0;
     public double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position; //current position
     public Vector2 lastPosition; //position at last render
@@ -106,7 +106,6 @@ public abstract class Entity {
     public void die(){
         this.isDead = true;
         GameScreen.despawnList.add(this);
-        
         //may be overridden to add on-death interactions.
     }
     
