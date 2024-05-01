@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Enemy extends Entity {
     
 //attributes
+    private Texture initTexture;
     public double levelScaling; //boosts enemy stats depending on player level
     public int strength; //damage dealth by the enemy
     public int exp; //xp gained when the enemy is killed
@@ -29,6 +30,7 @@ public class Enemy extends Entity {
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
+        this.initTexture = img;
         this.levelScaling = levelScaling;
         //this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
@@ -49,7 +51,7 @@ public class Enemy extends Entity {
         super.update(deltaTime);
         
         if (this.canGetHurt()) {
-            this.sprite.setTexture(Global.evilPlaceholder);
+            this.sprite.setTexture(this.initTexture);
         }
         
     //moves enemy towards player

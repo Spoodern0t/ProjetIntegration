@@ -28,7 +28,11 @@ public class Global {
     //gameplay textures
     public static final Texture hurtPlaceholder = new Texture("sadge.png");
     public static final Texture playerPlaceholder = new Texture("LilBoy.png");
+    
     public static final Texture evilPlaceholder = new Texture("Evil.png");
+    public static final Texture evilFast = new Texture("EvilFast.png");
+    public static final Texture evilStrong = new Texture("EvilStrong.png");
+    public static final Texture evilTanky = new Texture("EvilTanky.png");
     
     public static final Texture mapPlaceholder = new Texture("MapImg.png");
     public static final Texture scaleMapPlaceholder = new Texture("MapImgScale.png");
@@ -86,7 +90,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE, 
                                     nullPosition,
-                                    evilPlaceholder);
+                                    evilFast);
         
         public static Enemy strongEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
@@ -95,7 +99,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH*2, 
                                     DEFAULT_XP_VALUE*2, 
                                     nullPosition,
-                                    evilPlaceholder);
+                                    evilStrong);
         
         public static Enemy tankyEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
@@ -104,7 +108,7 @@ public class Global {
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE*3, 
                                     nullPosition,
-                                    evilPlaceholder);
+                                    evilTanky);
         
         public static Enemy[] enemyRotation = new Enemy[]{defaultEnemy, fastEnemy, strongEnemy, tankyEnemy};
     }
