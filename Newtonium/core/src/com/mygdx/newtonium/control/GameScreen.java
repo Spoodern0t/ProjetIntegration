@@ -146,7 +146,6 @@ public class GameScreen implements Screen {
                     //TODO: replace with hurtEnemy() method for Projectile.
                     if (e.canGetHurt()){
                         e.lastHurtTime = 0;
-                        e.sprite.setTexture(Global.evilPlaceholder);
                         e.currentHP -= (int)p.flatDamage*p.damageMod;
                         System.out.println(p.flatDamage + "Newtons!"); //for testing
                         p.currentHP--;
