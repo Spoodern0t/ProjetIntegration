@@ -104,6 +104,7 @@ public class GameScreen implements Screen {
         }
         if(isOver || isPaused){
             deltaTime = 0;
+            hud.goverlay.GendOccur();
             /*if(isPaused){
                hud.pmenu.Unpause();   
             }*/

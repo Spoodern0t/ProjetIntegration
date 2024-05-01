@@ -87,8 +87,8 @@ public class GameOverlay {
         private final GameController game;
         private final Hud hud;
         public Table pausebuttontable;
-        
         public Window PauseMWindow = new Window("Paused!",Global.skin);
+        
         public P_Menu(Hud hud,SpriteBatch batch,GameController game,GameScreen screen){
             this.game = screen.game;
             this.hud = hud;

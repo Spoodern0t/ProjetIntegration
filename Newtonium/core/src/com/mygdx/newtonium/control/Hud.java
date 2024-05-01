@@ -26,7 +26,7 @@ public class Hud {
     int HealthValue;
     int ScoreValue;
     int levelValue = Global.currentPlayer.level;
-    long StartTime = System.currentTimeMillis();
+    
     float minutes = 0f;
     float seconds = 0f;
     float GameTime = 0l;
