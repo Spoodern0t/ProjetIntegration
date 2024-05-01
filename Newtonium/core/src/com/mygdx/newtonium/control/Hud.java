@@ -84,9 +84,9 @@ public class Hud {
         overlaystage = new Stage(hudstage.getViewport(),hudstage.getBatch());
         
             //Game end Overlay Related Setup
-            goverlay = new GameOverlay.G_E_Overlay(this,spriteBatch,screen,game);
+            goverlay = new GameOverlay.G_E_Overlay(this,screen,game);
             //Game Pause Overlay Related Setup
-            pmenu = new GameOverlay.P_Menu(this,spriteBatch,game,screen);
+            pmenu = new GameOverlay.P_Menu(this,game,screen);
         overlaystage.addActor(goverlay.GameEndWindow);
         
         overlaystage.addActor(pmenu.PauseMWindow);

@@ -102,11 +102,13 @@ public class GameScreen implements Screen {
     @Override
     public void render(float deltaTime){
         if(Gdx.input.isKeyJustPressed(P)){//Pause Actin funky, Needs Fix.Only does 1 thing at a Time, Might be me with a severe lapse in logic. To any that can solve it, thank you in advance -EY
+           isPaused = !isPaused;
            hud.pmenu.Pause();
+           hud.pmenu.Unpause();
         }
         if(isOver || isPaused){
             deltaTime = 0;
-            hud.goverlay.GendOccur();
+            if(isOver){hud.goverlay.GendOccur();}
             /*if(isPaused){
                hud.pmenu.Unpause();   
             }*/

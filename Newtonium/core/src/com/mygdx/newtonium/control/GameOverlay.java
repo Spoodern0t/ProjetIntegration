@@ -31,7 +31,7 @@ public class GameOverlay {
         private final Hud hud;
         private final GameController game;
         private final GameScreen screen;
-        public G_E_Overlay(Hud hud,SpriteBatch batch,GameScreen screen,GameController game){
+        public G_E_Overlay(Hud hud,GameScreen screen,GameController game){
             this.hud = hud;
             this.game = game;
             this.screen = screen;
@@ -75,7 +75,7 @@ public class GameOverlay {
         public void TakeEndInfo(){
             //this is in case It takes the info too late.
             FinalScoreLabel.setText("Final Score: "+hud.ScoreValue);
-            FinalTimeLabel.setText("Final Time: "+hud.minutes+":"+hud.seconds);
+            FinalTimeLabel.setText("Final Time: "+String.format("%.00f:%.00f", hud.minutes, hud.seconds));
         }
         
     }
@@ -89,7 +89,7 @@ public class GameOverlay {
         public Table pausebuttontable;
         public Window PauseMWindow = new Window("Paused!",Global.skin);
         
-        public P_Menu(Hud hud,SpriteBatch batch,GameController game,GameScreen screen){
+        public P_Menu(Hud hud,GameController game,GameScreen screen){
             this.game = screen.game;
             this.hud = hud;
             this.screen = screen;
@@ -134,20 +134,33 @@ public class GameOverlay {
             pausebuttontable.setPosition(800-(pausebuttontable.getWidth()),0);
         } 
         public void Pause(){//These can be optimised further but Im keeping it like this for Reliability's sake. -EY
+            if(GameScreen.isPaused )
             PauseMWindow.setVisible(true);
-            GameScreen.isPaused = true;
+            
             
         }
         public void Unpause(){
-            PauseMWindow.setVisible(false);
-            GameScreen.isPaused = false;
-            
+            if(GameScreen.isPaused == false){PauseMWindow.setVisible(false);}
         }
     }
     
     
     public static class U_MENU{//UpgradeMenu
         public Window LevelUpMenu = new Window("Level up!",Global.skin);
+        private final Hud hud;
+        private final GameController game;
+        private final GameScreen screen;
+        public U_MENU(Hud hud,GameController game,GameScreen screen){
+            this.hud = hud;
+            this.game = game;
+            this.screen = screen;
+            
+            
+            
+                //Content Organisation
+                LevelUpMenu.add();
+            
+        }
     }
     
 }
