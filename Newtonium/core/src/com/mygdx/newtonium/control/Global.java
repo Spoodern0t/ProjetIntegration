@@ -68,13 +68,13 @@ public class Global {
     //enemy types
     public static class Enemies{
         private static final double DEFAULT_LEVEL_SCALING = 1;
-        private static final int DEFAULT_ENEMY_HP = 1;
+        private static final int DEFAULT_ENEMY_HP = 200;
         private static final float DEFAULT_ENEMY_SPEED = 100;
         private static final int DEFAULT_ENEMY_STRENGTH = 1;
         private static final int DEFAULT_XP_VALUE = 10;
         
         //template objects for spawn() copies
-        public static Enemy defaultEnemy = new Enemy(
+        public static final Enemy defaultEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
                                     DEFAULT_ENEMY_HP, 
                                     DEFAULT_ENEMY_SPEED, 
@@ -83,16 +83,16 @@ public class Global {
                                     nullPosition,
                                     evilPlaceholder);
         
-        public static Enemy fastEnemy = new Enemy(
+        public static final Enemy fastEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
                                     DEFAULT_ENEMY_HP, 
-                                    DEFAULT_ENEMY_SPEED*2, 
+                                    DEFAULT_ENEMY_SPEED*1.5f, 
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE, 
                                     nullPosition,
                                     evilFast);
         
-        public static Enemy strongEnemy = new Enemy(
+        public static final Enemy strongEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
                                     DEFAULT_ENEMY_HP, 
                                     DEFAULT_ENEMY_SPEED, 
@@ -101,7 +101,7 @@ public class Global {
                                     nullPosition,
                                     evilStrong);
         
-        public static Enemy tankyEnemy = new Enemy(
+        public static final Enemy tankyEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
                                     DEFAULT_ENEMY_HP*10, 
                                     DEFAULT_ENEMY_SPEED/2, 

@@ -29,13 +29,17 @@ public class OrbitProjectile extends Projectile{
     
 //constructors
     public OrbitProjectile(float mass, float orbitRadius, int pierceAmount, float instantVelocity, Texture img){
-        //flatDamage updates automatically over this object's lifespan. 
+        
         super(1, 0, pierceAmount, instantVelocity, new Vector2(Global.currentPlayer.position), img);
+        
         this.mass = mass;
         this.orbitRadius = orbitRadius;
         this.orbitPeriod = (2 * (float)Math.PI * orbitRadius) / instantVelocity;
         this.decayTime = this.orbitPeriod * 3;
-        //this.angle could be set to a random number here, right now it's 0. ~AF
+        
+        //initial offset to avoid crazy high damage on spawning frame
+        this.position.x += (float)Math.cos(angle) * orbitRadius * 25;
+        this.position.y += (float)Math.sin(angle) * orbitRadius * 25;
     }
     
 //methods

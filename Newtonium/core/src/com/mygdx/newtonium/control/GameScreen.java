@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import static com.badlogic.gdx.Input.Keys.P;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Align;
@@ -138,16 +139,15 @@ public class GameScreen implements Screen {
         
     //calculate enemies      
         for (Enemy e: enemyList) {
-            
+            e.sprite.setColor(Color.WHITE);
         //check for projectile collision with enemy
             for (Projectile p: projectileList){
                 if (p.collide(e)){
-                    
-                    //TODO: replace with hurtEnemy() method for Projectile.
                     if (e.canGetHurt()){
+                        e.sprite.setColor(Color.RED);
                         e.lastHurtTime = 0;
-                        e.currentHP -= (int)p.flatDamage*p.damageMod;
-                        System.out.println(p.flatDamage + "Newtons!"); //for testing
+                        e.currentHP -= (int)p.flatDamage; //Do NOT multiply this by anything. It will screw up our physics calculations. ~AF
+                        System.out.println(p.flatDamage + " Newtons!"); //for testing
                         p.currentHP--;
                     }
                 }
@@ -161,7 +161,7 @@ public class GameScreen implements Screen {
                     player.currentHP = player.currentHP - e.strength;
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(Global.hurtPlaceholder);
-                    e.currentHP--;
+                    e.currentHP--; //obsolete as soon as we give enemies proper HP! ~AF
                 }
             }
             
@@ -188,7 +188,7 @@ public class GameScreen implements Screen {
         
     //spawn enemies periodically
         lastSpawnTime += deltaTime;
-        if(lastSpawnTime > 1f) {
+        if(lastSpawnTime > 3f) { //spawn delay
             enemyList.add((Enemy)enemyTypes[rand.nextInt(enemyTypes.length)].spawn());
             lastSpawnTime = 0;
         }
