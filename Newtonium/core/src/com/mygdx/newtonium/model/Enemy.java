@@ -28,13 +28,14 @@ public class Enemy extends Entity {
     public int exp; //xp gained when the enemy is killed
 
 //constructors
-    public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img) {
+    public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img, int masse) {
         super(maxHP, speed, position, img);
         this.initTexture = img;
         this.levelScaling = levelScaling;
         //this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
         this.exp = exp;
+        this.masse= masse;
 
     }
     
@@ -103,7 +104,8 @@ public class Enemy extends Entity {
                 this.strength,
                 this.exp,
                 pos,
-                this.sprite.getTexture()
+                this.sprite.getTexture(),
+                this.masse
         );
         /*
         //getting a random enemy type depending on the amount of options (4 is the amount of possible enemy types, up it if you want to add another)

@@ -125,9 +125,9 @@ public class Player extends Entity {
      * @param item Item to add to the player's inventory 
      */
     public void addItem(Item item){
-        if (items.size() < MAXIMUM_ITEM_CAPACITY){
+        
             items.add(item);
-        }
+        
     }
     
     

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mygdx.newtonium.model;
-
+import com.mygdx.newtonium.control.*;
 import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.Input;
 public class Item { //Will become a superclass for diversified items. ~AF
 
 //attributes
-    int level;
+    int level, numero;
     protected float cooldown; //in seconds
     protected float lastTriggerTime = 0f;
     Projectile projectile;
@@ -27,7 +27,9 @@ public class Item { //Will become a superclass for diversified items. ~AF
     public Item(int level, float cooldown, Projectile projectile){
         this.level = Math.max(1, level);
         this.cooldown = cooldown;
-        this.projectile = projectile;
+        this.projectile = Global.Projectiles.satellite;
+        //this.projectile = Global.Projectiles.testProjectile;
+        
     }
     
 //methods
@@ -82,6 +84,12 @@ public class Item { //Will become a superclass for diversified items. ~AF
         */
         
     }
-    
+    /* TODO: enemy drop item when dead at their position
+    public void dropITem(){
+        
        
+        
+        }
+    
+    */
 }
