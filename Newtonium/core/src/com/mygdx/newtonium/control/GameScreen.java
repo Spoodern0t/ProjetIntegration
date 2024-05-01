@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  *
@@ -28,6 +29,8 @@ import java.util.Locale;
 
 public class GameScreen implements Screen {
 
+    Random rand = new Random();
+    
 //screen
     static public Camera Camera;
     Viewport viewport;
@@ -48,15 +51,14 @@ public class GameScreen implements Screen {
     
 //game objects
     Player player = Global.currentPlayer;
-    Enemy enemy = Global.Enemies.testEnemy;
-    
+    Enemy[] enemyTypes = Global.Enemies.enemyRotation;
     
     public static LinkedList<Projectile> projectileList; 
     public static LinkedList<Enemy> enemyList;
     
     public static LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
-// Heads up Display    
     
+// Heads up Display    
     public int score = 0;
     float hudSectionWidth;//Attribut pour Des labels sur l'ennemie
     
@@ -186,7 +188,7 @@ public class GameScreen implements Screen {
     //spawn enemies periodically
         lastSpawnTime += deltaTime;
         if(lastSpawnTime > 1f) {
-            enemyList.add((Enemy)enemy.spawn());
+            enemyList.add((Enemy)enemyTypes[rand.nextInt(enemyTypes.length)].spawn());
             lastSpawnTime = 0;
         }
         

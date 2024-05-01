@@ -27,10 +27,10 @@ public class Enemy extends Entity {
     public int exp; //xp gained when the enemy is killed
 
 //constructors
-    public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img, Color color) {
+    public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
         this.levelScaling = levelScaling;
-        this.sprite.setColor(color); //for testing purposes
+        //this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
         this.exp = exp;
 
@@ -77,7 +77,7 @@ public class Enemy extends Entity {
         Vector2 pos;
         float posX;
         float posY;
-        int spawningID;
+        //int spawningID;
               
     //randomized spawning point around the screen's border
         float camW = GameScreen.Camera.viewportWidth/2;
@@ -94,11 +94,21 @@ public class Enemy extends Entity {
         }
         pos = new Vector2(posX, posY);
         
+        return new Enemy(
+                this.levelScaling,
+                this.maxHP,
+                this.speed,
+                this.strength,
+                this.exp,
+                pos,
+                this.sprite.getTexture()
+        );
+        /*
         //getting a random enemy type depending on the amount of options (4 is the amount of possible enemy types, up it if you want to add another)
-        spawningID = (int) Math.floor(Math.random()*(4 - 1 + 1) + 1);
+        spawningID = (int) Math.floor(Math.random()*(4) + 1);
         
         
-        switch (spawningID) {
+        switch (spawningID) { //you could've prebuilt all of these in Global and spawned them at random ~AF
             case 1 :
                 //default enemy (find a name maybe)
                 return new Enemy(
@@ -161,7 +171,7 @@ public class Enemy extends Entity {
         );
             
                 
-        }
+        }*/
         
     }
       
