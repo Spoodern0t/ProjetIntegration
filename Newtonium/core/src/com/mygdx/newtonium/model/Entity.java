@@ -25,23 +25,25 @@ public abstract class Entity {
     public int maxHP, currentHP, knockBack=0;
     public double damageMod = 1; //multiplier to apply on base stats in spawn()
     public Vector2 position; //current position
-    public Vector2 lastPosition = new Vector2(0, 0); //position at last render
+    public Vector2 lastPosition; //position at last render
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
     public float lastHurtTime = 0f, timeBetweenHurt = 1f;
     public boolean isDead = false; 
     public Circle hitbox;
+    protected Texture initTexture;
     
     
 //Constructors
     public Entity(int maxHP, float speed, Vector2 position, Texture img){
         
+        this.initTexture = img;
         this.sprite = new Sprite(img);
         //DO NOT USE SETSCALE()!
         //Either use setSize() or manually change the texture file's dimensions.
         //A sprite's position is its bottom left corner, and it doesn't adjust when scaling! ~AF
         this.position = position;
-        this.lastPosition.set(position.x, position.y);
+        this.lastPosition = new Vector2(position.x, position.y);
         this.hitboxRadius = sprite.getHeight()/2;
         this.hitbox = new Circle(position,hitboxRadius);
         this.maxHP = maxHP;
