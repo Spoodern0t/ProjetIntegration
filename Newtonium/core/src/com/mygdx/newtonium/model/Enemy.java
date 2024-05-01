@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
  *
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
+ * @author Thomas Cyr (2289144)
  * 
  * @since 03/04/2024
  */
@@ -22,12 +23,14 @@ public class Enemy extends Entity {
     
 //attributes
     public double levelScaling; //boosts enemy stats depending on player level
+    public int strength; //damage dealth by the enemy
 
 //constructors
-    public Enemy(double levelScaling, int maxHP, float speed, Vector2 position, Texture img) {
+    public Enemy(double levelScaling, int maxHP, float speed, int strength, Vector2 position, Texture img, Color color) {
         super(maxHP, speed, position, img);
         this.levelScaling = levelScaling;
-        this.sprite.setColor(Color.BLUE); //for testing purposes
+        this.sprite.setColor(color); //for testing purposes
+        this.strength = strength;
 
     }
     
@@ -72,6 +75,7 @@ public class Enemy extends Entity {
         Vector2 pos;
         float posX;
         float posY;
+        int spawningID;
               
     //randomized spawning point around the screen's border
         float camW = GameScreen.Camera.viewportWidth/2;
@@ -88,13 +92,70 @@ public class Enemy extends Entity {
         }
         pos = new Vector2(posX, posY);
         
-        return new Enemy(
+        //getting a random enemy type depending on the amount of options (4 is the amount of possible enemy types, up it if you want to add another)
+        spawningID = (int) Math.floor(Math.random()*(4 - 1 + 1) + 1);
+        
+        
+        switch (spawningID) {
+            case 1 :
+                //default enemy (find a name maybe)
+                return new Enemy(
             this.levelScaling,
             this.maxHP,
             this.speed,
+            this.strength,
             pos,
-            this.sprite.getTexture()
+            this.sprite.getTexture(),
+            this.sprite.getColor()
         );
+            case 2 :
+                //faster enemy (find a name maybe)
+                return new Enemy(
+            this.levelScaling,
+            this.maxHP,
+            this.speed*2,
+            this.strength,
+            pos,
+            this.sprite.getTexture(),
+            Color.CHARTREUSE
+        );
+            case 3 :
+                //stronger enemy (find a name maybe)
+                return new Enemy(
+            this.levelScaling,
+            this.maxHP,
+            this.speed,
+            this.strength*2,
+            pos,
+            this.sprite.getTexture(),
+            Color.SCARLET
+        );
+            case 4 :
+                //more tanky enemy (find a name maybe
+                return new Enemy(
+            this.levelScaling,
+            this.maxHP*10,
+            this.speed/2,
+            this.strength,
+            pos,
+            this.sprite.getTexture(),
+            Color.LIGHT_GRAY
+        );
+            //default enemy (find a name maybe)
+            default :
+                return new Enemy(
+            this.levelScaling,
+            this.maxHP,
+            this.speed,
+            this.strength,
+            pos,
+            this.sprite.getTexture(),
+            this.sprite.getColor()
+        );
+            
+                
+        }
+        
     }
       
 }

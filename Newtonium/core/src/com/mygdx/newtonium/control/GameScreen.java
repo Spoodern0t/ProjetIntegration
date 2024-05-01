@@ -21,6 +21,7 @@ import java.util.Locale;
  *
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
+ * @author Thomas Cyr (2289144)
  * 
  * @since 29/04/2024
  */
@@ -153,7 +154,7 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
-                    player.currentHP--; //possible TODO: implement varying damage for enemy types. ~AF
+                    player.currentHP = player.currentHP - e.strength; //possible TODO: implement varying damage for enemy types. ~AF
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(Global.hurtPlaceholder);
                     e.currentHP--;

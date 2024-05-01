@@ -6,6 +6,7 @@ package com.mygdx.newtonium.control;
 
 import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  *
- * @author Thomas Cyr 
+ * @author Thomas Cyr (2289144)
  * @author Alexis Fecteau (2060238)
  * 
  * @since 29/04/2024
@@ -65,10 +66,11 @@ public class Global {
         
         private static final int DEFAULT_ENEMY_HP = 1;
         private static final float DEFAULT_ENEMY_SPEED = 100;
+        private static final int DEFAULT_ENEMY_STRENGTH = 1;
         
         //template objects for spawn() copies
-        public static Enemy testEnemy = new Enemy(1, DEFAULT_ENEMY_HP, DEFAULT_ENEMY_SPEED, nullPosition, evilPlaceholder);
-        
+        public static Enemy testEnemy = new Enemy(1, DEFAULT_ENEMY_HP, DEFAULT_ENEMY_SPEED, DEFAULT_ENEMY_STRENGTH, nullPosition, evilPlaceholder, Color.BLUE);
+         
     }
     
     //projectile types
