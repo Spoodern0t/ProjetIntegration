@@ -155,7 +155,7 @@ public class GameScreen implements Screen {
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
-                    player.currentHP = player.currentHP - e.strength; //possible TODO: implement varying damage for enemy types. ~AF
+                    player.currentHP = player.currentHP - e.strength;
                     player.lastHurtTime = 0;
                     player.sprite.setTexture(Global.hurtPlaceholder);
                     e.currentHP--;
@@ -165,7 +165,7 @@ public class GameScreen implements Screen {
         //TODO: rewrite this part to use exp and levelThreshold like they're meant to
             if(e.currentHP<=0){
                 score+=100;//PlaceHolder Method That I didn't know the appropriate method to implement.Feel free to move at as long as Functionnality remains the same -EY
-                player.exp = 10;
+                player.exp = e.exp;
                 player.currentExp += player.exp;
                 
             }

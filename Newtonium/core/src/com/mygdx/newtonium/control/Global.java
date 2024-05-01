@@ -67,9 +67,10 @@ public class Global {
         private static final int DEFAULT_ENEMY_HP = 1;
         private static final float DEFAULT_ENEMY_SPEED = 100;
         private static final int DEFAULT_ENEMY_STRENGTH = 1;
+        private static final int DEFAULT_XP_VALUE = 10;
         
         //template objects for spawn() copies
-        public static Enemy testEnemy = new Enemy(1, DEFAULT_ENEMY_HP, DEFAULT_ENEMY_SPEED, DEFAULT_ENEMY_STRENGTH, nullPosition, evilPlaceholder, Color.BLUE);
+        public static Enemy testEnemy = new Enemy(1, DEFAULT_ENEMY_HP, DEFAULT_ENEMY_SPEED, DEFAULT_ENEMY_STRENGTH, DEFAULT_XP_VALUE, nullPosition, evilPlaceholder, Color.BLUE);
          
     }
     

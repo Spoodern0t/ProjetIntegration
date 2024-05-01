@@ -24,13 +24,15 @@ public class Enemy extends Entity {
 //attributes
     public double levelScaling; //boosts enemy stats depending on player level
     public int strength; //damage dealth by the enemy
+    public int exp; //xp gained when the enemy is killed
 
 //constructors
-    public Enemy(double levelScaling, int maxHP, float speed, int strength, Vector2 position, Texture img, Color color) {
+    public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img, Color color) {
         super(maxHP, speed, position, img);
         this.levelScaling = levelScaling;
         this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
+        this.exp = exp;
 
     }
     
@@ -104,6 +106,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             this.strength,
+            this.exp,
             pos,
             this.sprite.getTexture(),
             this.sprite.getColor()
@@ -115,6 +118,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed*2,
             this.strength,
+            this.exp,
             pos,
             this.sprite.getTexture(),
             Color.CHARTREUSE
@@ -126,6 +130,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             this.strength*2,
+            this.exp*2,
             pos,
             this.sprite.getTexture(),
             Color.SCARLET
@@ -137,6 +142,7 @@ public class Enemy extends Entity {
             this.maxHP*10,
             this.speed/2,
             this.strength,
+            this.exp*3,
             pos,
             this.sprite.getTexture(),
             Color.LIGHT_GRAY
@@ -148,6 +154,7 @@ public class Enemy extends Entity {
             this.maxHP,
             this.speed,
             this.strength,
+            this.exp,
             pos,
             this.sprite.getTexture(),
             this.sprite.getColor()
