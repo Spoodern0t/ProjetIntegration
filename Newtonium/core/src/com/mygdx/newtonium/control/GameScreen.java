@@ -86,7 +86,7 @@ public class GameScreen implements Screen {
     */
         
     //gameobject setup (some temporary)
-        //player.addItem(Global.Items.testItem);
+        player.addItem(Global.Items.testProjectileTester);
         player.addItem(Global.Items.satelliteTester);
         
         enemyList = new LinkedList<>();

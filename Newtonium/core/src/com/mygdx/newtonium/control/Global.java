@@ -6,10 +6,10 @@ package com.mygdx.newtonium.control;
 
 import com.mygdx.newtonium.model.*;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.Input.Keys;
 
 
 /**
@@ -110,27 +110,31 @@ public class Global {
                                     nullPosition,
                                     evilTanky);
         
+        //Array of enemy types that can appear in-game
         public static Enemy[] enemyRotation = new Enemy[]{defaultEnemy, fastEnemy, strongEnemy, tankyEnemy};
     }
     
     //projectile types
     public static class Projectiles {
         
-        private static final double DEFAULT_PROJ_DECAYTIME = 3; //seconds before normal despawn
+        private static final double DEFAULT_PROJ_DECAYTIME = 3; //seconds
         private static final int DEFAULT_PROJ_PIERCE = 1; //enemy contacts necessary for early despawn
-        private static final float DEFAULT_PROJ_SPEED = 150;
+        private static final float DEFAULT_PROJ_SPEED = 150; //pixels per second
         
         //template objects for spawn() copies
         public static Projectile testProjectile = new TestProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
     }
     
-    //prebuilt item objects (NOT templates, these get used as themselves)
+    //prebuilt Item objects (NOT templates, these get used as themselves)
     public static class Items {
         
-        //prebuilt objects to equip Player with
-        public static Item testItem = new Item(1, 0.25f, Projectiles.testProjectile);
-        public static Item satelliteTester = new Item(1, 0.25f, Projectiles.satellite);
+        //debug Items
+        public static Item testProjectileTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.testProjectile);
+        public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
+        
+        //gameplay Items
+        
     }
     
 }
