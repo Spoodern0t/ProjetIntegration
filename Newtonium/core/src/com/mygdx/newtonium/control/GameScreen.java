@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
     */
         
     //gameobject setup (some temporary)
-        
+        player.addItem(Global.Items.testProjectileTester);
         player.addItem(Global.Items.satelliteTester);
         //player.addItem(Global.Items.StraightTester); It aims... Sometimes. Likely a Tracker,sorter or update issue idk. Gotta check.
         
