@@ -17,14 +17,13 @@ public abstract class Item {
 //attributes
     int level;
     protected float cooldown; //in seconds
-    protected float lastTriggerTime;
+    protected float lastTriggerTime = 0f;
     protected Projectile projectile;
     
 //constructors
     public Item(int level, float cooldown, Projectile projectile){
         this.level = Math.max(1, level);
         this.cooldown = cooldown;
-        this.lastTriggerTime = cooldown;
         this.projectile = projectile;
     }
     
@@ -45,9 +44,7 @@ public abstract class Item {
      * Checks whether this item meets the conditions to trigger. Used in update().
      * @return true if the item can fire at time of update.
      */
-    protected boolean canTrigger(){
-        return (this.lastTriggerTime >= this.cooldown);
-    }
+    protected abstract boolean canTrigger();
     
     /**
      * Activates this item's effect and handles its logic.

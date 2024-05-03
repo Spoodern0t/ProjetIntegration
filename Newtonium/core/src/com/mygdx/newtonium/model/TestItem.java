@@ -5,10 +5,10 @@
 package com.mygdx.newtonium.model;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 
 /**
- *
+ * Item type used purely for testing. Bound to a key and triggered manually.
+ * 
  * @author Alexis Fecteau
  * @since 03/05/2024
  */
@@ -19,6 +19,7 @@ public class TestItem extends Item {
 //constructors
     public TestItem(int triggerKey, int level, float cooldown, Projectile projectile){
         super(level, cooldown, projectile);
+        this.lastTriggerTime = cooldown;
         this.triggerKey = triggerKey;
     }
     
@@ -31,8 +32,9 @@ public class TestItem extends Item {
     protected boolean canTrigger(){
         
         if(Gdx.input.isKeyPressed(triggerKey))            
-            return super.canTrigger();
+            return (this.lastTriggerTime >= this.cooldown);
         
         return false;
     }
+    
 }
