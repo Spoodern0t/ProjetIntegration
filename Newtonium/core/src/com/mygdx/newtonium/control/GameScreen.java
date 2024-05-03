@@ -31,7 +31,6 @@ import java.util.Random;
 public class GameScreen implements Screen {
 
     Random rand = new Random();
-    
 //screen
     static public Camera Camera;
     Viewport viewport;
@@ -86,8 +85,9 @@ public class GameScreen implements Screen {
     */
         
     //gameobject setup (some temporary)
-        //player.addItem(Global.Items.testItem);
+        
         player.addItem(Global.Items.satelliteTester);
+        //player.addItem(Global.Items.StraightTester); It aims... Sometimes. Likely a Tracker,sorter or update issue idk. Gotta check.
         
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
@@ -98,11 +98,10 @@ public class GameScreen implements Screen {
         
        
     }
-    //Erased PrepHud Method and migrated related parameters to Hud class.
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
-        if(Gdx.input.isKeyJustPressed(P)){//fixed Since 2024
+        if(Gdx.input.isKeyJustPressed(P)){//fixed Since 2024/05/01
            isPaused = !isPaused;
            hud.pmenu.Pause();
            hud.pmenu.Unpause();
@@ -110,9 +109,6 @@ public class GameScreen implements Screen {
         if(isOver || isPaused){
             deltaTime = 0;
             if(isOver){hud.goverlay.GendOccur();}
-            /*if(isPaused){
-               hud.pmenu.Unpause();   
-            }*/
         }
     //move camera
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
@@ -182,6 +178,7 @@ public class GameScreen implements Screen {
         /* 
         Flush all dead entities at once: Java raises an exception if a
         collection is modified while a thread uses it (like in for-loops).~AF
+        
         */
         enemyList.removeAll(despawnList);
         despawnList.clear();
@@ -223,6 +220,8 @@ public class GameScreen implements Screen {
             
             game.font.draw(game.batch,"HP",HpPosX,HpPosY ,hudSectionWidth,Align.left,false);
             game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", e.currentHP),HpPosX ,HpPosY-e.sprite.getHeight()/2,hudSectionWidth,Align.left,false);
+            
+            
         }
         
     }

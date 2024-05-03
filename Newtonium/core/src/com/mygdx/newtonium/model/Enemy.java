@@ -33,7 +33,7 @@ public class Enemy extends Entity {
         //this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
         this.exp = exp;
-
+        
     }
     
  //methods

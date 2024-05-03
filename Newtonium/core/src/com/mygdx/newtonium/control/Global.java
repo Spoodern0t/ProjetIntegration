@@ -121,7 +121,7 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150;
         
         //template objects for spawn() copies
-        public static Projectile testProjectile = new TestProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
+        public static Projectile Straight = new StraightthrownProjectile(1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
     }
     
@@ -129,7 +129,7 @@ public class Global {
     public static class Items {
         
         //prebuilt objects to equip Player with
-        public static Item testItem = new Item(1, 0.25f, Projectiles.testProjectile);
+        public static Item StraightTester = new Item(1, 0.25f, Projectiles.Straight);
         public static Item satelliteTester = new Item(1, 0.25f, Projectiles.satellite);
     }
     

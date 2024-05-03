@@ -136,8 +136,7 @@ public class GameOverlay {
             pausebuttontable.setPosition(800-(pausebuttontable.getWidth()),0);
         } 
         public void Pause(){//These can be optimised further but Im keeping it like this for Reliability's sake. -EY
-            if(GameScreen.isPaused )
-            PauseMWindow.setVisible(true);
+            if(GameScreen.isPaused ){PauseMWindow.setVisible(true);}
             
             
         }
