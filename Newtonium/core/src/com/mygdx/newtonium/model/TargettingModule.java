@@ -59,7 +59,7 @@ public class TargettingModule {//This is for anything that uses proximity based 
                 public int compare(Enemy Current, Enemy Next) {
                 float distance1 = ((float) Math.hypot(Current.hitbox.x - Current.hitboxRadius, Current.hitbox.y - Current.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
                 float distance2 = ((float) Math.hypot(Next.hitbox.x - Next.hitboxRadius, Next.hitbox.y - Next.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
-                return distance1 < distance2 ? -1 : (distance1 == distance2 ? 0 : 1); 
+                return Math.abs(distance1) < Math.abs(distance2) ? -1 : (distance1 == distance2 ? 0 : 1); 
                 }
             });
         }

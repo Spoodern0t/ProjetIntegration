@@ -130,7 +130,7 @@ public class Global {
     public static class Items {
         
         //debug Items
-        public static Item testProjectileTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.testProjectile);
+        public static Item StraightProjectileTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.Straight);
         public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
         
         //gameplay Items

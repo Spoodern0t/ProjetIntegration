@@ -50,7 +50,7 @@ public class StraightthrownProjectile extends Projectile{
         this.aimer.ScanEnemy(50);
         this.aimer.SortToNearest(Global.currentPlayer);
         if(!aimer.TargetList.isEmpty()){
-            this.angle=Math.atan((aimer.getNearest().position.y-Global.currentPlayer.position.y)/(aimer.getNearest().position.x-Global.currentPlayer.position.x));
+            this.angle=Math.atan2((aimer.getNearest().position.y - Global.currentPlayer.position.y),(aimer.getNearest().position.x - Global.currentPlayer.position.x));
             }
     }
     
