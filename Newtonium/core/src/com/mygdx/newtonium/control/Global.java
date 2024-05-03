@@ -134,7 +134,7 @@ public class Global {
         public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
         
         //gameplay Items
-        
+        public static Item satelliteBurst = new BurstItem(1, 9, Projectiles.satellite, 3);
     }
     
 }
