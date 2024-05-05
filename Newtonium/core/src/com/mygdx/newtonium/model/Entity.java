@@ -31,7 +31,7 @@ public abstract class Entity {
     public boolean isDead = false; 
     public Circle hitbox;
     protected Texture initTexture;
-    
+    public boolean damageDisplayable;
     
 //Constructors
     public Entity(int maxHP, float speed, Vector2 position, Texture img){

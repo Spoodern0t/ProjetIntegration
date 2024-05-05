@@ -39,6 +39,10 @@ public abstract class Projectile extends Entity{ //might become abstract supercl
             this.die();
         }
     }
+    //In case I direly Need it i guess idk-EY
+    public void setangle(double angle){
+        this.angle = angle;
+    }
     
     /**
      * Creates a copy of this projectile at the player's current position.

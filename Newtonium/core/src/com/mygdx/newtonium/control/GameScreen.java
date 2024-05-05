@@ -35,10 +35,11 @@ public class GameScreen implements Screen {
     static public Camera Camera;
     Viewport viewport;
     
-//Graphics 
-    public Hud hud;
-    //I migrated spritebatch and anything related to it to GameController so MainMenuScreen can also use it.~EY
-    
+//Ingame Graphical User Interface(GUI) 
+
+    //damagenumbers Related object.
+    public float displayingpositionx;
+    public float displayingpositiony;
     
 //background assets
     static public Sprite mapSprite;
@@ -46,6 +47,8 @@ public class GameScreen implements Screen {
         
 //timers (cooldowns and delays for game objects that occur in screen)
     public float lastSpawnTime = 0f;
+    public float displayingtime = 0f;
+    boolean displayable = false;
     int wave;
     
     
@@ -61,7 +64,7 @@ public class GameScreen implements Screen {
 // Heads up Display    
     public int score = 0;
     float hudSectionWidth;//Attribut pour Des labels sur l'ennemie
-    
+    public Hud hud;
 //Popup and Pause related Attributes
     //Game Over Related Attributes
      public static boolean isOver = false;
@@ -125,7 +128,7 @@ public class GameScreen implements Screen {
         
     //calculate player
         player.draw(game.batch,deltaTime); //as of now, this call triggers all the items. ~AF
-
+        
         
     //calculate projectiles
         for (Projectile p: projectileList){
@@ -141,9 +144,12 @@ public class GameScreen implements Screen {
                 if (p.collide(e)){
                     if (e.canGetHurt()){
                         e.sprite.setColor(Color.RED);
+                        e.damageDisplayable = true;
                         e.lastHurtTime = 0;
                         e.currentHP -= (int)p.flatDamage; //Do NOT multiply this by anything. It will screw up our physics calculations. ~AF
+                        
                         System.out.println(p.flatDamage + " Newtons!"); //for testing
+                        displayDamage(p,e,100f,deltaTime);//Attempting Damage Numbers
                         p.currentHP--;
                     }
                 }
@@ -212,8 +218,7 @@ public class GameScreen implements Screen {
         hud.updateHud(deltaTime);
     }
     
-    private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)
-
+    private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)        
         //HP Enemy
         for(Enemy e: enemyList){//This is debugging things.
             float HpPosX = e.position.x,HpPosY = e.position.y+e.sprite.getHeight()*2 ;
@@ -225,7 +230,18 @@ public class GameScreen implements Screen {
         }
         
     }
-    
+    private void displayDamage(Projectile p,Enemy e,float allowedTime,float deltaTime){
+        displayingpositionx = e.position.x;
+        displayingpositiony = e.position.y + e.sprite.getHeight();
+        if(p.collide(e)){e.damageDisplayable = true;}
+        if (e.damageDisplayable = true){
+            displayingtime += deltaTime;
+        if(displayingtime <= allowedTime) {
+            game.font.draw(game.batch,String.format(Locale.getDefault(),"%.0f", p.flatDamage) + " Newtons!",displayingpositionx,displayingpositiony);    
+        }else{displayingtime = 0; e.damageDisplayable = false;}
+        }
+        
+    }
     @Override
     public void resize(int width, int height) {
         hud.getStage().getViewport().update(width,height);

@@ -22,15 +22,19 @@ public class StraightthrownProjectile extends Projectile{
     //module and Related attributes
     TargettingModule aimer;
     float seekradius;
+    double tempangle = 0;
+    int directionchange = 0;
+    int allowedchanges = 2;
+    Vector2 path;
 //constructors
-    public StraightthrownProjectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
+    public StraightthrownProjectile(double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img ,Vector2 path){
         
         super(flatDamage, decayTime, maxHP, speed, position, img);
-        
+        this.path = path;
         this.seekradius = 175;//aimer's logical circle's range.
         this.aimer = new TargettingModule(Global.currentPlayer.position,seekradius);
         
-            
+           
            
     }
     
@@ -44,16 +48,25 @@ public class StraightthrownProjectile extends Projectile{
     @Override
     protected void update(float deltaTime) throws DeadEntityException{
         super.update(deltaTime);
-        this.position.add(this.speed *(float)Math.cos(this.angle) * deltaTime, this.speed * (float)Math.sin(this.angle) * deltaTime);
         
-        this.aimer.CenterPos = Global.currentPlayer.position;
+        this.aimer.ScanCenterPos = Global.currentPlayer.position;
         this.aimer.ScanEnemy(50);
         this.aimer.SortToNearest(Global.currentPlayer);
-        if(!aimer.TargetList.isEmpty()){
-            this.angle=Math.atan2((aimer.getNearest().position.y - Global.currentPlayer.position.y),(aimer.getNearest().position.x - Global.currentPlayer.position.x));
+        decidebearing();
+        this.position.add(this.speed*this.path.x*deltaTime,this.speed*this.path.y*deltaTime);
+        this.aimer.Refresh();
+        
+
+    }
+
+    protected void decidebearing(){    
+            if(!aimer.TargetList.isEmpty()){
+            this.tempangle = Math.atan2((aimer.getNearest().position.y-Global.currentPlayer.position.y),(aimer.getNearest().position.x-Global.currentPlayer.position.x));
+               angle = tempangle;
+            this.path.x = (1*(float)Math.cos(angle));
+            this.path.y = (1*(float)Math.sin(angle));
             }
     }
-    
     
     /**
      * Creates a copy of this projectile at the player's current position.
@@ -61,15 +74,16 @@ public class StraightthrownProjectile extends Projectile{
      */
     @Override
     public Entity spawn(){
-        
         Vector2 pos = new Vector2(Global.currentPlayer.position);
+        Vector2 path = new Vector2();
         return new StraightthrownProjectile(
             this.flatDamage,
             this.decayTime,
             this.maxHP,
             this.speed,
             pos,
-            this.sprite.getTexture()
+            this.sprite.getTexture(),
+            path
         );
         
     }
