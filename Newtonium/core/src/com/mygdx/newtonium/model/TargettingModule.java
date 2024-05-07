@@ -35,14 +35,16 @@ public class TargettingModule {//This is for anything that uses proximity based 
         
     }
         public void Refresh(){
-            TargetList.removeAll(GameScreen.enemyList);
+            if(!TargetList.isEmpty()){TargetList.removeAll(GameScreen.enemyList);}
+            
         }
         public void RemoveDead(){//To put near Dead disposal Area
-            TargetList.removeAll(GameScreen.despawnList);
+            if(!TargetList.isEmpty()){TargetList.removeAll(GameScreen.despawnList);}
+            
         }
         
         public void ScanEnemy(int Maxamount){ //to add Enemies to the entityList.How many of the nearest foes do you want to aim to.
-            RemoveDead();
+                RemoveDead();
                 for (Enemy e : GameScreen.enemyList) {
                 if(LockonRange.overlaps(e.hitbox)&& TargetList.size() <= Maxamount){
                     TargetList.add(e);

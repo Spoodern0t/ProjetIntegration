@@ -22,25 +22,24 @@ public class AutoNaimItem extends Item {
     public AutoNaimItem(int level, float cooldown, Projectile projectile) {
         super(level, cooldown, projectile);
         
-        this.seekradius = 175;//aimer's logical circle's range.
+        this.seekradius = 250;//aimer's logical circle's range.
         this.aimer = new TargettingModule(Global.currentPlayer.position,seekradius);
-        
-        if(!aimer.TargetList.isEmpty()){
-           this.aimangle = Math.atan2((fetchTarget().position.y - Global.currentPlayer.position.y),(fetchTarget().position.x - Global.currentPlayer.position.x));
-            }//Migrate this to an Item(Gun) 
+        //Migrate this to an Item(Gun) 
     }
-    
+    @Override
+        protected void update(float deltaTime){
+        this.aimer.ScanCenterPos = Global.currentPlayer.position;
+        this.aimer.ScanEnemy(50);
+        this.lastTriggerTime += deltaTime;
+        if (canTrigger()){
+            this.trigger();
+        }
+        this.aimer.Refresh();
+        //this is to remove everything in the scanner so it stops shooting.
+    }
 
-    
-    public Enemy fetchTarget(){//To put it in Item. Item = gun Projectile = bullet. If bullet aims then its like homing missile If item aims then gun aims and BOOLET goes straight.
-            this.aimer.ScanCenterPos = Global.currentPlayer.position;
-            this.aimer.ScanEnemy(50);
-            this.aimer.SortToNearest(Global.currentPlayer);
-            return aimer.getNearest();
-    }
-    
         
     @Override
-    protected boolean canTrigger() {return (this.lastTriggerTime >= this.cooldown);}
+    protected boolean canTrigger(){return (this.lastTriggerTime >= this.cooldown);}
     
 }
