@@ -32,17 +32,18 @@ public class ProximityItem extends Item {
         this.seekZone.refresh();
         this.seekZone.scanCenterPos = Global.currentPlayer.position;
         this.seekZone.scanEnemy(50);
-        this.lastTriggerTime += deltaTime;
-        if (canTrigger()){
-            this.trigger();
-        }
+        this.lastTriggerTime += deltaTime; 
+            if (canTrigger() && seekZone.pollPresence()){
+                this.trigger();
+            }
+        
         //this is to remove everything in the scanner so it stops shooting.
     }
 
         
     @Override
     protected boolean canTrigger(){
-        return (this.lastTriggerTime >= this.cooldown) && !(seekZone.targetList.isEmpty());
+        return (this.lastTriggerTime >= this.cooldown);
     }
     
 }

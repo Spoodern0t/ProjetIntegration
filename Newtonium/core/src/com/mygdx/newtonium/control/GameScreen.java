@@ -256,12 +256,12 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
+    public void pause() {//Add Hud.Pause() Method composition here.
         
     }
 
     @Override
-    public void resume() {
+    public void resume() {//Add Hud.UnPause() Method composition here
         
     }
 
@@ -276,7 +276,8 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
           hud.dispose();
-
+          GameScreen.enemyList.removeAll(enemyList);
+          player.die();
     }
     
     

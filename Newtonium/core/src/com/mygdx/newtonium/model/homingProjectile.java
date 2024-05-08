@@ -22,8 +22,12 @@ public final class homingProjectile extends Projectile{
     //module and Related attributes
     TargettingModule seekZone;
     float seekRadius; //range in meters
-
     Vector2 path;
+    
+    //Physics related variables(MRUA)based.
+      float Mass;
+    
+    
 //constructors
     public homingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         super(flatDamage, decayTime, maxHP, speed, position, img);
@@ -38,7 +42,7 @@ public final class homingProjectile extends Projectile{
            
     }
     
-//methods
+//methods   
     /**
      * Updates the projectile object for the current time and conditions.
      * Also handles object logic.
@@ -53,19 +57,16 @@ public final class homingProjectile extends Projectile{
         //Projectile movement
         this.position.x += this.speed*path.x*deltaTime;
         this.position.y += this.speed*path.y*deltaTime;
-        
-        
-
     }
-
+   
     protected double decidebearing(){//Targetting module implementation.
             if(!this.seekZone.targetList.isEmpty()){this.seekZone.refresh();}
             this.seekZone.scanEnemy(50);
             this.seekZone.SortToNearest(Global.currentPlayer);
             if(!seekZone.targetList.isEmpty())
-            {angle = Math.atan2((seekZone.getNearest().position.y-Global.currentPlayer.position.y),
+                {angle = Math.atan2((seekZone.getNearest().position.y-Global.currentPlayer.position.y),
                                 (seekZone.getNearest().position.x-Global.currentPlayer.position.x));
-            return angle;
+                return angle;
             }else angle = MathUtils.random(0, 360); return angle;//if nobody's in sight, Random yeets occur, if ya wanna disable that, Do it this wednesday.-EY
     }
     

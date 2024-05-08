@@ -48,6 +48,7 @@ public class GameOverlay {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
+                        screen.dispose();
                         GameEndWindow.remove();
                     }
             });
@@ -103,6 +104,7 @@ public class GameOverlay {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
+                        screen.dispose();
                         PauseMWindow.remove();
                         //GameScreen.despawnList.add(Global.currentPlayer); A regler plus tard
                     }
