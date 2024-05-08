@@ -27,7 +27,7 @@ public class Global {
     
     //gameplay textures
     public static final Texture hurtPlaceholder = new Texture("sadge.png");
-    public static final Texture playerPlaceholder = new Texture("LilBoy.png");
+    public static final Texture playerPlaceholder = new Texture("Newton.png");
     
     public static final Texture evilPlaceholder = new Texture("Evil.png");
     public static final Texture evilFast = new Texture("EvilFast.png");
@@ -37,8 +37,8 @@ public class Global {
     public static final Texture mapPlaceholder = new Texture("MapImg.png");
     public static final Texture scaleMapPlaceholder = new Texture("MapImgScale.png");
     
-    public static final Texture bulletPlaceholder = new Texture("plh_bullet.png");
-    public static final Texture orbitPlaceholder = new Texture("plh_orbit.png");
+    public static final Texture bulletPlaceholder = new Texture("apple_projectile.png");
+    public static final Texture orbitPlaceholder = new Texture("satellite_projectile.png");
     
     //ui textures
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
