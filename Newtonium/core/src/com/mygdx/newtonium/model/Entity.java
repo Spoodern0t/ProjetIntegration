@@ -27,7 +27,7 @@ public abstract class Entity {
     public Vector2 lastPosition; //position at last render
     public Sprite sprite;
     public float speed, hitboxRadius = 24;
-    public float lastHurtTime, timeBetweenHurt = 0.1f;
+    public float lastHurtTime, timeBetweenHurt = 0.25f;
     public boolean isDead = false; 
     public Circle hitbox;
     protected Texture initTexture;
