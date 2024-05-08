@@ -89,20 +89,12 @@ public class MainMenuScreen implements Screen {
                 HowtoButton.addListener(new ChangeListener(){
                     @Override
                     public void changed(ChangeEvent event, Actor actor){
-                        game.setScreen(new SettingsMenu(game));//Button Functionnality
+                        game.setScreen(new TutorialScreen(game));//Button Functionnality
                     }
                 });
                 Center.row();
                 
-                SettingsButton = new TextButton("Settings",Global.skin);
-                Center.add(SettingsButton).fill().padTop(10);
-                SettingsButton.addListener(new ChangeListener(){
-                    @Override
-                    public void changed(ChangeEvent event, Actor actor){
-                        game.setScreen(new SettingsMenu(game));//Button Functionnality
-                    }
-                });
-                Center.row();
+                
                 
                 QuitButton = new TextButton("Quit",Global.skin);
                 Center.add(QuitButton).fill().padTop(10);
