@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
     
     
 //game objects
-    Player player = Global.currentPlayer;
+    public Player player = Global.currentPlayer;
     Enemy[] enemyTypes = Global.Enemies.enemyRotation;
     
     public static LinkedList<Projectile> projectileList; 
@@ -105,6 +105,7 @@ public class GameScreen implements Screen {
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){
+        
         if(Gdx.input.isKeyJustPressed(P)){//fixed Since 2024/05/01
            isPaused = !isPaused;
            hud.pmenu.Pause();
@@ -114,6 +115,9 @@ public class GameScreen implements Screen {
             deltaTime = 0;
             if(isOver){hud.goverlay.GendOccur();}
         }
+        
+        
+        
     //move camera
         Camera.position.set(player.sprite.getX(),player.sprite.getY(),0);
         Camera.update();
@@ -217,7 +221,9 @@ public class GameScreen implements Screen {
         hud.getPbuttonStage().act(deltaTime);
         
         hud.updateHud(deltaTime);
+        
     }
+
     
     private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)        
         //HP Enemy

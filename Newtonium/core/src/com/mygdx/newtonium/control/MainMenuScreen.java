@@ -28,6 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.newtonium.model.Player;
 
 /**
  * Warning: This is a very bare bones edition of a main menu. 
@@ -86,6 +87,10 @@ public class MainMenuScreen implements Screen {
                     @Override
                     public void changed(ChangeEvent event, Actor actor){
                         game.setScreen(new GameScreen(game));//Button Functionnality
+                        if (GameScreen.isPaused){
+                            GameScreen.isPaused = !GameScreen.isPaused;
+                            }
+                        
                     }
                 });
                 Center.row();//Changes Row, Adds to Below.
