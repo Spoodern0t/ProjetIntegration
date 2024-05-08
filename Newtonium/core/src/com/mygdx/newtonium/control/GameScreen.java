@@ -94,7 +94,7 @@ public class GameScreen implements Screen {
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-        player.addItem(Global.Items.StraightProjectileTester);
+        player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
         player.addItem(Global.Items.satelliteBurst);
         //Used the screen to fetch The hp and score and Likely other relevant Data.

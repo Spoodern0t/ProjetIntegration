@@ -7,7 +7,6 @@ package com.mygdx.newtonium.model;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameScreen;
-import static com.mygdx.newtonium.control.GameScreen.enemyList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -19,60 +18,59 @@ import java.util.LinkedList;
 
 public class TargettingModule {//This is for anything that uses proximity based targetting.Nearest of ANYTHING goes first.
     
-    public Circle LockonRange;
-    public Vector2 ScanCenterPos;
-    public LinkedList<Enemy> TargetList;
+    public Circle lockonRange;
+    public Vector2 scanCenterPos;
+    public LinkedList<Enemy> targetList;
     
-    public TargettingModule(Vector2 scannerposition,float ScanRange){
-        this.ScanCenterPos = scannerposition;
+    public TargettingModule(Vector2 scannerPosition,float scanRange){
+        this.scanCenterPos = scannerPosition;
         
-        this.LockonRange =new Circle(scannerposition,ScanRange);
+        this.lockonRange =new Circle(scannerPosition,scanRange);
         
         
-        TargetList = new LinkedList<>();
+        targetList = new LinkedList<>();
         
         
         
     }
-        public void Refresh(){
-            if(!TargetList.isEmpty()){TargetList.removeAll(GameScreen.enemyList);}
+        public void refresh(){
+            if(!targetList.isEmpty()){targetList.removeAll(GameScreen.enemyList);}
             
         }
-        public void RemoveDead(){//To put near Dead disposal Area
-            if(!TargetList.isEmpty()){TargetList.removeAll(GameScreen.despawnList);}
+        public void removeDead(){//To put near Dead disposal Area
+            if(!targetList.isEmpty()){targetList.removeAll(GameScreen.despawnList);}
             
         }
         
-        public void ScanEnemy(int Maxamount){ //to add Enemies to the entityList.How many of the nearest foes do you want to aim to.
-                RemoveDead();
+        public void scanEnemy(int maxAmount){ //to add Enemies to the entityList.How many of the nearest foes do you want to aim to.
+                removeDead();
                 for (Enemy e : GameScreen.enemyList) {
-                if(LockonRange.overlaps(e.hitbox)&& TargetList.size() <= Maxamount){
-                    TargetList.add(e);
-                    
+                if(lockonRange.overlaps(e.hitbox)&& targetList.size() <= maxAmount){
+                    targetList.add(e);
                 }
             }
         }
-        public float RangeFinder(Entity Start,Entity Target){
+        public float RangeFinder(Entity start, Entity target){
             //this is to find a distance between 2 Entities.Start is from center of
-            if(!TargetList.isEmpty()){
-            float Distance = ((float) Math.hypot(Target.hitbox.x - Target.hitboxRadius, Target.hitbox.y - Target.hitboxRadius))-(((float) Math.hypot(Start.position.x - Start.hitboxRadius, Start.position.y - Start.hitboxRadius)));
-            return Distance;
+            if(!targetList.isEmpty()){
+            float distance = ((float) Math.hypot(target.hitbox.x - target.hitboxRadius, target.hitbox.y - target.hitboxRadius))-(((float) Math.hypot(start.position.x - start.hitboxRadius, start.position.y - start.hitboxRadius)));
+            return distance;
             }return 0;
         }
         
         public void SortToNearest(Entity e){
-            Collections.sort(TargetList,new Comparator<Enemy>(){
+            Collections.sort(targetList, new Comparator<Enemy>(){
                @Override
-                public int compare(Enemy Current, Enemy Next) {
-                float distance1 = ((float) Math.hypot(Current.hitbox.x - Current.hitboxRadius, Current.hitbox.y - Current.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
-                float distance2 = ((float) Math.hypot(Next.hitbox.x - Next.hitboxRadius, Next.hitbox.y - Next.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
+                public int compare(Enemy current, Enemy next) {
+                float distance1 = ((float) Math.hypot(current.hitbox.x - current.hitboxRadius, current.hitbox.y - current.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
+                float distance2 = ((float) Math.hypot(next.hitbox.x - next.hitboxRadius, next.hitbox.y - next.hitboxRadius))-(((float) Math.hypot(e.position.x - e.hitboxRadius, e.position.y - e.hitboxRadius)));
                 return Math.abs(distance1) < Math.abs(distance2) ? -1 : (distance1 == distance2 ? 0 : 1); 
                 }
             });
         }
         public Enemy getNearest(){
-            if(!TargetList.isEmpty()){
-            return  TargetList.getFirst();
+            if(!targetList.isEmpty()){
+            return  targetList.getFirst();
             }else return null;
             
         }
