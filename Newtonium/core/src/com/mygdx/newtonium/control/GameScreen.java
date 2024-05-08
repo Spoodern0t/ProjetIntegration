@@ -89,14 +89,15 @@ public class GameScreen implements Screen {
         
     //gameobject setup (some temporary)
 
-        
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-        player.addItem(Global.Items.homingBulletTester);
+        //player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
-        player.addItem(Global.Items.satelliteBurst);
+        //player.addItem(Global.Items.satelliteBurst);
+        player.addItem(Global.Items.springBlockTester);
+        
         //Used the screen to fetch The hp and score and Likely other relevant Data.
         hud = new Hud(game.batch,this,this.game);
         

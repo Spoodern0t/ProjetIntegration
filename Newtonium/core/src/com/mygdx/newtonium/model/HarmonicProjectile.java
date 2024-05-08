@@ -6,43 +6,44 @@ package com.mygdx.newtonium.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.Global;
 
 /**
  *
- * @author Alexis Fecteau (2060238)
- * 
- * @since 29/04/2024
+ * @author Alexis Fecteau
+ * @since 08/05/2024
  */
-public class OrbitProjectile extends Projectile{
+public class HarmonicProjectile extends Projectile {
     
 //attributes
-    //NOTE: These units are on a Scale of 1 meter per 25 pixels (or Vector2D position units)
-    
-    float mass; //kilograms
-    float orbitRadius; //meters 
-    float orbitPeriod; //seconds
-    float collisionTime = 1; //in seconds (may get rid of this)
+    float mass; //in kilograms
+    double angularFrequence; //in radians
+    double phaseConstant = -(Math.PI / 2);
+    float amplitude; //in meters
+    float acceleration;
+    float harmonicPeriod; //in seconds
+    float timeSinceSpawn = 0;
     
     
 //constructors
-    public OrbitProjectile(float mass, float orbitRadius, int pierceAmount, float instantVelocity, Texture img){
-        
-        super(1, 0, pierceAmount, instantVelocity, new Vector2(Global.currentPlayer.position), img);
-        
+    public HarmonicProjectile(float mass, float amplitude, float harmonicPeriod, int pierceAmount, Texture img) {
+        super(1, 0, pierceAmount, 0, new Vector2(Global.currentPlayer.position), img);
         this.mass = mass;
-        this.orbitRadius = orbitRadius;
-        this.orbitPeriod = (2 * (float)Math.PI * orbitRadius) / instantVelocity;
-        this.decayTime = this.orbitPeriod * 3;
+        this.amplitude = amplitude;
+        this.harmonicPeriod = harmonicPeriod;
+        
+        //w = 2*PI/T
+        this.angularFrequence = (2 * Math.PI)/this.harmonicPeriod;
+        
+        this.decayTime = this.harmonicPeriod * 3;
         
         //initial offset to avoid crazy high damage on spawning frame
-        this.position.x += (float)Math.cos(angle) * orbitRadius * 25;
-        this.position.y += (float)Math.sin(angle) * orbitRadius * 25;
+        this.position.x = Global.currentPlayer.position.x;
+        this.position.y = Global.currentPlayer.position.y;
     }
-    
-//methods
+
+//methods 
     /**
      * Updates the projectile object for the current time and conditions.
      * Also handles object logic.
@@ -52,14 +53,15 @@ public class OrbitProjectile extends Projectile{
     protected void update(float deltaTime) throws DeadEntityException{
         super.update(deltaTime);
         
+        float playerOffset = Global.currentPlayer.position.x;
+        
+        this.position.y = Global.currentPlayer.position.y;
+        this.timeSinceSpawn += deltaTime;
+        
     //calculate new position
-        //ds = v*dt     ds = r*d(angle)
-        float deltaAngle = (speed * deltaTime)/orbitRadius;
-        angle += deltaAngle;
-        
-        this.position.x = Global.currentPlayer.position.x + (float)Math.cos(angle) * orbitRadius * 25; //nb. meters * 25 pixels a meter
-        this.position.y = Global.currentPlayer.position.y + (float)Math.sin(angle) * orbitRadius * 25;
-        
+        //current position = amplitude * cos(angular velocity * time + phase constant)
+        this.position.x = (float) ((amplitude*25) * Math.cos(angularFrequence * timeSinceSpawn + phaseConstant)); //25 pixels to 1 meter ratio
+        this.position.x += playerOffset;
     }
     
     /**
@@ -91,11 +93,12 @@ public class OrbitProjectile extends Projectile{
      * target Entity, based on the relative velocity between them.
      * @param target Entity to calculate exerted force on.
      * @param deltaTime Time since last game logic update.
-     * @return Force exerted on target in Newton units
+     * @return 
      */
     private float exertedForce(Entity target, float deltaTime){
         //Exerted force = (projectile mass * relative velocity between objects) / collision duration
         
+        float collisionTime = 1;
         float force = (this.mass * relativeVelocity(target, deltaTime))/collisionTime; //a collision of 1 second gives nicely-balanced numbers. ~AF
         
         return force; //in Newtons
@@ -115,20 +118,19 @@ public class OrbitProjectile extends Projectile{
     
     /**
      * Creates a copy of this projectile at the player's current position.
-     * @return new OrbitProjectile object similar to calling instance
+     * @return new HarmonicProjectile object similar to calling instance
      */
     @Override
     public Entity spawn(){
 
-        return new OrbitProjectile( //TODO: adapt this once this class is complete
+        return new HarmonicProjectile( //TODO: adapt this once this class is complete
             this.mass,
-            this.orbitRadius,
+            this.amplitude,
+            this.harmonicPeriod,
             this.maxHP,
-            this.speed,
             this.sprite.getTexture()
         );
         
     }
-    
     
 }

@@ -39,6 +39,7 @@ public class Global {
     
     public static final Texture bulletPlaceholder = new Texture("apple_projectile.png");
     public static final Texture orbitPlaceholder = new Texture("satellite_projectile.png");
+    public static final Texture harmonicPlaceholder = new Texture("plh_harmonicblock.png");
     
     //ui textures
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
@@ -122,8 +123,9 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150; //pixels per second
         
         //template objects for spawn() copies
-        public static Projectile homingBullet = new homingProjectile(6, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
+        public static Projectile homingBullet = new HomingProjectile(6, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
+        public static Projectile springBlock = new HarmonicProjectile(10, 10, 3.5f, 10, harmonicPlaceholder);
     }
     
     //prebuilt Item objects (NOT templates, these get used as themselves)
@@ -132,9 +134,11 @@ public class Global {
         //debug Items
         public static Item homingBulletTester = new ProximityItem( 1, 0.25f, Projectiles.homingBullet);
         public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
+        public static Item springBlockTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.springBlock);
         
         //gameplay Items
         public static Item satelliteBurst = new BurstItem(1, 9, Projectiles.satellite, 3);
+        
     }
     
 }

@@ -20,8 +20,8 @@ public class ProximityItem extends Item {
     public ProximityItem(int level, float cooldown, Projectile projectile) {
         super(level, cooldown, projectile);
         
-        if (projectile instanceof homingProjectile){
-            this.seekRadius = ((homingProjectile)projectile).seekRadius;
+        if (projectile instanceof HomingProjectile){
+            this.seekRadius = ((HomingProjectile)projectile).seekRadius;
         }
         
         this.seekZone = new TargettingModule(Global.currentPlayer.position,this.seekRadius);
