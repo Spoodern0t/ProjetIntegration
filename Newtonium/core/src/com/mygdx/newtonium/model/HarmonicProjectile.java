@@ -6,6 +6,8 @@ package com.mygdx.newtonium.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.Global;
 
@@ -17,13 +19,16 @@ import com.mygdx.newtonium.control.Global;
 public class HarmonicProjectile extends Projectile {
     
 //attributes
+    private Sprite springCosmetic = new Sprite(new Texture("plh_harmonicspring.png"));
+    private final int springHeight = springCosmetic.getTexture().getHeight();
+    
+    final double phaseConstant = -(Math.PI / 2); //in radians
+    
     float mass; //in kilograms
     double angularFrequence; //in radians
-    double phaseConstant = -(Math.PI / 2);
     float amplitude; //in meters
-    float acceleration;
     float harmonicPeriod; //in seconds
-    float timeSinceSpawn = 0;
+    float timeSinceSpawn = 0; //in seconds
     
     
 //constructors
@@ -53,15 +58,20 @@ public class HarmonicProjectile extends Projectile {
     protected void update(float deltaTime) throws DeadEntityException{
         super.update(deltaTime);
         
-        float playerOffset = Global.currentPlayer.position.x;
-        
+    //calculate new position
         this.position.y = Global.currentPlayer.position.y;
         this.timeSinceSpawn += deltaTime;
         
-    //calculate new position
-        //current position = amplitude * cos(angular velocity * time + phase constant)
+        //current x position = amplitude * cos(angular velocity * time + phase constant)
         this.position.x = (float) ((amplitude*25) * Math.cos(angularFrequence * timeSinceSpawn + phaseConstant)); //25 pixels to 1 meter ratio
-        this.position.x += playerOffset;
+        this.position.x += Global.currentPlayer.position.x;
+        
+    //calculate cosmetic spring texture position and width
+        float springWidth = this.position.x - Global.currentPlayer.position.x;
+        springCosmetic.setSize(springWidth, springHeight);
+        springCosmetic.setPosition(Global.currentPlayer.position.x, 0);
+        springCosmetic.setCenterY(this.position.y);
+        
     }
     
     /**
@@ -114,6 +124,26 @@ public class HarmonicProjectile extends Projectile {
         if (this.hitbox.overlaps(target.hitbox))
             this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
         return this.hitbox.overlaps(target.hitbox);
+    }
+    
+    /**
+     * Calls this object's update() method and draws its associated graphics to
+     * the screen.
+     * @param batch drawn SpriteBatch to add this object's sprites to.
+     * @param deltaTime Time since last render()
+     */
+    @Override
+    public void draw(SpriteBatch batch, float deltaTime){
+        try{
+            this.update(deltaTime);
+            this.sprite.setCenter(this.position.x,this.position.y);
+            this.hitbox.setPosition(this.position);
+        } catch (DeadEntityException e){
+            
+        }finally{
+            this.springCosmetic.draw(batch);
+            this.sprite.draw(batch);
+        }
     }
     
     /**
