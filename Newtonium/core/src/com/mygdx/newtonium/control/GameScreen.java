@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-        //player.addItem(Global.Items.homingBulletTester);
+        player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
         //player.addItem(Global.Items.satelliteBurst);
         player.addItem(Global.Items.springBlockTester);
@@ -263,9 +263,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void resume() {//Add Hud.UnPause() Method composition here
-        
     }
-
+    
     @Override
     public void hide() {
         
@@ -274,11 +273,21 @@ public class GameScreen implements Screen {
     public void show() {
         
     }
+    
+    public void reset(){//hardcoding some values to reset Hud related ones.
+        player = (Player) Global.currentPlayer.spawn();
+        
+        hud.Expbar.setValue(0);
+        hud.GameTime = 0;
+        
+    }
+    
     @Override
     public void dispose() {
           hud.dispose();
+          hud.getOverlayStage().dispose();
           GameScreen.enemyList.removeAll(enemyList);
-          player.die();
+          reset();
     }
     
     

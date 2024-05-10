@@ -21,14 +21,22 @@ public final class HomingProjectile extends Projectile{
 //Extra module in case of need.
     //module and Related attributes
     TargettingModule seekZone;
-    float seekRadius; //range in meters
-
+    float seekRadius; //range in meters 25px = 1m
     Vector2 path;
+    
+    //physics related values.
+        float mass;
+        float acceleration;
+        //optionnal Winds idk.
+        
+        //misc
+        float sprorientation=MathUtils.random(0,360);
 //constructors
     public HomingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         super(flatDamage, decayTime, maxHP, speed, position, img);
         
         this.seekRadius = seekRadius * 25; //25 pixels to 1 meter ratio
+        
         this.seekZone = new TargettingModule(Global.currentPlayer.position,this.seekRadius);
         
         this.path = new Vector2();
@@ -54,6 +62,7 @@ public final class HomingProjectile extends Projectile{
         this.position.x += this.speed*path.x*deltaTime;
         this.position.y += this.speed*path.y*deltaTime;
         
+        this.sprite.setRotation(this.sprorientation++);
         
 
     }

@@ -17,22 +17,26 @@ import com.mygdx.newtonium.control.Global;
  * @author Ekrem Yoruk (1676683)
  * @since 03/05/2024
  */
-public final class homingProjectile extends Projectile{
+public final class HomingProjectile extends Projectile{
 //Extra module in case of need.
     //module and Related attributes
     TargettingModule seekZone;
-    float seekRadius; //range in meters
+    float seekRadius; //range in meters 25px = 1m
     Vector2 path;
     
-    //Physics related variables(MRUA)based.
-      float Mass;
-    
-    
+    //physics related values.
+        float mass;
+        float acceleration;
+        //optionnal Winds idk.
+        
+        //misc
+        float sprorientation=MathUtils.random(0,360);
 //constructors
-    public homingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
+    public HomingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         super(flatDamage, decayTime, maxHP, speed, position, img);
         
         this.seekRadius = seekRadius * 25; //25 pixels to 1 meter ratio
+        
         this.seekZone = new TargettingModule(Global.currentPlayer.position,this.seekRadius);
         
         this.path = new Vector2();
@@ -42,7 +46,7 @@ public final class homingProjectile extends Projectile{
            
     }
     
-//methods   
+//methods
     /**
      * Updates the projectile object for the current time and conditions.
      * Also handles object logic.
@@ -57,16 +61,20 @@ public final class homingProjectile extends Projectile{
         //Projectile movement
         this.position.x += this.speed*path.x*deltaTime;
         this.position.y += this.speed*path.y*deltaTime;
+        
+        this.sprite.setRotation(this.sprorientation++);
+        
+
     }
-   
+
     protected double decidebearing(){//Targetting module implementation.
             if(!this.seekZone.targetList.isEmpty()){this.seekZone.refresh();}
             this.seekZone.scanEnemy(50);
             this.seekZone.SortToNearest(Global.currentPlayer);
             if(!seekZone.targetList.isEmpty())
-                {angle = Math.atan2((seekZone.getNearest().position.y-Global.currentPlayer.position.y),
+            {angle = Math.atan2((seekZone.getNearest().position.y-Global.currentPlayer.position.y),
                                 (seekZone.getNearest().position.x-Global.currentPlayer.position.x));
-                return angle;
+            return angle;
             }else angle = MathUtils.random(0, 360); return angle;//if nobody's in sight, Random yeets occur, if ya wanna disable that, Do it this wednesday.-EY
     }
     
@@ -81,7 +89,7 @@ public final class homingProjectile extends Projectile{
     public Entity spawn(){
         Vector2 pos = new Vector2(Global.currentPlayer.position);
         
-        return new homingProjectile(
+        return new HomingProjectile(
             this.seekRadius,
             this.flatDamage,
             this.decayTime,

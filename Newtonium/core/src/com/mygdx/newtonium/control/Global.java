@@ -123,7 +123,7 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150; //pixels per second
         
         //template objects for spawn() copies
-        public static Projectile homingBullet = new HomingProjectile(6, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
+        public static Projectile homingBullet = new HomingProjectile(15, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
         public static Projectile springBlock = new HarmonicProjectile(10, 10, 3.5f, 10, harmonicPlaceholder);
     }

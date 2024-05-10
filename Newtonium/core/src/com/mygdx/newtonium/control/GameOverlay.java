@@ -50,6 +50,7 @@ public class GameOverlay {
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
                         screen.dispose();
                         GameEndWindow.remove();
+                        GameScreen.isOver = false;
                     }
             });
                 //FinalScoreLabel setup. It will take info from hud or GameScreen when player dies.
@@ -133,7 +134,7 @@ public class GameOverlay {
             PauseMWindow.add(Mbutton);
             
             pausebuttontable = new Table();
-            pausebuttontable.setDebug(true);
+            pausebuttontable.setDebug(false);
             pausebuttontable.add(Pbutton).bottom();
             pausebuttontable.setSize(Pbutton.getWidth(),Pbutton.getHeight());
             pausebuttontable.setPosition(800-(pausebuttontable.getWidth()),0);

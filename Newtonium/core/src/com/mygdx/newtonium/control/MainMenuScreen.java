@@ -40,7 +40,6 @@ public class MainMenuScreen implements Screen {
     Button playButton;
     Button HowtoButton;
     Button QuitButton;
-    Button SettingsButton;
     //Tables
     Table Center;
     ScreenViewport viewport;
@@ -75,9 +74,12 @@ public class MainMenuScreen implements Screen {
                 playButton.addListener(new ChangeListener(){
                     @Override
                     public void changed(ChangeEvent event, Actor actor){
+                        
                         game.setScreen(new GameScreen(game));//Button Functionnality
+                        
                         if (GameScreen.isPaused){
-                            GameScreen.isPaused = !GameScreen.isPaused;
+                            GameScreen.isPaused = false;
+                            GameScreen.isOver = false;
                             }
                         
                     }
@@ -144,7 +146,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        
         stage.dispose();
         Global.skin.dispose();
     }
