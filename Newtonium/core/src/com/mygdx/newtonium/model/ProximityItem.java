@@ -15,7 +15,7 @@ import com.mygdx.newtonium.control.Global;
 public class ProximityItem extends Item {
     //aiming related things
     TargettingModule seekZone;
-    float seekRadius = 6 * 25;//25 pixels to 1 meter radius
+    float seekRadius = 15 * 25;//25 pixels to 1 meter radius
     
     public ProximityItem(int level, float cooldown, Projectile projectile) {
         super(level, cooldown, projectile);
@@ -32,17 +32,18 @@ public class ProximityItem extends Item {
         this.seekZone.refresh();
         this.seekZone.scanCenterPos = Global.currentPlayer.position;
         this.seekZone.scanEnemy(50);
-        this.lastTriggerTime += deltaTime;
-        if (canTrigger()){
-            this.trigger();
-        }
+        this.lastTriggerTime += deltaTime; 
+            if (canTrigger() && seekZone.pollPresence()){
+                this.trigger();
+            }
+        
         //this is to remove everything in the scanner so it stops shooting.
     }
 
         
     @Override
     protected boolean canTrigger(){
-        return (this.lastTriggerTime >= this.cooldown) && !(seekZone.targetList.isEmpty());
+        return (this.lastTriggerTime >= this.cooldown);
     }
     
 }

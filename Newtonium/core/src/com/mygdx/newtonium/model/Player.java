@@ -93,6 +93,7 @@ public class Player extends Entity {
     @Override
     public void die(){
         super.die();
+        items.removeAll(items);
         GameScreen.isOver = true;
         
         /*

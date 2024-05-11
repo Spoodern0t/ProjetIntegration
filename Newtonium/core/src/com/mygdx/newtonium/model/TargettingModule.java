@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameScreen;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -73,5 +74,10 @@ public class TargettingModule {//This is for anything that uses proximity based 
             return  targetList.getFirst();
             }else return null;
             
+        }
+        public Boolean pollPresence(){ //this is to access the GameScreen without importing it as this class already does it.
+        for (Enemy e : GameScreen.enemyList) {
+            if(lockonRange.overlaps(e.hitbox)){return true;}
+        }return false;
         }
 }
