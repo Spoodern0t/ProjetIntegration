@@ -60,6 +60,7 @@ public class Enemy extends Entity {
             this.sprite.setTexture(this.initTexture);
         }
         //Major Tweak to the way we calculate ENEMY navigation.
+        
         float direction = (float) Math.atan2(p.position.y-position.y,p.position.x-position.x);
            
         //enemycolliderImplementation MiscTODO: add random temporary direction to make them swarm more.
@@ -69,6 +70,7 @@ public class Enemy extends Entity {
                 direction = direction - pushdirection;
             }
             }
+        //Current Enemynavigation method.
         position.x += (deltaTime*speed*Math.cos(direction));
         position.y += (deltaTime*speed*Math.sin(direction));
     }
@@ -112,23 +114,6 @@ public class Enemy extends Entity {
         
     }
 
-    /**
-     * Creates force to push enemyTypeEntity back vecDif is for distance between 2 enemy vectors to find an angle,
-     * pBackForce is for how hard we pushback.
-     */
-    public void softCollider(){
-        for(Enemy e:GameScreen.enemyList){
-        if(this.collide(e)){
-        
-        /*    
-        vecDif = this.position.sub(e.position);
-        pAngle = vecDif.angleDeg();
-        pBackForce = (2*this.speed);
-        pushback.setAngleDeg((float) pAngle);*/
-        
-        }else pushback.set(0,0); 
-        }
-    }
 }
     
 

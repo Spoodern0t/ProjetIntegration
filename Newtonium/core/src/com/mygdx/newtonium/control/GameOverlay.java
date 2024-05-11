@@ -160,7 +160,7 @@ public class GameOverlay {
             this.game = game;
             this.screen = screen;
             
-            
+                
             
                 //Content Organisation
                 LevelUpMenu.add();
