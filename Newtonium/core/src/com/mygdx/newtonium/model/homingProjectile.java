@@ -18,7 +18,7 @@ import com.mygdx.newtonium.control.Global;
  * @author Ekrem Yoruk (1676683)
  * @since 03/05/2024
  */
-public final class HomingProjectile extends Projectile{//Celui-ci est un MRUA.
+public final class HomingProjectile extends Projectile{//Celui-ci est un MRU.
 //Extra module in case of need.
     //module and Related attributes
     TargettingModule seekZone;
