@@ -173,7 +173,7 @@ public class GameScreen implements Screen {
                 if (player.canGetHurt()) {
                     player.currentHP = player.currentHP - e.strength;
                     player.lastHurtTime = 0;
-                    player.sprite.setTexture(Global.hurtPlaceholder);
+                    player.sprite.setTexture(Global.playerHurtPlaceholder);
                     e.currentHP--; //obsolete as soon as we give enemies proper HP! ~AF
                 }
             }
