@@ -5,13 +5,21 @@
 package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import static com.mygdx.newtonium.control.Global.skin;
+import com.mygdx.newtonium.model.Enemy;
+import com.mygdx.newtonium.model.Projectile;
+import java.util.LinkedList;
+import java.util.Locale;
 
 /**
  * here we make overlays to add on top of the Hud.-Ey
@@ -48,7 +56,9 @@ public class GameOverlay {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
+                        screen.dispose();
                         GameEndWindow.remove();
+                        GameScreen.isOver = false;
                     }
             });
                 //FinalScoreLabel setup. It will take info from hud or GameScreen when player dies.
@@ -103,6 +113,7 @@ public class GameOverlay {
             @Override
             public void changed(ChangeListener.ChangeEvent event, Actor actor){
                         game.setScreen(new MainMenuScreen(game));//Button Functionnality
+                        screen.dispose();
                         PauseMWindow.remove();
                         //GameScreen.despawnList.add(Global.currentPlayer); A regler plus tard
                     }
@@ -131,7 +142,7 @@ public class GameOverlay {
             PauseMWindow.add(Mbutton);
             
             pausebuttontable = new Table();
-            pausebuttontable.setDebug(true);
+            pausebuttontable.setDebug(false);
             pausebuttontable.add(Pbutton).bottom();
             pausebuttontable.setSize(Pbutton.getWidth(),Pbutton.getHeight());
             pausebuttontable.setPosition(800-(pausebuttontable.getWidth()),0);
@@ -157,7 +168,7 @@ public class GameOverlay {
             this.game = game;
             this.screen = screen;
             
-            
+                
             
                 //Content Organisation
                 LevelUpMenu.add();
@@ -165,4 +176,9 @@ public class GameOverlay {
         }
     }
     
+    
+     
 }
+    
+
+

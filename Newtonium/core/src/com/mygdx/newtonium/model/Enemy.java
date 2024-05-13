@@ -6,17 +6,19 @@ package com.mygdx.newtonium.model;
 
 import com.mygdx.newtonium.control.Global;
 import com.mygdx.newtonium.control.GameScreen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.newtonium.control.GameOverlay;
+import com.mygdx.newtonium.control.damageDisplayer;
+import com.mygdx.newtonium.control.damageDisplayer.damageLabel;
 
 /**
  *
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * @author Thomas Cyr (2289144)
- * 
+ * @author Ekrem Yoruk (1676683)
  * @since 03/04/2024
  */
 public class Enemy extends Entity {
@@ -25,7 +27,18 @@ public class Enemy extends Entity {
     public double levelScaling; //boosts enemy stats depending on player level
     public int strength; //damage dealth by the enemy
     public int exp; //xp gained when the enemy is killed
-
+    
+//pushback attribute    
+    protected double pAngle;
+    protected double pBackForce;//to make pushback more gradual.
+    protected Vector2 vecDif;
+    protected Vector2 pushback;
+    protected float pushdirection = 0;
+    protected float pushlenght = 0;
+    
+//damage displayer module
+    public damageDisplayer paindisplayer;
+    
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img) {
         super(maxHP, speed, position, img);
@@ -33,7 +46,10 @@ public class Enemy extends Entity {
         //this.sprite.setColor(color); //for testing purposes
         this.strength = strength;
         this.exp = exp;
+        this.pushback = new Vector2();
+        this.vecDif = new Vector2();
         
+        paindisplayer = new damageDisplayer(10f);
     }
     
  //methods
@@ -49,22 +65,35 @@ public class Enemy extends Entity {
         super.update(deltaTime);
         
         if (this.canGetHurt()) {
+            this.damageDisplayable = true;
             this.sprite.setTexture(this.initTexture);
         }
+        //Major Tweak to the way we calculate ENEMY navigation.
         
-    //moves enemy towards player
-        if(p.position.x <= this.position.x){
-              position.x -= speed*deltaTime;
-        } 
-        if(p.position.x >= this.position.x){
-              position.x += speed*deltaTime;
+        float direction = (float) Math.atan2(p.position.y-position.y,p.position.x-position.x);
+           
+        //enemycolliderImplementation MiscTODO: add random temporary direction to make them swarm more.
+        for (Enemy e:GameScreen.enemyList){//softcollider addition attempt
+            if(collide(e)){
+                pushdirection = (float) Math.atan2(position.y-e.position.y,position.x-e.position.x);
+                direction = direction - pushdirection;
+            }
+            }
+        //Current Enemynavigation method.
+        position.x += (deltaTime*speed*Math.cos(direction));
+        position.y += (deltaTime*speed*Math.sin(direction));
+        
+        //Damage displayer implementation.        
+        for (Projectile pr:GameScreen.projectileList){
+            if(collide(pr)){
+                if (this.damageDisplayable) { 
+                    paindisplayer.adddamageLabel(pr);
+                    damageDisplayable = false;
+                }
+            }
         }
-        if(p.position.y <= this.position.y){
-              position.y -= speed*deltaTime;
-        } 
-        if(p.position.y >= this.position.y){
-              position.y += speed*deltaTime;
-        }    
+        
+        
     }
     
     /**
@@ -105,7 +134,7 @@ public class Enemy extends Entity {
         );
         
     }
-      
+
 }
     
 

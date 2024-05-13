@@ -61,6 +61,7 @@ public class GameScreen implements Screen {
     
     public static LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
     
+    
 // Heads up Display    
     public int score = 0;
     float hudSectionWidth;//Attribut pour Des labels sur l'ennemie
@@ -92,6 +93,7 @@ public class GameScreen implements Screen {
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
+        
         
         //player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
@@ -153,16 +155,19 @@ public class GameScreen implements Screen {
                         e.damageDisplayable = true;
                         e.lastHurtTime = 0;
                         e.currentHP -= (int)p.flatDamage; //Do NOT multiply this by anything. It will screw up our physics calculations. ~AF
-                        
                         System.out.println(p.flatDamage + " Newtons!"); //for testing
-                        displayDamage(p,e,100f,deltaTime);//Attempting Damage Numbers
                         p.currentHP--;
                     }
                 }
             }
             
             e.draw(game.batch,deltaTime);
-            
+            if(!e.paindisplayer.displayList.isEmpty()){
+            for(damageDisplayer.damageLabel l: e.paindisplayer.displayList){
+             l.draw(game.batch,1);
+             l.updatepos(deltaTime, e);
+            }
+            }
         //check for player collision with enemy
             if (player.collide(e)){
                 if (player.canGetHurt()) {
@@ -186,6 +191,9 @@ public class GameScreen implements Screen {
                 System.out.println("level up");
             }
             //System.out.println("Player xp : "+player.currentExp+ " Player level : "+player.level+" Level Treshold : "+player.levelThreshold);
+            e.paindisplayer.displayList.removeAll(e.paindisplayer.disposeList);
+            e.paindisplayer.disposeList.clear();
+        
         }
         /* 
         Flush all dead entities at once: Java raises an exception if a
@@ -194,6 +202,7 @@ public class GameScreen implements Screen {
         */
         enemyList.removeAll(despawnList);
         despawnList.clear();
+        
         
     //spawn enemies periodically
         lastSpawnTime += deltaTime;
@@ -239,16 +248,7 @@ public class GameScreen implements Screen {
         
     }
     private void displayDamage(Projectile p,Enemy e,float allowedTime,float deltaTime){
-        displayingpositionx = e.position.x;
-        displayingpositiony = e.position.y + e.sprite.getHeight();
-        if(p.collide(e)){e.damageDisplayable = true;}
-        if (e.damageDisplayable = true){
-            displayingtime += deltaTime;
-        if(displayingtime <= allowedTime) {
-            game.font.draw(game.batch,String.format(Locale.getDefault(),"%.0f", p.flatDamage) + " Newtons!",displayingpositionx,displayingpositiony);    
-        }else{displayingtime = 0; e.damageDisplayable = false;}
-        }
-        
+           //GameOverlay.damageDisplayer.adddisplay(e,p);
     }
     @Override
     public void resize(int width, int height) {
@@ -257,15 +257,14 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
+    public void pause() {//Add Hud.Pause() Method composition here.
         
     }
 
     @Override
-    public void resume() {
-        
+    public void resume() {//Add Hud.UnPause() Method composition here
     }
-
+    
     @Override
     public void hide() {
         
@@ -274,10 +273,21 @@ public class GameScreen implements Screen {
     public void show() {
         
     }
+    
+    public void reset(){//hardcoding some values to reset Hud related ones.
+        player = (Player) Global.currentPlayer.spawn();
+        
+        hud.Expbar.setValue(0);
+        hud.GameTime = 0;
+        
+    }
+    
     @Override
     public void dispose() {
           hud.dispose();
-
+          hud.getOverlayStage().dispose();
+          GameScreen.enemyList.removeAll(enemyList);
+          reset();
     }
     
     

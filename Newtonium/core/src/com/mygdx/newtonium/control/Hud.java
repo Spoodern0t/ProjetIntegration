@@ -21,7 +21,7 @@ import java.util.Locale;
  *
  * @author Yoruk Ekrem(1676683)
  */
-public class Hud {
+public  class Hud {
 //Game related parameters.
     int HealthValue;
     int ScoreValue;
@@ -130,8 +130,8 @@ public class Hud {
 
     
     public void dispose(){
-        overlaystage.dispose();
-        hudstage.dispose();
-        PbuttonStage.dispose();
+        getStage().dispose();
+        getOverlayStage().dispose();
+        getPbuttonStage().dispose();
     }
 }

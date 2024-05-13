@@ -31,6 +31,7 @@ public abstract class Entity {
     public boolean isDead = false; 
     public Circle hitbox;
     protected Texture initTexture;
+    
     public boolean damageDisplayable;
     
 //Constructors
