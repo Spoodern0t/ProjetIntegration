@@ -24,7 +24,6 @@ public class HarmonicProjectile extends Projectile {
     
     final double phaseConstant = -(Math.PI / 2); //in radians
     
-    float mass; //in kilograms
     double angularFrequence; //in radians
     float amplitude; //in meters
     float harmonicPeriod; //in seconds
@@ -72,46 +71,6 @@ public class HarmonicProjectile extends Projectile {
         springCosmetic.setPosition(Global.currentPlayer.position.x, 0);
         springCosmetic.setCenterY(this.position.y);
         
-    }
-    
-    /**
-     * Calculates the relative velocity (in meters/second) between this
-     * projectile and a target Entity.
-     * @param target Entity to calculate relative velocity with.
-     * @param deltaTime Time since last game logic update.
-     * @return Speed of this object relative to target
-     */
-    private float relativeVelocity(Entity target, float deltaTime){
-        
-    //get this and target's pixel displacements vectors since last render
-        Vector2 deltaX = new Vector2(this.position.x - this.lastPosition.x, this.lastPosition.y - this.lastPosition.y);
-        Vector2 targetDeltaX =  new Vector2(target.position.x - target.lastPosition.x, target.lastPosition.y - target.lastPosition.y);
-        
-    //get a relative pixel displacement length between this and target
-        float relativeDeltaX = deltaX.dst(targetDeltaX);
-        
-    //convert length from pixels to meters
-        relativeDeltaX /= 25; // 1 meter = 25 pixels
-        
-    //calculate relative velocity magnitude using deltaTime 
-        float RVMagnitude = relativeDeltaX / deltaTime;
-        return Math.abs(RVMagnitude);
-    }
-    
-    /**
-     * Calculates the force (in Newtons) this projectile would exert on a
-     * target Entity, based on the relative velocity between them.
-     * @param target Entity to calculate exerted force on.
-     * @param deltaTime Time since last game logic update.
-     * @return 
-     */
-    private float exertedForce(Entity target, float deltaTime){
-        //Exerted force = (projectile mass * relative velocity between objects) / collision duration
-        
-        float collisionTime = 1;
-        float force = (this.mass * relativeVelocity(target, deltaTime))/collisionTime; //a collision of 1 second gives nicely-balanced numbers. ~AF
-        
-        return force; //in Newtons
     }
     
     /**
