@@ -17,7 +17,7 @@ import com.badlogic.gdx.Input.Keys;
  * @author Thomas Cyr (2289144)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 29/04/2024
+ * @since 08/05/2024
  */
 public class Global {
     
@@ -26,7 +26,7 @@ public class Global {
     private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
     
     //gameplay textures
-    public static final Texture hurtPlaceholder = new Texture("sadge.png");
+    public static final Texture playerHurtPlaceholder = new Texture("NewtonHurt.png");
     public static final Texture playerPlaceholder = new Texture("Newton.png");
     
     public static final Texture evilPlaceholder = new Texture("Evil.png");
