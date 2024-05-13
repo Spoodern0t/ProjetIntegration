@@ -74,18 +74,6 @@ public class HarmonicProjectile extends Projectile {
     }
     
     /**
-     * Checks for collision with target Entity and calculates contact damage.
-     * @param target Entity to check for collision and damage with. 
-     * @return true if there's a collision, false otherwise.
-     */
-    @Override
-    public boolean collide(Entity target){
-        if (this.hitbox.overlaps(target.hitbox))
-            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
-        return this.hitbox.overlaps(target.hitbox);
-    }
-    
-    /**
      * Calls this object's update() method and draws its associated graphics to
      * the screen.
      * @param batch drawn SpriteBatch to add this object's sprites to.

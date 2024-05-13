@@ -60,18 +60,6 @@ public class OrbitProjectile extends Projectile{
     }
     
     /**
-     * Checks for collision with target Entity and calculates contact damage.
-     * @param target Entity to check for collision and damage with. 
-     * @return true if there's a collision, false otherwise.
-     */
-    @Override
-    public boolean collide(Entity target){
-        if (this.hitbox.overlaps(target.hitbox))
-            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
-        return this.hitbox.overlaps(target.hitbox);
-    }
-    
-    /**
      * Creates a copy of this projectile at the player's current position.
      * @return new OrbitProjectile object similar to calling instance
      */

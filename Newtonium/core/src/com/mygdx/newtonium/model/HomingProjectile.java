@@ -14,7 +14,6 @@ import com.mygdx.newtonium.control.Global;
  * 
  * 
  * @author Nathan LaTendresse
- * @author Alexis Fecteau (2060238)
  * @author Ekrem Yoruk (1676683)
  * @since 03/05/2024
  */
@@ -79,21 +78,7 @@ public final class HomingProjectile extends Projectile{//Celui-ci est un MRU.
                                 (seekZone.getNearest().position.x-Global.currentPlayer.position.x));
             return angle;
             }else angle = MathUtils.random(0, 360); return angle;//if nobody's in sight, Random yeets occur, if ya wanna disable that, Do it this wednesday.-EY
-    }
-    
-    /**
-     * Checks for collision with target Entity and calculates contact damage.
-     * @param target Entity to check for collision and damage with. 
-     * @return true if there's a collision, false otherwise.
-     */
-    @Override
-    public boolean collide(Entity target){
-        if (this.hitbox.overlaps(target.hitbox))
-            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
-        return this.hitbox.overlaps(target.hitbox);
-    }
-    
-            
+    }          
     
     /**
      * Creates a copy of this projectile at the player's current position.

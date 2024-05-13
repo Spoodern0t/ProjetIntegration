@@ -3,14 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mygdx.newtonium.model;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 /**
  *
- * @author Adam Tamine
  * @author Alexis Fecteau (2060238)
  * 
- * @since 29/04/2024
+ * @since 13/05/2024
  */
 public abstract class Projectile extends Entity{ //might become abstract superclass. ~AF
     
@@ -82,22 +82,15 @@ public abstract class Projectile extends Entity{ //might become abstract supercl
     }
     
     /**
-     * Creates a copy of this projectile at the player's current position.
-     * @return new Projectile object similar to calling instance
+     * Checks for collision with target Entity and calculates contact damage.
+     * @param target Entity to check for collision and damage with. 
+     * @return true if there's a collision, false otherwise.
      */
-    /*
     @Override
-    public Entity spawn(){
-        
-        Vector2 pos = new Vector2(Global.currentPlayer.position.x,Global.currentPlayer.position.y);
-        return new Projectile(
-            this.flatDamage,
-            this.decayTime,
-            this.maxHP,
-            this.speed,
-            pos,
-            this.sprite.getTexture()
-        );
-        
-    }*/
+    public boolean collide(Entity target){
+        if (this.hitbox.overlaps(target.hitbox))
+            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
+        return this.hitbox.overlaps(target.hitbox);
+    }
+    
 }
