@@ -17,7 +17,7 @@ import com.mygdx.newtonium.control.Global;
  * @author Ekrem Yoruk (1676683)
  * @since 03/05/2024
  */
-public final class HomingProjectile extends Projectile{
+public final class homingProjectile extends Projectile{
 //Extra module in case of need.
     //module and Related attributes
     TargettingModule seekZone;
@@ -25,7 +25,7 @@ public final class HomingProjectile extends Projectile{
 
     Vector2 path;
 //constructors
-    public HomingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
+    public homingProjectile(float seekRadius, double flatDamage, double decayTime, int maxHP, float speed, Vector2 position, Texture img){
         super(flatDamage, decayTime, maxHP, speed, position, img);
         
         this.seekRadius = seekRadius * 25; //25 pixels to 1 meter ratio
@@ -80,7 +80,7 @@ public final class HomingProjectile extends Projectile{
     public Entity spawn(){
         Vector2 pos = new Vector2(Global.currentPlayer.position);
         
-        return new HomingProjectile(
+        return new homingProjectile(
             this.seekRadius,
             this.flatDamage,
             this.decayTime,
