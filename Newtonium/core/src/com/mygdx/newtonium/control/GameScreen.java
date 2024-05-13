@@ -95,7 +95,7 @@ public class GameScreen implements Screen {
         despawnList = new LinkedList<>();
         
         
-        //player.addItem(Global.Items.homingBulletTester);
+        player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
         //player.addItem(Global.Items.satelliteBurst);
         player.addItem(Global.Items.springBlockTester);
@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
             
             e.draw(game.batch,deltaTime);
             if(!e.paindisplayer.displayList.isEmpty()){
-            for(damageDisplayer.damageLabel l: e.paindisplayer.displayList){
+            for(DamageDisplayer.damageLabel l: e.paindisplayer.displayList){
              l.draw(game.batch,1);
              l.updatepos(deltaTime, e);
             }

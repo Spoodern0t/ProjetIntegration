@@ -4,6 +4,7 @@
  */
 package com.mygdx.newtonium.control;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -163,15 +164,32 @@ public class GameOverlay {
         private final Hud hud;
         private final GameController game;
         private final GameScreen screen;
+        private final Label winTitle;
+        private final ImageButton sButton1;
+        private final ImageButton sButton2;
+        private final ImageButton sButton3;
+        
+        public Sprite sBImage1;
+        public Sprite sBImage2;
+        public Sprite sBImage3;
+        
         public U_MENU(Hud hud,GameController game,GameScreen screen){
             this.hud = hud;
             this.game = game;
             this.screen = screen;
             
+            winTitle = new Label("",Global.skin);
+            
+            sButton1 = new ImageButton(Global.skin);    
                 
+            sButton2 = new ImageButton(Global.skin);
+            
+            sButton3 = new ImageButton(Global.skin);
+            
             
                 //Content Organisation
                 LevelUpMenu.add();
+            
             
         }
     }

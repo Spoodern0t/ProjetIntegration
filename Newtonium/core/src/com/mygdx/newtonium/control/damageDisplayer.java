@@ -17,7 +17,7 @@ import java.util.Locale;
  *
  * @author Yoruk Ekrem
  */
-public class damageDisplayer{
+public class DamageDisplayer{
         
         float displayingtime = 0;
         float xoffset;
@@ -26,7 +26,7 @@ public class damageDisplayer{
         damageLabel dlabel;
         public LinkedList<damageLabel> displayList;
         public LinkedList<damageLabel> disposeList;
-        public damageDisplayer(float AllowedTime) {//item equivalent
+        public DamageDisplayer(float AllowedTime) {//item equivalent
 
             displayList = new LinkedList<>();
             disposeList = new LinkedList<>();

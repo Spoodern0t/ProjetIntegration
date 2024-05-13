@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameOverlay;
-import com.mygdx.newtonium.control.damageDisplayer;
-import com.mygdx.newtonium.control.damageDisplayer.damageLabel;
+import com.mygdx.newtonium.control.DamageDisplayer;
+import com.mygdx.newtonium.control.DamageDisplayer.damageLabel;
 
 /**
  *
@@ -37,7 +37,7 @@ public class Enemy extends Entity {
     protected float pushlenght = 0;
     
 //damage displayer module
-    public damageDisplayer paindisplayer;
+    public DamageDisplayer paindisplayer;
     
 //constructors
     public Enemy(double levelScaling, int maxHP, float speed, int strength, int exp, Vector2 position, Texture img) {
@@ -49,7 +49,7 @@ public class Enemy extends Entity {
         this.pushback = new Vector2();
         this.vecDif = new Vector2();
         
-        paindisplayer = new damageDisplayer(10f);
+        paindisplayer = new DamageDisplayer(10f);
     }
     
  //methods
