@@ -16,21 +16,13 @@ import com.mygdx.newtonium.control.Global;
  * @author Yoruk Ekrem
  */
 public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assisted
-    //optionnal stage 2 angle implementation
-    float angleoffset = 30;
-    float fallangle = MathUtils.random(180+angleoffset, 360-angleoffset);
-    
-    
-    
-    float initialyspeed = 0;//separation of speed to separate acceleration as only gravity will cause it.
+
     Vector2 gravity ;
     Vector2 speedV ; 
-   
-    float xspeed;
+    float xspeed = MathUtils.random(-25f*5,25f*5);//random constant speed
     float time;
-    //
     float initialheight;
-    
+    float bumpbuffer = 3*25;//impact buffer so that it hits when it should be close to ground.
     
     Vector2 initspawnground;//we select random point here, then add the height to the y co ordinates.
     
@@ -44,14 +36,12 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         this.range = this.range*25;//conversion from pixel to meter.
         this.initialheight = initialheight*25;//conversion from pixel to meter.
         this.initspawnground = new Vector2();
-        
-        this.initialyspeed = 0;
-        
+        //setting up MRUA related factors        
         this.time = 0;
         gravity = new Vector2(0,(-9.81f*25));
-        speedV = new Vector2(0,0);
-        //setting up initial spawnpoint
+        speedV = new Vector2(xspeed,0);
         
+        //setting up initial spawnpoint
         float distancechoice = MathUtils.random(this.range);
         this.position.setToRandomDirection();
         this.position.setLength(distancechoice);
@@ -65,7 +55,7 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         super.update(deltaTime);
         
         this.time += 2*deltaTime;
-        this.speedV.set(gravity.x*time,gravity.y*time);
+        this.speedV.set(speedV.x,gravity.y*time);
         this.position.mulAdd(speedV,deltaTime);
         this.speed = this.position.dst(this.lastPosition);
         //System.out.println(speed);
@@ -73,6 +63,19 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         if(((Gdx.graphics.getHeight()+this.initialheight)-position.y) <= 0){
         this.die();
         }
+    }
+    
+        /**
+     * Checks for collision with target Entity and calculates contact damage.
+     * @param target Entity to check for collision and damage with. 
+     * @return true if there's a collision, false otherwise.
+     */
+    @Override
+    public boolean collide(Entity target){
+        
+        if (this.hitbox.overlaps(target.hitbox))
+            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
+        return this.hitbox.overlaps(target.hitbox);
     }
 
     @Override
@@ -88,5 +91,5 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         Ipos,
         this.sprite.getTexture());
     }
-    
+ 
 }
