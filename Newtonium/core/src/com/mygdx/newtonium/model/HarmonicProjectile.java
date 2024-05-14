@@ -19,7 +19,7 @@ import com.mygdx.newtonium.control.Global;
 public class HarmonicProjectile extends Projectile {
     
 //attributes
-    private Sprite springCosmetic = new Sprite(new Texture("plh_harmonicspring.png"));
+    private Sprite springCosmetic = new Sprite(new Texture("plh_harmonicspring2.png"));
     private final int springHeight = springCosmetic.getTexture().getHeight();
     
     final double phaseConstant = -(Math.PI / 2); //in radians
