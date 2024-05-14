@@ -24,7 +24,7 @@ public class Global {
     //preset coordinates
     private static final Vector2 nullPosition = new Vector2(0,0); //for when calling instance position doesnt matter
     private static final Vector2 centerScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-    
+    private static final Vector2 topScreen = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
     //gameplay textures
     public static final Texture playerHurtPlaceholder = new Texture("NewtonHurt.png");
     public static final Texture playerPlaceholder = new Texture("Newton.png");
@@ -126,6 +126,7 @@ public class Global {
         public static Projectile homingBullet = new HomingProjectile(5f,0.5f,15, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
         public static Projectile springBlock = new HarmonicProjectile(10, 10, 3.5f, 10, harmonicPlaceholder);
+        public static Projectile meteor = new FallingProjectile(5,10,50,topScreen,bulletPlaceholder);
     }
     
     //prebuilt Item objects (NOT templates, these get used as themselves)
@@ -138,7 +139,7 @@ public class Global {
         
         //gameplay Items
         public static Item satelliteBurst = new BurstItem(1, 9, Projectiles.satellite, 3);
-        
+        public static Item meteorShower = new BurstItem(1,1f,Projectiles.meteor,10);
     }
     
  

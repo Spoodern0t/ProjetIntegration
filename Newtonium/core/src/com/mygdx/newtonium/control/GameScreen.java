@@ -99,7 +99,7 @@ public class GameScreen implements Screen {
         player.addItem(Global.Items.satelliteTester);
         //player.addItem(Global.Items.satelliteBurst);
         player.addItem(Global.Items.springBlockTester);
-        
+        player.addItem(Global.Items.meteorShower);
         //Used the screen to fetch The hp and score and Likely other relevant Data.
         hud = new Hud(game.batch,this,this.game);
         
