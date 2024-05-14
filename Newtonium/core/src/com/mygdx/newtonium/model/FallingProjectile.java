@@ -22,7 +22,7 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     float xspeed = MathUtils.random(-25f*5,25f*5);//random constant speed
     float time;
     float initialheight;
-    float bumpbuffer = 3*25;//impact buffer so that it hits when it should be close to ground.
+    float spinner = MathUtils.random(-5, 5);
     
     Vector2 initspawnground;//we select random point here, then add the height to the y co ordinates.
     
@@ -40,12 +40,12 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         this.time = 0;
         gravity = new Vector2(0,(-9.81f*25));
         speedV = new Vector2(xspeed,0);
-        
+        this.sprite.rotate(MathUtils.random(360f));
         //setting up initial spawnpoint
         float distancechoice = MathUtils.random(this.range);
         this.position.setToRandomDirection();
         this.position.setLength(distancechoice);
-        this.position.y += Gdx.graphics.getHeight()+initialheight;
+        this.position.y += Global.currentPlayer.position.y+Gdx.graphics.getHeight()+initialheight;
            
     }
     
@@ -59,6 +59,7 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
         this.position.mulAdd(speedV,deltaTime);
         this.speed = this.position.dst(this.lastPosition);
         //System.out.println(speed);
+        this.sprite.rotate(spinner);
         
         if(((Gdx.graphics.getHeight()+this.initialheight)-position.y) <= 0){
         this.die();
@@ -81,8 +82,8 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     @Override
     public Entity spawn() {
         Vector2 Ipos = new Vector2();
-        Ipos.x = MathUtils.random(range);
-        Ipos.y += Gdx.graphics.getHeight()+initialheight;//Hauteur de l'ecran + hauteur initiale.
+        Ipos.x += Global.currentPlayer.position.x + MathUtils.random(-range,range);
+        Ipos.y += Global.currentPlayer.position.y + Gdx.graphics.getHeight() + initialheight;//Hauteur de l'ecran + hauteur initiale.
         
         return new FallingProjectile(
         this.range,
