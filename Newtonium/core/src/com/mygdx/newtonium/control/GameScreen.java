@@ -31,12 +31,12 @@ import java.util.Random;
 public class GameScreen implements Screen {
 
     Random rand = new Random();
+    
 //screen
     static public Camera Camera;
     Viewport viewport;
     
 //Ingame Graphical User Interface(GUI) 
-
     //damagenumbers Related object.
     public float displayingpositionx;
     public float displayingpositiony;
@@ -51,7 +51,6 @@ public class GameScreen implements Screen {
     boolean displayable = false;
     int wave;
     
-    
 //game objects
     public Player player = Global.currentPlayer;
     Enemy[] enemyTypes = Global.Enemies.enemyRotation;
@@ -61,47 +60,58 @@ public class GameScreen implements Screen {
     
     public static LinkedList<Entity> despawnList;//clears dead entities after for loops ~AF
     
-    
 // Heads up Display    
     public int score = 0;
     float hudSectionWidth;//Attribut pour Des labels sur l'ennemie
     public Hud hud;
+    
 //Popup and Pause related Attributes
     //Game Over Related Attributes
      public static boolean isOver = false;
     //Pause Related Attributes
      public static boolean isPaused = false;
     
-//equivalent to the create() method for this class.
+     
+     
+//Constructor
     public GameScreen(final GameController game){
+        
         this.game = game;
         Camera = new OrthographicCamera(800,400);
+        
+        hud = new Hud(game.batch,this,this.game);
         
     //background setup 
         mapSprite = new Sprite(Global.mapPlaceholder);
         mapSprite.setPosition(0,0);
     
-    /*
     //world boundaries
+    /*
         final int WORLD_WIDTH = mapSprite.getRegionWidth();
         final int WORLD_HEIGHT = mapSprite.getRegionHeight(); //Lorsque la map sera faite on va pouvoir setter les limite de la map en remplacant 1000 par variable
         mapSprite.setSize(1000,1000);
     */
         
-    //gameobject setup (some temporary)
-
+    //gameobject setup
+        
+        //Initialize entity lists
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
+        //Initialize player's item inventory (temporary until levelups are implemented)
+        player.addItem(Global.Items.appleFling);
+        player.addItem(Global.Items.appleBurst);
+        //player.addItem(Global.Items.satelliteFling);
+        player.addItem(Global.Items.satelliteBurst);
+        player.addItem(Global.Items.springBlockFling);
         
+        //Test items for debugging - comment out before submitting project
+        /*
         player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
-        //player.addItem(Global.Items.satelliteBurst);
         player.addItem(Global.Items.springBlockTester);
-        player.addItem(Global.Items.meteorShower);
-        //Used the screen to fetch The hp and score and Likely other relevant Data.
-        hud = new Hud(game.batch,this,this.game);
+        */
         
        
     }

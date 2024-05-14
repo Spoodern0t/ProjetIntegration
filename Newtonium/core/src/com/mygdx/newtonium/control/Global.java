@@ -104,7 +104,7 @@ public class Global {
         
         public static final Enemy tankyEnemy = new Enemy(
                                     DEFAULT_LEVEL_SCALING, 
-                                    DEFAULT_ENEMY_HP*10, 
+                                    DEFAULT_ENEMY_HP*5, 
                                     DEFAULT_ENEMY_SPEED/2, 
                                     DEFAULT_ENEMY_STRENGTH, 
                                     DEFAULT_XP_VALUE*3, 
@@ -123,23 +123,30 @@ public class Global {
         private static final float DEFAULT_PROJ_SPEED = 150; //pixels per second
         
         //template objects for spawn() copies
-        public static Projectile homingBullet = new HomingProjectile(5f,0.5f,15, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
+        public static Projectile homingApple = new HomingProjectile(2,0.5f,15, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
         public static Projectile springBlock = new HarmonicProjectile(10, 10, 3.5f, 10, harmonicPlaceholder);
-        public static Projectile meteor = new FallingProjectile(3,10,100,topScreen,bulletPlaceholder);
+        //public static Projectile meteor = new FallingProjectile(3,10,100,topScreen,bulletPlaceholder); //unfinished
     }
     
     //prebuilt Item objects (NOT templates, these get used as themselves)
     public static class Items {
         
         //debug Items
-        public static Item homingBulletTester = new ProximityItem( 1, 0.25f, Projectiles.homingBullet);
+        public static Item homingBulletTester = new TestItem( Keys.E, 1, 0.25f, Projectiles.homingApple);
         public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
         public static Item springBlockTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.springBlock);
         
         //gameplay Items
+        public static Item appleFling = new ProximityItem(1, 0.35f, Projectiles.homingApple);
+        public static Item appleBurst = new BurstItem(1, 8, Projectiles.homingApple, 6);
+        
+        public static Item satelliteFling = new AutoItem(1, 3.5f, Projectiles.satellite);
         public static Item satelliteBurst = new BurstItem(1, 9, Projectiles.satellite, 3);
-        public static Item meteorShower = new BurstItem(1,1f,Projectiles.meteor,25);
+        
+        public static Item springBlockFling = new AutoItem(1, 11, Projectiles.springBlock);
+        
+        //public static Item meteorShower = new BurstItem(1,1f,Projectiles.meteor,25); //unfinished
     }
     
  
