@@ -29,12 +29,12 @@ public class Global {
     public static final Texture playerHurtPlaceholder = new Texture("NewtonHurt.png");
     public static final Texture playerPlaceholder = new Texture("Newton.png");
     
-    public static final Texture evilPlaceholder = new Texture("Evil.png");
-    public static final Texture evilFast = new Texture("EvilFast.png");
-    public static final Texture evilStrong = new Texture("EvilStrong.png");
-    public static final Texture evilTanky = new Texture("EvilTanky.png");
+    public static final Texture evilPlaceholder = new Texture("NormalEnemy.png");
+    public static final Texture evilFast = new Texture("FastEnemy.png");
+    public static final Texture evilStrong = new Texture("StrongEnemy.png");
+    public static final Texture evilTanky = new Texture("TankEnemy.png");
     
-    public static final Texture mapPlaceholder = new Texture("MapImg.png");
+    public static final Texture mapPlaceholder = new Texture("mapCenter.png");
     public static final Texture scaleMapPlaceholder = new Texture("MapImgScale.png");
     
     public static final Texture bulletPlaceholder = new Texture("apple_projectile.png");

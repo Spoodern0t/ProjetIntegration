@@ -78,7 +78,7 @@ public class GameScreen implements Screen {
         Camera = new OrthographicCamera(800,400);
         
     //background setup 
-        mapSprite = new Sprite(Global.scaleMapPlaceholder);
+        mapSprite = new Sprite(Global.mapPlaceholder);
         mapSprite.setPosition(0,0);
     
     /*
