@@ -23,30 +23,31 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     float time;
     float initialheight;
     float spinner = MathUtils.random(-5, 5);
-    
+    float Iangle = MathUtils.random(360);
     Vector2 initspawnground;//we select random point here, then add the height to the y co ordinates.
     
     float range;
+    float spawnXdeviation;
     
     public FallingProjectile(float range,float mass,float initialHeight,Vector2 position, Texture img) {
         super(1,5, 10,0, position, img);
         this.mass = mass;
         //Meteor landing point chooser implementation
-        this.range = range;
-        this.range = this.range*25;//conversion from pixel to meter.
-        this.initialheight = initialheight*25;//conversion from pixel to meter.
+        this.range = (float) (25*range*Math.sin(Iangle));
+        this.range = range*25;//conversion from pixel to meter.
+        this.initialheight = Global.currentPlayer.position.y + initialheight*25;//conversion from pixel to meter.
         this.initspawnground = new Vector2();
         //setting up MRUA related factors        
         this.time = 0;
         gravity = new Vector2(0,(-9.81f*25));
         speedV = new Vector2(xspeed,0);
         this.sprite.rotate(MathUtils.random(360f));
+        this.spawnXdeviation = this.range; 
         //setting up initial spawnpoint
-        float distancechoice = MathUtils.random(this.range);
-        this.position.setToRandomDirection();
-        this.position.setLength(distancechoice);
-        this.position.y += Global.currentPlayer.position.y+Gdx.graphics.getHeight()+initialheight;
-           
+        //this.position.setToRandomDirection();
+        //this.position.setLength(distancechoice);
+        //this.position.y += Global.currentPlayer.position.y+Gdx.graphics.getHeight()+initialheight;
+        
     }
     
     
@@ -54,14 +55,14 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     protected void update(float deltaTime) throws DeadEntityException{
         super.update(deltaTime);
         
-        this.time += 2*deltaTime;
+        this.time += deltaTime;
         this.speedV.set(speedV.x,gravity.y*time);
         this.position.mulAdd(speedV,deltaTime);
         this.speed = this.position.dst(this.lastPosition);
         //System.out.println(speed);
         this.sprite.rotate(spinner);
-        
-        if(((Gdx.graphics.getHeight()+this.initialheight)-position.y) <= 0){
+        //kill condition
+        if(((this.initialheight)+position.y) <= 0){
         this.die();
         }
     }
@@ -78,12 +79,12 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
             this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
         return this.hitbox.overlaps(target.hitbox);
     }
-
+    
     @Override
     public Entity spawn() {
         Vector2 Ipos = new Vector2();
-        Ipos.x += Global.currentPlayer.position.x + MathUtils.random(-range,range);
-        Ipos.y += Global.currentPlayer.position.y + Gdx.graphics.getHeight() + initialheight;//Hauteur de l'ecran + hauteur initiale.
+        Ipos.x += MathUtils.random(Global.currentPlayer.position.x - spawnXdeviation,Global.currentPlayer.position.x + spawnXdeviation);
+        Ipos.y += Global.currentPlayer.position.y + initialheight;//Hauteur de l'ecran + hauteur initiale.
         
         return new FallingProjectile(
         this.range,

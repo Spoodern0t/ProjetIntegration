@@ -100,13 +100,14 @@ public class GameScreen implements Screen {
         despawnList = new LinkedList<>();
         
         //Initialize player's item inventory (temporary until levelups are implemented)
-        player.addItem(Global.Items.appleFling);
-        player.addItem(Global.Items.appleBurst);
+        //player.addItem(Global.Items.appleFling);
+        //player.addItem(Global.Items.appleBurst);
         //player.addItem(Global.Items.satelliteFling);
-        player.addItem(Global.Items.satelliteBurst);
-        player.addItem(Global.Items.springBlockFling);
+        //player.addItem(Global.Items.satelliteBurst);
+        //player.addItem(Global.Items.springBlockFling);
         
         //Test items for debugging - comment out before submitting project
+        player.addItem(Global.Items.fallTester);
         /*
         player.addItem(Global.Items.homingBulletTester);
         player.addItem(Global.Items.satelliteTester);
