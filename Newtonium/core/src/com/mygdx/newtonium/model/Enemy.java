@@ -86,9 +86,15 @@ public class Enemy extends Entity {
         //Damage displayer implementation.        
         for (Projectile pr:GameScreen.projectileList){
             if(collide(pr)){
-                if (this.damageDisplayable) { 
+                if (this.damageDisplayable) {                    
+                    if(!(pr instanceof FallingProjectile)){
                     paindisplayer.adddamageLabel(pr);
-                    damageDisplayable = false;
+                    this.damageDisplayable=false;
+                    }
+                    if(pr instanceof FallingProjectile && (pr.collide(this))){
+                    paindisplayer.adddamageLabel(pr);
+                    this.damageDisplayable=false;
+                    }                    
                 }
             }
         }
