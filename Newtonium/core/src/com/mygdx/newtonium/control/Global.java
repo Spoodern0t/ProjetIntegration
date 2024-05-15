@@ -39,7 +39,7 @@ public class Global {
     
     public static final Texture bulletPlaceholder = new Texture("apple_projectile.png");
     public static final Texture orbitPlaceholder = new Texture("satellite_projectile.png");
-    public static final Texture harmonicPlaceholder = new Texture("plh_harmonicblock.png");
+    public static final Texture harmonicPlaceholder = new Texture("MetalWeight.png");
     
     //ui textures
     public static Texture cogwheel = new Texture("NewtoniumCogwheel.png");
