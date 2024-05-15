@@ -4,49 +4,57 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.mygdx.newtonium.control.Global;
+import com.mygdx.newtonium.control.GameScreen;
 
 /**
- *
+ * @author Alexis Fecteau (2060238)
  * @author Yoruk Ekrem
  */
-public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assisted
+public class FallingProjectile extends Projectile {//MRUA movement
 
-    Vector2 gravity ;
-    Vector2 speedV ; 
-    float xspeed = MathUtils.random(-25f*5,25f*5);//random constant speed
-    float time;
-    float initialheight;
-    float spinner = MathUtils.random(-5, 5);
-    float Iangle = MathUtils.random(360);
-    Vector2 initspawnground;//we select random point here, then add the height to the y co ordinates.
+    final float gravity = -9.81f;
+    final float xspeed = MathUtils.random(-5,5); //in meters per second
+    float timeSinceSpawn = 0;
+    float initialHeight; //in meters
+    float currentHeight; //in meters
     
-    float range;
-    float spawnXdeviation;
+    float landingPoint; //Y-axis landing coordinate since this "falls" on a separate axis
     
-    public FallingProjectile(float range,float mass,float initialHeight,Vector2 position, Texture img) {
-        super(1,5, 10,0, position, img);
+    private final Sprite cosmeticShadow = new Sprite(new Texture("plh_dropshadow.png"));
+    private final float cosmeticSpinAngle;
+    
+    //float range;
+    //float spawnXdeviation;
+    
+    public FallingProjectile(float mass, float initialHeight, Texture img) {
+        super(1,100, 10,0, new Vector2(0, 0), img);
         this.mass = mass;
-        //Meteor landing point chooser implementation
-        this.range = (float) (25*range*Math.sin(Iangle));
-        this.range = range*25;//conversion from pixel to meter.
-        this.initialheight = Global.currentPlayer.position.y + initialheight*25;//conversion from pixel to meter.
-        this.initspawnground = new Vector2();
-        //setting up MRUA related factors        
-        this.time = 0;
-        gravity = new Vector2(0,(-9.81f*25));
-        speedV = new Vector2(xspeed,0);
+        this.initialHeight = initialHeight;
+        this.currentHeight = initialHeight;
+        
+    //randomized landing point within the screen's border
+        float camW = GameScreen.Camera.viewportWidth/2;
+        float camH = GameScreen.Camera.viewportHeight/2;
+        float camX = GameScreen.Camera.position.x;
+        float camY = GameScreen.Camera.position.y;
+        
+        float posX = MathUtils.random(camX-camW, camX+camW);
+        float posY = MathUtils.random(camY-camH, camY+camH);
+        this.landingPoint = posY;
+        this.position = new Vector2(posX, posY + (this.currentHeight * 25)); //25 pixels to 1 meter ratio
+        
+    //cosmetic drop-shadow
+        this.cosmeticShadow.setCenterY(this.landingPoint);
+        this.cosmeticShadow.setCenterX(this.position.x);
+        
+    //cosmetic projectile rotation
         this.sprite.rotate(MathUtils.random(360f));
-        this.spawnXdeviation = this.range; 
-        //setting up initial spawnpoint
-        //this.position.setToRandomDirection();
-        //this.position.setLength(distancechoice);
-        //this.position.y += Global.currentPlayer.position.y+Gdx.graphics.getHeight()+initialheight;
+        cosmeticSpinAngle = MathUtils.random(-10, 10);
         
     }
     
@@ -54,20 +62,49 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     @Override
     protected void update(float deltaTime) throws DeadEntityException{
         super.update(deltaTime);
+
+        if(this.position.y <= this.landingPoint){ //extra kill condition
+            this.die();
+        }
         
-        this.time += deltaTime;
-        this.speedV.set(speedV.x,gravity.y*time);
-        this.position.mulAdd(speedV,deltaTime);
-        this.speed = this.position.dst(this.lastPosition);
-        //System.out.println(speed);
-        this.sprite.rotate(spinner);
-        //kill condition
-        if(((this.initialheight)+position.y) <= 0){
-        this.die();
+        this.timeSinceSpawn += deltaTime;
+        this.sprite.rotate(this.cosmeticSpinAngle);
+        
+    //current height = initial height + (initial vertical speed * time) + (vertical acceleration * time^2)/2
+        this.currentHeight = this.initialHeight + (this.gravity * timeSinceSpawn * timeSinceSpawn)/2; //initial vertical speed is 0
+        this.position.y = this.landingPoint+ this.currentHeight*25;
+        
+    //constant horizontal speed
+        this.position.x += (this.xspeed*25) * deltaTime;
+        this.cosmeticShadow.setCenterX(this.position.x);
+        
+    //kill condition
+        if(this.position.y <= this.landingPoint){
+            this.die();
         }
     }
     
-        /**
+    /**
+     * Calls this object's update() method and draws its associated graphics to
+     * the screen.
+     * @param batch drawn SpriteBatch to add this object's sprites to.
+     * @param deltaTime Time since last render()
+     */
+    @Override
+    public void draw(SpriteBatch batch, float deltaTime){
+        try{
+            this.update(deltaTime);
+            this.sprite.setCenter(this.position.x,this.position.y);
+            this.hitbox.setPosition(this.position);
+        } catch (DeadEntityException e){
+            
+        }finally{
+            this.cosmeticShadow.draw(batch);
+            this.sprite.draw(batch);
+        }
+    }
+    
+    /**
      * Checks for collision with target Entity and calculates contact damage.
      * @param target Entity to check for collision and damage with. 
      * @return true if there's a collision, false otherwise.
@@ -75,23 +112,17 @@ public class FallingProjectile extends Projectile {//MRUA gravitationnelle Assis
     @Override
     public boolean collide(Entity target){
         
-        if (this.hitbox.overlaps(target.hitbox))
-            this.flatDamage = exertedForce(target, Gdx.graphics.getDeltaTime());
-        return this.hitbox.overlaps(target.hitbox);
+        boolean isReachable = (this.position.y <= this.landingPoint + target.sprite.getHeight());
+        return (super.collide(target) && isReachable);
     }
     
     @Override
     public Entity spawn() {
-        Vector2 Ipos = new Vector2();
-        Ipos.x += MathUtils.random(Global.currentPlayer.position.x - spawnXdeviation,Global.currentPlayer.position.x + spawnXdeviation);
-        Ipos.y += Global.currentPlayer.position.y + initialheight;//Hauteur de l'ecran + hauteur initiale.
-        
         return new FallingProjectile(
-        this.range,
-        this.mass,
-        this.initialheight,
-        Ipos,
-        this.sprite.getTexture());
+            this.mass,
+            this.initialHeight,
+            this.sprite.getTexture()
+        );
     }
  
 }
