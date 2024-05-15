@@ -174,7 +174,7 @@ public class GameScreen implements Screen {
             
             e.draw(game.batch,deltaTime);
             if(!e.paindisplayer.displayList.isEmpty()){
-            for(DamageDisplayer.damageLabel l: e.paindisplayer.displayList){
+            for(DamageDisplayer.DamageLabel l: e.paindisplayer.displayList){
              l.draw(game.batch,1);
              l.updatepos(deltaTime, e);
             }

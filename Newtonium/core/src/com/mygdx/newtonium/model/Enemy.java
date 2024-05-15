@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameOverlay;
 import com.mygdx.newtonium.control.DamageDisplayer;
-import com.mygdx.newtonium.control.DamageDisplayer.damageLabel;
+import com.mygdx.newtonium.control.DamageDisplayer.DamageLabel;
 
 /**
  *
