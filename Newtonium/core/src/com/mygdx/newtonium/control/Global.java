@@ -126,7 +126,7 @@ public class Global {
         public static Projectile homingApple = new HomingProjectile(2,0.5f,15, 1, DEFAULT_PROJ_DECAYTIME, DEFAULT_PROJ_PIERCE, DEFAULT_PROJ_SPEED, centerScreen, bulletPlaceholder);
         public static Projectile satellite = new OrbitProjectile(10, 4, 3, 10, orbitPlaceholder);
         public static Projectile springBlock = new HarmonicProjectile(10, 10, 3.5f, 10, harmonicPlaceholder);
-        public static Projectile fallingApple = new FallingProjectile(2,10,bulletPlaceholder); //unfinished
+        public static Projectile fallingApple = new FallingProjectile(3,15,bulletPlaceholder);
     }
     
     //prebuilt Item objects (NOT templates, these get used as themselves)
@@ -136,7 +136,7 @@ public class Global {
         public static Item homingBulletTester = new TestItem( Keys.E, 1, 0.25f, Projectiles.homingApple);
         public static Item satelliteTester = new TestItem(Keys.SPACE, 1, 0.25f, Projectiles.satellite);
         public static Item springBlockTester = new TestItem(Keys.Q, 1, 0.25f, Projectiles.springBlock);
-        public static Item fallTester = new TestItem(Keys.X,1,0.05f,Projectiles.fallingApple);
+        public static Item fallTester = new TestItem(Keys.X,1,0.2f,Projectiles.fallingApple);
         //gameplay Items
         public static Item appleFling = new ProximityItem(1, 0.35f, Projectiles.homingApple);
         public static Item appleBurst = new BurstItem(1, 8, Projectiles.homingApple, 6);

@@ -18,7 +18,7 @@ import com.mygdx.newtonium.control.GameScreen;
 public class FallingProjectile extends Projectile {//MRUA movement
 
     final float gravity = -9.81f;
-    final float xspeed = MathUtils.random(-5,5); //in meters per second
+    final float xspeed = MathUtils.random(-3,3); //in meters per second
     float timeSinceSpawn = 0;
     float initialHeight; //in meters
     float currentHeight; //in meters
@@ -38,13 +38,13 @@ public class FallingProjectile extends Projectile {//MRUA movement
         this.currentHeight = initialHeight;
         
     //randomized landing point within the screen's border
-        float camW = GameScreen.Camera.viewportWidth/2;
-        float camH = GameScreen.Camera.viewportHeight/2;
         float camX = GameScreen.Camera.position.x;
         float camY = GameScreen.Camera.position.y;
+        float spawnRadius = MathUtils.random(0, 3) * 25;
+        float spawnAngle = MathUtils.random(0, (float)Math.PI*2);
         
-        float posX = MathUtils.random(camX-camW, camX+camW);
-        float posY = MathUtils.random(camY-camH, camY+camH);
+        float posX = camX + spawnRadius * MathUtils.cos(spawnAngle);
+        float posY = camY + spawnRadius * MathUtils.sin(spawnAngle);
         this.landingPoint = posY;
         this.position = new Vector2(posX, posY + (this.currentHeight * 25)); //25 pixels to 1 meter ratio
         
