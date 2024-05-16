@@ -17,7 +17,7 @@ import com.badlogic.gdx.Input.Keys;
  * @author Thomas Cyr (2289144)
  * @author Alexis Fecteau (2060238)
  * 
- * @since 08/05/2024
+ * @since 15/05/2024
  */
 public class Global {
     

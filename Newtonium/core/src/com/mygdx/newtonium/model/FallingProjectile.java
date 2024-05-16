@@ -14,6 +14,8 @@ import com.mygdx.newtonium.control.GameScreen;
 /**
  * @author Alexis Fecteau (2060238)
  * @author Yoruk Ekrem
+ * 
+ * @since 15/05/2024
  */
 public class FallingProjectile extends Projectile {//MRUA movement
 

@@ -25,7 +25,7 @@ import java.util.Random;
  * @author Alexis Fecteau (2060238)
  * @author Thomas Cyr (2289144)
  * 
- * @since 29/04/2024
+ * @since 15/05/2024
  */
 
 public class GameScreen implements Screen {
@@ -212,10 +212,10 @@ public class GameScreen implements Screen {
             e.paindisplayer.disposeList.clear();
         
         }
+        
         /* 
         Flush all dead entities at once: Java raises an exception if a
         collection is modified while a thread uses it (like in for-loops).~AF
-        
         */
         enemyList.removeAll(despawnList);
         despawnList.clear();
