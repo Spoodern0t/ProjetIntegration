@@ -107,12 +107,10 @@ public class GameScreen implements Screen {
         //player.addItem(Global.Items.springBlockFling);
         
         //Test items for debugging - comment out before submitting project
-        player.addItem(Global.Items.fallTester);
-        /*
-        player.addItem(Global.Items.homingBulletTester);
-        player.addItem(Global.Items.satelliteTester);
-        player.addItem(Global.Items.springBlockTester);
-        */
+        player.addItem(Global.Items.fallTester); //X key
+        player.addItem(Global.Items.homingBulletTester); //E key
+        player.addItem(Global.Items.satelliteTester); //SPACE key
+        player.addItem(Global.Items.springBlockTester); //Q key
         
        
     }
@@ -120,6 +118,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float deltaTime){
         
+    //check for pause menu
         if(Gdx.input.isKeyJustPressed(P)){//fixed Since 2024/05/01
            isPaused = !isPaused;
            hud.pmenu.Pause();
@@ -179,10 +178,11 @@ public class GameScreen implements Screen {
             }
             
             e.draw(game.batch,deltaTime);
+            updateEnemyHp(e);
             if(!e.paindisplayer.displayList.isEmpty()){
             for(DamageDisplayer.DamageLabel l: e.paindisplayer.displayList){
              l.draw(game.batch,1);
-             l.updatepos(deltaTime, e);
+             l.updatepos(e.position);
             }
             }
         //check for player collision with enemy
@@ -229,9 +229,6 @@ public class GameScreen implements Screen {
         }
         
     // Hud related things(PLACEHOLDER)-EY           
-        updateEnemyHp();
-        
-        
         
         game.batch.end();
         //Combining Camera View with other Windows In case.
@@ -252,16 +249,11 @@ public class GameScreen implements Screen {
     }
 
     
-    private void updateEnemyHp(){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.)        
-        //HP Enemy
-        for(Enemy e: enemyList){//This is debugging things.
+    private void updateEnemyHp(Enemy e){//for now Im thinking of keeping this for Debug mode., Eventually, I might add damage numbers AND maybe attribute modifiers(Newton,Volts, Amps etc.) ~EY        
             float HpPosX = e.position.x,HpPosY = e.position.y+e.sprite.getHeight()*2 ;
             
             game.font.draw(game.batch,"HP",HpPosX,HpPosY ,hudSectionWidth,Align.left,false);
             game.font.draw(game.batch, String.format(Locale.getDefault(), "%3d", e.currentHP),HpPosX ,HpPosY-e.sprite.getHeight()/2,hudSectionWidth,Align.left,false);
-            
-            
-        }
         
     }
     private void displayDamage(Projectile p,Enemy e,float allowedTime,float deltaTime){

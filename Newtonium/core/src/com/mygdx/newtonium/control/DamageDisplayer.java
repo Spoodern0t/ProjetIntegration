@@ -6,6 +6,7 @@ package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.newtonium.model.Enemy;
@@ -57,8 +58,8 @@ public class DamageDisplayer{
                     
         }
         
-            public void updatepos(float deltaTime, Enemy e){
-            deltaTime = Gdx.graphics.getDeltaTime();
+            public void updatepos(Vector2 initpos){
+            float deltaTime = Gdx.graphics.getDeltaTime();
             
             displayingtime += deltaTime;
             if(displayingtime>=AllowedTime){
@@ -66,10 +67,8 @@ public class DamageDisplayer{
                 
                 displayingtime = 0;
             }
-            float initposx = e.position.x;
-            float initposy = e.position.y;
             
-            this.setPosition(initposx += xoffset,initposy += yoffset);
+            this.setPosition(initpos.x + xoffset,initpos.y + yoffset);
                         
         }
         
