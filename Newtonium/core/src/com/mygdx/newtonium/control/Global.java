@@ -48,7 +48,7 @@ public class Global {
     public static Texture playButtonDown = new Texture("NewtoniumLaunchSymbolDown.png");
     public static Texture SelectionBox = new Texture("NewtoniumSelectionBox.png");
     public static Texture SelectionRectangle = new Texture("NewtoniumSelectionRectangle.png");
-    public static Texture title = new Texture("NewtoniumTitle.png");
+    public static Texture title = new Texture("NewtTitle.png");
     
     public static Skin skin = new Skin(Gdx.files.internal("HudUIstuffPH/uiskin.json"));
     
