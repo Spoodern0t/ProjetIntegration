@@ -9,12 +9,11 @@ import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.newtonium.control.GameOverlay;
 import com.mygdx.newtonium.control.DamageDisplayer;
-import com.mygdx.newtonium.control.DamageDisplayer.DamageLabel;
 
 /**
- *
+ * Entities meant to harm the Player on contact and react to Projectile objects.
+ * 
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * @author Thomas Cyr (2289144)

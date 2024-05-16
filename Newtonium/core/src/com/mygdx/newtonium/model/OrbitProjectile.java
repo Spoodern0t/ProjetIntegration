@@ -4,13 +4,14 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.Global;
 
 /**
- *
+ * Projectile type that recreates Uniform Circular Motion using the Player's
+ * position as an axis.
+ * 
  * @author Alexis Fecteau (2060238)
  * 
  * @since 29/04/2024

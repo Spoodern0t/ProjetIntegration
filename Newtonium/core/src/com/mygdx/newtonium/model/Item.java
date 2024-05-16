@@ -7,7 +7,7 @@ package com.mygdx.newtonium.model;
 import com.mygdx.newtonium.control.GameScreen;
 
 /**
- * Attribute of Player class. Controls projectile spawning logic.
+ * Attribute of Player class. Controls Projectile spawning logic.
  * 
  * @author Alexis Fecteau (2060238)
  * @Since 03/05/2024

@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.newtonium.model.Enemy;
 import com.mygdx.newtonium.model.Projectile;
 import java.util.LinkedList;
 import java.util.Locale;

@@ -12,7 +12,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- *
+ * Core interactive object upon which the game is built. 
+ * 
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * 

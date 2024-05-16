@@ -5,7 +5,7 @@
 package com.mygdx.newtonium.model;
 
 /**
- * Item type that fires one projectile periodically.
+ * Item type that fires projectiles at a constant rate.
  * 
  * @author Alexis Fecteau
  * @since 03/05/2024

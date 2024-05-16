@@ -20,7 +20,8 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
- *
+ * Main location of the game's logic and image rendering operations.
+ * 
  * @author Ekrem Yoruk (1676683)
  * @author Alexis Fecteau (2060238)
  * @author Thomas Cyr (2289144)
@@ -92,14 +93,13 @@ public class GameScreen implements Screen {
         mapSprite.setSize(1000,1000);
     */
         
-    //gameobject setup
         
-        //Initialize entity lists
+    //Initialize entity lists
         enemyList = new LinkedList<>();
         projectileList = new LinkedList<>();
         despawnList = new LinkedList<>();
         
-        //Initialize player's item inventory (temporary until levelups are implemented)
+    //Initialize player's item inventory (temporary until levelups are implemented)
         //player.addItem(Global.Items.appleFling);
         //player.addItem(Global.Items.appleBurst);
         //player.addItem(Global.Items.satelliteFling);
@@ -114,6 +114,7 @@ public class GameScreen implements Screen {
         
        
     }
+    
     //Real-time game logic (called for each new frame)
     @Override
     public void render(float deltaTime){

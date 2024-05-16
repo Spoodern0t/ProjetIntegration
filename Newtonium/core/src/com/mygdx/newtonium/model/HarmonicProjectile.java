@@ -4,7 +4,6 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,14 +11,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.Global;
 
 /**
- *
+ * Projectile type that recreates Uniform Harmonic Motion on a horizontal axis.
+ * Contains a cosmetic element stretched between itself and the Player.
+ * 
  * @author Alexis Fecteau
  * @since 08/05/2024
  */
 public class HarmonicProjectile extends Projectile {
     
 //attributes
-    private Sprite springCosmetic = new Sprite(new Texture("plh_harmonicspring2.png"));
+    private final Sprite springCosmetic = new Sprite(new Texture("plh_harmonicspring2.png"));
     private final int springHeight = springCosmetic.getTexture().getHeight();
     
     final double phaseConstant = -(Math.PI / 2); //in radians
