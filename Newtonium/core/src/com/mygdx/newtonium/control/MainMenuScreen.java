@@ -118,9 +118,12 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float deltaTime) {
             ScreenUtils.clear(0,0,0,1);
-        
+
             game.batch.setProjectionMatrix(stage.getCamera().combined);
             stage.act(deltaTime);
+            stage.getBatch().begin();
+            stage.getBatch().draw(Global.MenuBackgroundPlaceHolder, 0, 0);
+            stage.getBatch().end();
             stage.draw();         	
     }
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -42,7 +43,13 @@ public class GameScreen implements Screen {
     public float displayingpositiony;
     
 //background assets
+    
+    
+    static public Sprite BackgroundSprite;
     static public Sprite mapSprite;
+    
+    public Vector2 spritepositionner;
+    
     public static GameController game;
         
 //timers (cooldowns and delays for game objects that occur in screen)
@@ -80,8 +87,10 @@ public class GameScreen implements Screen {
         Camera = new OrthographicCamera(800,400);
         
         hud = new Hud(game.batch,this,this.game);
+    //BackgroundSetup
+        BackgroundSprite = new Sprite(Global.BackgroundPlaceHolder);
         
-    //background setup 
+    //map setup 
         mapSprite = new Sprite(Global.mapPlaceholder);
         mapSprite.setPosition(0,0);
     
@@ -111,8 +120,6 @@ public class GameScreen implements Screen {
         player.addItem(Global.Items.homingBulletTester); //E key
         player.addItem(Global.Items.satelliteTester); //SPACE key
         player.addItem(Global.Items.springBlockTester); //Q key
-        
-       
     }
     //Real-time game logic (called for each new frame)
     @Override
@@ -138,11 +145,15 @@ public class GameScreen implements Screen {
         
         game.batch.begin();
 
-        
+    //render backgroundMethod;    
+         ScreenUtils.clear(0,0,0,1);
+         BackgroundSprite.draw(game.batch);
+
     //render map background
-        ScreenUtils.clear(0,0,0,1);
-        mapSprite.draw(game.batch);
         
+        mapSprite.draw(game.batch);
+        //position backgroundsprite.
+        BackgroundSprite.setCenter(mapSprite.getWidth()/2,mapSprite.getHeight()/2);
         
     //calculate player
         player.draw(game.batch,deltaTime); //as of now, this call triggers all the items. ~AF

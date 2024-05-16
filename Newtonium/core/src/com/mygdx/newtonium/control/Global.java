@@ -33,7 +33,9 @@ public class Global {
     public static final Texture evilFast = new Texture("FastEnemy.png");
     public static final Texture evilStrong = new Texture("StrongEnemy.png");
     public static final Texture evilTanky = new Texture("TankEnemy.png");
-    
+            
+    public static final Texture BackgroundPlaceHolder = new Texture("border_gamescreen.png");
+    public static final Texture MenuBackgroundPlaceHolder = new Texture("MenuBackgroundPlaceholder.png");
     public static final Texture mapPlaceholder = new Texture("mapCenter.png");
     public static final Texture scaleMapPlaceholder = new Texture("MapImgScale.png");
     
