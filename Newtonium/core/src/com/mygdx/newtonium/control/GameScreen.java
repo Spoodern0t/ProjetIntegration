@@ -158,16 +158,22 @@ public class GameScreen implements Screen {
     //calculate enemies      
         for (Enemy e: enemyList) {
             e.sprite.setColor(Color.WHITE);
+            
         //check for projectile collision with enemy
             for (Projectile p: projectileList){
                 if (p.collide(e)){
                     if (e.canGetHurt()){
                         e.sprite.setColor(Color.RED);
-                        e.damageDisplayable = true;
                         e.lastHurtTime = 0;
+                        p.currentHP--;
+                        
+                        if (e.damageDisplayable) {                    
+                            e.paindisplayer.adddamageLabel(p);
+                            e.damageDisplayable=false;
+                        }
+                        
                         e.currentHP -= (int)p.flatDamage; //Do NOT multiply this by anything. It will screw up our physics calculations. ~AF
                         System.out.println(p.flatDamage + " Newtons!"); //for testing
-                        p.currentHP--;
                     }
                 }
             }

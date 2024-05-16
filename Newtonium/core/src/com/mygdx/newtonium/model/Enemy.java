@@ -81,24 +81,7 @@ public class Enemy extends Entity {
             }
         //Current Enemynavigation method.
         position.x += (deltaTime*speed*Math.cos(direction));
-        position.y += (deltaTime*speed*Math.sin(direction));
-        
-        //Damage displayer implementation.        
-        for (Projectile pr:GameScreen.projectileList){
-            if(collide(pr)){
-                if (this.damageDisplayable) {                    
-                    if(!(pr instanceof FallingProjectile)){
-                    paindisplayer.adddamageLabel(pr);
-                    this.damageDisplayable=false;
-                    }
-                    if(pr instanceof FallingProjectile && (pr.collide(this))){
-                    paindisplayer.adddamageLabel(pr);
-                    this.damageDisplayable=false;
-                    }                    
-                }
-            }
-        }
-        
+        position.y += (deltaTime*speed*Math.sin(direction));    
         
     }
     
