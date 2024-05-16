@@ -23,9 +23,9 @@ public class DamageDisplayer{
         float xoffset;
         float yspeed = 10f;
         float ydecel = 5f;
-        damageLabel dlabel;
-        public LinkedList<damageLabel> displayList;
-        public LinkedList<damageLabel> disposeList;
+        DamageLabel dlabel;
+        public LinkedList<DamageLabel> displayList;
+        public LinkedList<DamageLabel> disposeList;
         public DamageDisplayer(float AllowedTime) {//item equivalent
 
             displayList = new LinkedList<>();
@@ -35,12 +35,12 @@ public class DamageDisplayer{
         }
         
         public void adddamageLabel(Projectile p){
-              displayList.add(new damageLabel("",Global.skin,p));
+              displayList.add(new DamageLabel("",Global.skin,p));
         } 
         
            
         
-    public class damageLabel extends Label{
+    public class DamageLabel extends Label{
             float AllowedTime = 1f;
             float displayingtime = 0;
             float xoffset;
@@ -48,7 +48,7 @@ public class DamageDisplayer{
             float yspeed = 1000f;
             float ydecel = 5f;
             
-        public damageLabel(CharSequence text, Skin skin,Projectile p) {
+        public DamageLabel(CharSequence text, Skin skin,Projectile p) {
             super(text, skin);
             xoffset = MathUtils.random(-50, 50);
             yoffset = MathUtils.random(-50, 50);
