@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
     
 //background assets
     static public Sprite mapSprite;
-    GameController game;
+    public static GameController game;
         
 //timers (cooldowns and delays for game objects that occur in screen)
     public float lastSpawnTime = 0f;

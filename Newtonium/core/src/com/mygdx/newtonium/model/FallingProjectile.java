@@ -112,6 +112,10 @@ public class FallingProjectile extends Projectile {//MRUA movement
     @Override
     public boolean collide(Entity target){
         
+    //render the projectile's image on top of the enemies (purely visual)
+        this.sprite.draw(GameScreen.game.batch);
+        
+    //check for projectile being ground-level before doing damage
         boolean isReachable = (this.position.y <= this.landingPoint + target.sprite.getHeight());
         return (super.collide(target) && isReachable);
     }
