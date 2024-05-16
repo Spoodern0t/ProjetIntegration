@@ -7,8 +7,9 @@ package com.mygdx.newtonium.model;
 import com.mygdx.newtonium.control.Global;
 
 /**
- * Item type that includes Aiming functionalities.If aiming is put here, Projectiles will aim first then go second, Meaning they won't home like a heat seeking missile
- * 
+ * Item type that fires its Projectile towards the nearest Enemy. This only
+ * affects the initial firing conditions. Further aiming features are for the
+ * Projectile object to handle.
  * 
  * @author Yoruk Ekrem
  */

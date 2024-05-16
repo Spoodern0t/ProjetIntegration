@@ -7,7 +7,9 @@ package com.mygdx.newtonium.model;
 import com.mygdx.newtonium.control.GameScreen;
 
 /**
- *
+ * Item type that fires Projectiles in quick succession, then enters a longer
+ * cool-down period.
+ * 
  * @author Alexis Fecteau
  * @since 03/05/2024
  */

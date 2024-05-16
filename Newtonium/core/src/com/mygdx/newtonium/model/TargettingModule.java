@@ -9,11 +9,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameScreen;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- *
+ * Component used by ProximityItem and HomingProjectile. Handles enemy position
+ * scans within a circular range.
+ * 
  * @author Yoruk Ekrem (1676683)
  */
 

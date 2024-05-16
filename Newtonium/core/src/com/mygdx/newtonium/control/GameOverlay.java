@@ -5,22 +5,13 @@
 package com.mygdx.newtonium.control;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import static com.mygdx.newtonium.control.Global.skin;
-import com.mygdx.newtonium.model.Enemy;
-import com.mygdx.newtonium.model.Projectile;
-import java.util.LinkedList;
-import java.util.Locale;
 
 /**
  * here we make overlays to add on top of the Hud.-Ey

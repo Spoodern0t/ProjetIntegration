@@ -12,12 +12,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.GameScreen;
 
 /**
+ * Projectile type that recreates Uniformly Accelerated Rectilinear Motion in a
+ * downwards trajectory. Also contains a small horizontal URM component.
+ * 
  * @author Alexis Fecteau (2060238)
  * @author Yoruk Ekrem
  * 
  * @since 15/05/2024
  */
-public class FallingProjectile extends Projectile {//MRUA movement
+public class FallingProjectile extends Projectile {
 
     final float gravity = -9.81f;
     final float xspeed = MathUtils.random(-3,3); //in meters per second

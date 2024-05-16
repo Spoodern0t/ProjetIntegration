@@ -4,7 +4,6 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.mygdx.newtonium.control.Global;
 import com.mygdx.newtonium.control.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,7 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 /**
- *
+ * Entity controlled by the user. Uses Item objects to spawn Projectiles.
+ * 
  * @author Nathan Latendresse (2249229)
  * @author Alexis Fecteau (2060238)
  * 

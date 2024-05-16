@@ -13,7 +13,8 @@ import com.badlogic.gdx.Input.Keys;
 
 
 /**
- *
+ * General bank of prebuilt objects and constants shared across most classes.
+ * 
  * @author Thomas Cyr (2289144)
  * @author Alexis Fecteau (2060238)
  * 

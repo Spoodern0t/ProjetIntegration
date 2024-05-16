@@ -7,7 +7,8 @@ package com.mygdx.newtonium.model;
 import com.badlogic.gdx.Gdx;
 
 /**
- * Item type used purely for testing. Bound to a key and triggered manually.
+ * Debug Item type bound to a keyboard key and fired manually. Should be
+ * disabled the final iterations of this project.
  * 
  * @author Alexis Fecteau
  * @since 03/05/2024

@@ -7,7 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 /**
- *
+ * Entity type summoned by Item objects and meant to damage Enemy objects.
+ * 
  * @author Alexis Fecteau (2060238)
  * 
  * @since 13/05/2024

@@ -4,14 +4,14 @@
  */
 package com.mygdx.newtonium.model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.newtonium.control.Global;
 
 /**
- * 
+ * Projectile type that recreates Uniform Rectilinear Motion towards a nearby
+ * Enemy. Moves at a random angle when none are within range.
  * 
  * @author Nathan LaTendresse
  * @author Ekrem Yoruk (1676683)
