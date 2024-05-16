@@ -49,7 +49,7 @@ public abstract class Projectile extends Entity{ //might become abstract supercl
      * @param deltaTime Time since last game logic update.
      * @return Speed of this object relative to target
      */
-    private float relativeVelocity(Entity target, float deltaTime){
+    protected float relativeVelocity(Entity target, float deltaTime){
         
     //get this and target's pixel displacements vectors since last render
         Vector2 deltaX = new Vector2(this.position.x - this.lastPosition.x, this.lastPosition.y - this.lastPosition.y);
