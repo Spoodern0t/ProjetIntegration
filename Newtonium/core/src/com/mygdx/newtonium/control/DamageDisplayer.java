@@ -30,8 +30,7 @@ public class DamageDisplayer{
 
             displayList = new LinkedList<>();
             disposeList = new LinkedList<>();
-            
-                
+   
         }
         
         public void adddamageLabel(Projectile p){
