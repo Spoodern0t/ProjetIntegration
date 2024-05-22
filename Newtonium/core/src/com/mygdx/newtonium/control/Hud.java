@@ -92,12 +92,18 @@ public  class Hud {
         PbuttonStage = new Stage(stageViewport,spriteBatch);//Another Stage just for the sake of an extra button -EY
         
         PbuttonStage.addActor(pmenu.pausebuttontable);
-        
+        //accepts input from multiple stages.
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(overlaystage);//primary input processor
         multiplexer.addProcessor(PbuttonStage);//Secondary input processor
         Gdx.input.setInputProcessor(multiplexer);//in case you ask for reasons, its because of differing time systems(pause time and regular time). Optimise further if you want to.
     }
+    
+    /**updates the information related to everything in the UI and the HUD
+     * such as player health, Exp amount etc.
+     * 
+     * @param deltaTime time spent between each frame
+     */
     public void updateHud(float deltaTime){
      //this fetches the correct value from GameScreen.
      this.ScoreValue = screen.score;
@@ -121,12 +127,12 @@ public  class Hud {
      
      TimeLabel.setText(String.format("%.00f:%.00f", minutes, seconds));
     }
-    
+    //Various getters to fetch private stages.
     public Stage getStage() { return hudstage; }//Just the regular Hud. only Displays.
     public Stage getOverlayStage() { return overlaystage; }//This one is an input processor.
     public Stage getPbuttonStage() { return PbuttonStage; }//This one too.
 
-    
+    //Removes every stage when game is closed or ends.
     public void dispose(){
         getStage().dispose();
         getOverlayStage().dispose();

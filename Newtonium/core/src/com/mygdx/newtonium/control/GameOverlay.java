@@ -70,10 +70,15 @@ public class GameOverlay {
             GoverUp();  
             }
         }
+
+        /**shows GameEndWindow and fetches data from Hud class
+         *
+         */
         public void GoverUp(){
             GameEndWindow.setVisible(true);
             TakeEndInfo();//So it can update the info One last time.
         }
+        //fetches data from hud.
         public void TakeEndInfo(){
             //this is in case It takes the info too late.
             FinalScoreLabel.setText("Final Score: "+hud.ScoreValue);
@@ -82,7 +87,10 @@ public class GameOverlay {
         
     }
     
-    
+    /**Handles Anything pertaining 
+     * to the pause button to the pauseWindow options.
+     *
+     */
     public static class P_Menu{//PauseMenu
         
         private final GameScreen screen;
@@ -139,7 +147,7 @@ public class GameOverlay {
             pausebuttontable.setSize(Pbutton.getWidth(),Pbutton.getHeight());
             pausebuttontable.setPosition(800-(pausebuttontable.getWidth()),0);
         } 
-        public void Pause(){//These can be optimised further but Im keeping it like this for Reliability's sake. -EY
+        public void Pause(){//Temporarily stops game until Unpause() is triggered.
             if(GameScreen.isPaused ){PauseMWindow.setVisible(true);}
             
             
@@ -149,7 +157,10 @@ public class GameOverlay {
         }
     }
     
-    
+    /**Incomplete class for the upgradeMenu for the missing 
+     * progression system triggered by the LevelUp() method in Player class.
+     *
+     */
     public static class U_MENU{//UpgradeMenu
         public Window LevelUpMenu = new Window("Level up!",Global.skin);
         private final Hud hud;

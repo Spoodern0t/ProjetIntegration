@@ -92,7 +92,7 @@ public class TargettingModule {//This is for anything that uses proximity based 
     
     /**
      *  
-     * @return return the nearest Entity in the targetList that happens to be the first.
+     * @return the nearest Entity in the targetList that happens to be the first.
      */
     public Enemy getNearest(){
             if(!targetList.isEmpty()){

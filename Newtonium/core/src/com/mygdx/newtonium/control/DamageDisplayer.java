@@ -13,9 +13,9 @@ import com.mygdx.newtonium.model.Projectile;
 import java.util.LinkedList;
 import java.util.Locale;
 
-/**
+/** This class handles the damage numbers displayed on the enemy.
  *
- * @author Yoruk Ekrem
+ * @author Yoruk Ekrem (1676683)
  */
 public class DamageDisplayer{
         
@@ -37,8 +37,10 @@ public class DamageDisplayer{
               displayList.add(new DamageLabel("",Global.skin,p));
         } 
         
-           
-        
+    /** This is a custom Label that fetches the damage numbers 
+     * from the projectile that contacts the enemy that contains it's damageDisplayer.
+     *  
+     */
     public class DamageLabel extends Label{
             float AllowedTime = 1f;
             float displayingtime = 0;
