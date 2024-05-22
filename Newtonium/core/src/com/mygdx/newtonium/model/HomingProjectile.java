@@ -68,7 +68,11 @@ public final class HomingProjectile extends Projectile{
         this.speed -= (drag*deltaTime);
 
     }
-
+    
+    /**
+     *
+     * @return angle of the vector between the player and the nearest enemy through the Atan2 method. 
+     */
     protected double decidebearing(){//Targetting module implementation.
             if(!this.seekZone.targetList.isEmpty()){this.seekZone.refresh();}
             this.seekZone.scanEnemy(50);

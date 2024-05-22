@@ -35,16 +35,29 @@ public class TargettingModule {//This is for anything that uses proximity based 
         
         
     }
-        public void refresh(){
+
+    /**Empties the TargetList to prevent accumulation in list.
+     *
+     */
+    public void refresh(){
             if(!targetList.isEmpty()){targetList.removeAll(GameScreen.enemyList);}
             
         }
-        public void removeDead(){//To put near Dead disposal Area
+
+    /**Removes every Entity that is within the despawnList 
+     * to prevent crashes and accumulation of non-interactable entities
+     *
+     */
+    public void removeDead(){//To put near Dead disposal Area
             if(!targetList.isEmpty()){targetList.removeAll(GameScreen.despawnList);}
             
         }
         
-        public void scanEnemy(int maxAmount){ //to add Enemies to the entityList.How many of the nearest foes do you want to aim to.
+    /**Adds to targetList every Every Instances of Enemy class Entities's hitboxxes that is overlapping the lockonRange circle.
+     *
+     * @param maxAmount
+     */
+    public void scanEnemy(int maxAmount){ //to add Enemies to the entityList.How many of the nearest foes do you want to aim to.
                 removeDead();
                 for (Enemy e : GameScreen.enemyList) {
                 if(lockonRange.overlaps(e.hitbox)&& targetList.size() <= maxAmount){
@@ -52,15 +65,21 @@ public class TargettingModule {//This is for anything that uses proximity based 
                 }
             }
         }
-        public float RangeFinder(Entity start, Entity target){
+    
+    // Is to take the distance between Entity start and Target
+    public float RangeFinder(Entity start, Entity target){
             //this is to find a distance between 2 Entities.Start is from center of
             if(!targetList.isEmpty()){
             float distance = ((float) Math.hypot(target.hitbox.x - target.hitboxRadius, target.hitbox.y - target.hitboxRadius))-(((float) Math.hypot(start.position.x - start.hitboxRadius, start.position.y - start.hitboxRadius)));
             return distance;
             }return 0;
-        }
+    }
         
-        public void SortToNearest(Entity e){
+    /**Sorts the targetList where the index of of the nearest enemy is the nearest
+     *to the chosen Entity.
+     * @param e
+     */
+    public void SortToNearest(Entity e){
             Collections.sort(targetList, new Comparator<Enemy>(){
                @Override
                 public int compare(Enemy current, Enemy next) {
@@ -70,12 +89,18 @@ public class TargettingModule {//This is for anything that uses proximity based 
                 }
             });
         }
-        public Enemy getNearest(){
+    
+    /**
+     *  
+     * @return return the nearest Entity in the targetList that happens to be the first.
+     */
+    public Enemy getNearest(){
             if(!targetList.isEmpty()){
             return  targetList.getFirst();
             }else return null;
             
         }
+    //Optionnal Boolean to see If there is anything present within the viscinity of the LockonRange. Can be used to toggle proximity based methods
         public Boolean pollPresence(){ //this is to access the GameScreen without importing it as this class already does it.
         for (Enemy e : GameScreen.enemyList) {
             if(lockonRange.overlaps(e.hitbox)){return true;}
