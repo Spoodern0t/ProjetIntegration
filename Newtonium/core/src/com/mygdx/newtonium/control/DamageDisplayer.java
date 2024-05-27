@@ -47,7 +47,7 @@ public class DamageDisplayer{
             float xoffset;
             float yoffset;
             float yspeed = 1000f;
-            float ydecel = 5f;
+            float ydecel = 5f;//was planning to make them move randomly uppon spawning one.
             
         public DamageLabel(CharSequence text, Skin skin,Projectile p) {
             super(text, skin);
