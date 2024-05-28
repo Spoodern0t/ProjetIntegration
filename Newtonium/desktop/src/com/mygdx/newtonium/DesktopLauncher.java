@@ -4,12 +4,15 @@ import com.mygdx.newtonium.control.GameController;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-// Please note that on macOS your application needs dssdto be started with the -XstartOnFirstThread JVM argument
+/**
+ * Acts as the main class of this project. Run it from here.
+ * 
+ */
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("Newtonium_V_0.3.7");
+		config.setTitle("Newtonium_V_0.3.8");
                 config.setWindowedMode(1280,720);
                 config.setForegroundFPS(60);
 		new Lwjgl3Application(new GameController(), config);
